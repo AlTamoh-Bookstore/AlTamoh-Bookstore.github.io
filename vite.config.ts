@@ -8,7 +8,12 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets'
   },
-  
   publicDir: 'public',
-  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg']
+  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg'],
+  // إضافة هذا للتأكد من معالجة المسارات بشكل صحيح
+  experimental: {
+    renderBuiltUrl(filename: string) {
+      return '/Altamooh-book-store/' + filename
+    }
+  }
 });
