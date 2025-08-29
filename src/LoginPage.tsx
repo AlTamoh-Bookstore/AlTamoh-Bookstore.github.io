@@ -113,6 +113,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
       email: data.email,
       password: data.password,
       options: {
+          emailRedirectTo: 'https://al0tamoh.github.io/Altamooh-book-store/',
         data: {
           full_name: data.name,
         }
