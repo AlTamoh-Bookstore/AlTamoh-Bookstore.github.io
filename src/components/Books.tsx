@@ -221,7 +221,7 @@ const Books = () => {
         category: "دين",
         description: "القرآن الكريم",
         price: 450,
-        image: "public/book-images/Din/Dinbook1.png",
+        image: "/Altamooh-book-store/book-images/Din/Dinbook1.jpg",
       },
       {
         id: 101,
@@ -229,17 +229,17 @@ const Books = () => {
         category: "دين",
         description: "أصح كتب الحديث بعد القرآن الكريم، جمع فيه الإمام البخاري الأحاديث الصحيحة",
         price: 520,
-        image: "public/book-images/Din/Dinbook2.jpg",
+        image: "/Altamooh-book-store/book-images/Din/Dinbook2.jpg",
         author: "الإمام البخاري"
       },
       {
         id: 102,
-        title: "صحيح الإمام مسلم",
+        title: "صحيح مسلم",
         category: "دين",
-        description: "ثاني أصح كتب الحديث، يحتوي على الأحاديث النبوية الصحيحة",
-        price: 490,
-        image: "/Altamooh-book-store/book-images/Din/Dinbook3.jpg"
-        author: "الإمام مسلم"
+        description: "ثاني أصح كتاب في الحديث",
+        price: 520,
+        image: "/Altamooh-book-store/book-images/Din/Dinbook3.jpg",
+        author: "الإمام البخاري"
       },
       {
         id: 103,
@@ -247,7 +247,7 @@ const Books = () => {
         category: "دين",
         description: "مجموعة من الأحاديث النبوية الشريفة في مختلف أبواب الدين والأخلاق",
         price: 320,
-        image: "public/book-images/Din/Dinbook4.jpg",
+        image: "/Altamooh-book-store/book-images/Din/Dinbook4.jpg",
         author: "الإمام النووي"
       },
       {
@@ -256,7 +256,7 @@ const Books = () => {
         category: "دين",
         description: "موسوعة في العلوم الإسلامية تجمع بين الفقه والتصوف والأخلاق",
         price: 680,
-        image: "public/book-images/Din/Dinbook5.jpg",
+        image: "/Altamooh-book-store/book-images/Din/Dinbook5.jpg",
         author: "الإمام الغزالي"
       },
       {
@@ -265,7 +265,7 @@ const Books = () => {
         category: "دين",
         description: "كتاب شامل في السيرة النبوية والفقه والأخلاق الإسلامية",
         price: 450,
-        image: "public/book-images/Din/Dinbook6.jpg",
+        image: "/Altamooh-book-store/book-images/Din/Dinbook6.jpg",
         author: "ابن قيم الجوزية"
       },
       {
@@ -274,7 +274,7 @@ const Books = () => {
         category: "دين",
         description: "سيرة الرسول صلى الله عليه وسلم مكتوبة بأسلوب معاصر وشامل",
         price: 380,
-        image: "public/book-images/Din/Dinbook7.jpeg",
+        image: "/Altamooh-book-store/book-images/Din/Dinbook7.jpg",
         author: "صفي الرحمن المباركفوري"
       },
   
@@ -1557,4 +1557,5 @@ const Books = () => {
 };
 
 export default Books;
+
 
