@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 
-// Import types directly from supabase (try this first)
-// If this doesn't work, we'll use the any type approach below
-
 interface AuthState {
   user: any | null;
   session: any | null;
@@ -18,9 +15,40 @@ export const useAuth = () => {
   });
 
   useEffect(() => {
+    // معالجة الـ URL parameters عند تحميل الصفحة
+    const handleAuthCallback = async () => {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // التحقق من وجود access_token في الـ hash أو query parameters
+      const accessToken = hashParams.get('access_token') || urlParams.get('access_token');
+      const refreshToken = hashParams.get('refresh_token') || urlParams.get('refresh_token');
+      
+      if (accessToken && refreshToken) {
+        try {
+          const { data, error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken
+          });
+          
+          if (error) throw error;
+          
+          // مسح الـ URL parameters بعد المعالجة
+          window.history.replaceState({}, document.title, window.location.pathname);
+          
+          return;
+        } catch (error) {
+          console.error('خطأ في معالجة callback:', error);
+        }
+      }
+    };
+
     // Get initial session
     const getSession = async () => {
       try {
+        // معالجة callback أولاً
+        await handleAuthCallback();
+        
         const { data: { session } } = await supabase.auth.getSession();
         setAuthState({
           user: session?.user ?? null,
@@ -28,7 +56,7 @@ export const useAuth = () => {
           loading: false,
         });
       } catch (error) {
-        console.error('Error getting session:', error);
+        console.error('خطأ في الحصول على الجلسة:', error);
         setAuthState({
           user: null,
           session: null,
@@ -58,7 +86,7 @@ export const useAuth = () => {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error('خطأ في تسجيل الخروج:', error);
       throw error;
     }
   };
