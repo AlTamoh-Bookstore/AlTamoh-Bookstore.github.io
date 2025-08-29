@@ -238,7 +238,7 @@ const Books = () => {
         category: "دين",
         description: "ثاني أصح كتب الحديث، يحتوي على الأحاديث النبوية الصحيحة",
         price: 490,
-        image: "/book-images/Din/Dinbook3.jpg",
+        image: "public/book-images/Din/Dinbook3.jpg",
         author: "الإمام مسلم"
       },
       {
@@ -976,9 +976,6 @@ const Books = () => {
                       src={book.image}
                       alt={book.title}
                       className="w-48 h-60 sm:w-64 sm:h-80 lg:w-96 lg:h-[600px] object-contain rounded-2xl shadow-2xl"
-                      onError={(e) => {
-                        e.currentTarget.src = `https://via.placeholder.com/400x600/f97316/ffffff?text=${encodeURIComponent(book.title)}`;
-                      }}
                     />
                     {/* Price Badge - Only visible on larger screens */}
                     <div className="hidden sm:block absolute -top-3 -right-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-2xl font-bold text-lg lg:text-xl shadow-2xl border-4 border-white dark:border-slate-800">
@@ -1157,8 +1154,7 @@ const Books = () => {
               <div className="space-y-3">
                 {cart.map((item) => (
                   <div key={item.id} className="flex items-center gap-3 p-3 dark:bg-slate-800/60 bg-white/90 rounded-2xl shadow-lg">
-                    <img src={item.image} alt={item.title} className="w-12 h-16 object-cover rounded-lg flex-shrink-0"
-                      onError={(e) => { e.currentTarget.src = `https://via.placeholder.com/200x300/f97316/ffffff?text=${encodeURIComponent(item.title)}`; }} />
+                    <img src={item.image} alt={item.title} className="w-12 h-16 object-cover rounded-lg flex-shrink-0"/>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold dark:text-white text-[#1d2d50] text-sm line-clamp-2">{item.title}</h4>
                       <p className="text-orange-600 font-bold text-sm">{item.price} ₺</p>
@@ -1380,11 +1376,7 @@ const Books = () => {
                         <img 
                           src={book.image} 
                           alt={book.title}
-                          className="h-44 sm:h-56 lg:h-72 w-28 sm:w-40 lg:w-52 object-contain rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-105"
-                          onError={(e) => {
-                            e.currentTarget.src = `https://via.placeholder.com/200x300/f97316/ffffff?text=${encodeURIComponent(book.title)}`;
-                          }}
-                        />
+                          className="h-44 sm:h-56 lg:h-72 w-28 sm:w-40 lg:w-52 object-contain rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-105"/>
 
                         {/* Price Badge */}
                         <div className="absolute top-1 sm:top-3 lg:top-4 left-1 sm:left-3 lg:left-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-1.5 sm:px-3 py-0.5 sm:py-1.5 rounded text-xs sm:text-sm font-bold shadow-lg">
@@ -1563,6 +1555,5 @@ const Books = () => {
     </section>
   );
 };
-
 
 export default Books;
