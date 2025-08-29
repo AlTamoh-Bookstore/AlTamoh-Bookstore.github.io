@@ -34,6 +34,12 @@ jobs:
         VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
       run: npm run build
       
+    - name: Copy public assets to dist
+      run: |
+        if [ -d "public" ]; then
+          cp -r public/* dist/ 2>/dev/null || echo "No public files to copy"
+        fi
+      
     - name: Setup Pages
       uses: actions/configure-pages@v5
       
