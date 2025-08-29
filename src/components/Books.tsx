@@ -1,0 +1,1567 @@
+import { useState, useEffect } from 'react';
+import { Tag, ShoppingCart, Search, Filter, Star, X, Percent, BookOpen, Bookmark, Award, Sparkles, Plus, Minus, MessageCircle, Send, Trash2, ChevronDown, ChevronUp, ArrowLeft, Grid3x3, List, Eye, Heart, Compass, Lightbulb, Users, Briefcase, Shield, Globe, Book, Trophy, Target, Brain, Palette } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+import { addToFavorites, removeFromFavorites, isFavorite, getUserFavorites } from '../lib/favorites';
+import FavoritesList from './FavoritesList';
+
+interface Book {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  author?: string;
+  discount?: number;
+}
+
+interface CartItem extends Book {
+  quantity: number;
+}
+
+interface User {
+  id: string;
+  email?: string;
+}
+
+const Books = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [shuffledBooks, setShuffledBooks] = useState<Book[]>([]);
+  const [expandedBooks, setExpandedBooks] = useState<Set<number>>(new Set());
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showCategorySelection, setShowCategorySelection] = useState(true);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [isBookModalOpen, setIsBookModalOpen] = useState(false);
+  
+  // Pagination state
+  const [visibleBooksCount, setVisibleBooksCount] = useState(0);
+  const [isSmallDevice, setIsSmallDevice] = useState(false);
+  
+  // User and favorites state
+  const [user, setUser] = useState<User | null>(null);
+  const [favoriteBooks, setFavoriteBooks] = useState<Set<string>>(new Set());
+  const [loadingFavorites, setLoadingFavorites] = useState<Set<string>>(new Set());
+
+  // Check if device is small
+  useEffect(() => {
+    const checkDeviceSize = () => {
+      setIsSmallDevice(window.innerWidth < 768);
+    };
+
+    checkDeviceSize();
+    window.addEventListener('resize', checkDeviceSize);
+
+    return () => window.removeEventListener('resize', checkDeviceSize);
+  }, []);
+
+  // Set initial visible books count based on device size
+  useEffect(() => {
+    const initialCount = isSmallDevice ? 6 : 12;
+    setVisibleBooksCount(initialCount);
+  }, [isSmallDevice, selectedCategory, showCategorySelection]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    setShuffledBooks(shuffleArray([...books]));
+  }, []);
+
+  // Check user authentication and load favorites
+  useEffect(() => {
+    checkUser();
+    
+    // Listen for auth changes
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) {
+        setUser(session.user);
+        loadUserFavorites();
+      } else {
+        setUser(null);
+        setFavoriteBooks(new Set());
+      }
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  const checkUser = async () => {
+    try {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (user && !error) {
+        setUser(user);
+        loadUserFavorites();
+      }
+    } catch (error) {
+      console.error('Error checking user:', error);
+    }
+  };
+
+  const loadUserFavorites = async () => {
+    if (!user) return;
+    
+    try {
+      const favoritePromises = books.map(async (book) => {
+        const isBookFavorite = await isFavorite(book.id.toString());
+        return { bookId: book.id.toString(), isFavorite: isBookFavorite };
+      });
+
+      const favoriteResults = await Promise.all(favoritePromises);
+      const favoriteSet = new Set<string>();
+      
+      favoriteResults.forEach(({ bookId, isFavorite }) => {
+        if (isFavorite) {
+          favoriteSet.add(bookId);
+        }
+      });
+
+      setFavoriteBooks(favoriteSet);
+    } catch (error) {
+      console.error('Error loading favorites:', error);
+    }
+  };
+
+  const handleToggleFavorite = async (book: Book) => {
+    if (!user) {
+      alert('يجب تسجيل الدخول أولاً لإضافة الكتب للمفضلة');
+      return;
+    }
+
+    const bookId = book.id.toString();
+    setLoadingFavorites(prev => new Set(prev).add(bookId));
+
+    try {
+      const isCurrentlyFavorite = favoriteBooks.has(bookId);
+      
+      if (isCurrentlyFavorite) {
+        const result = await removeFromFavorites(bookId);
+        if (result.success) {
+          setFavoriteBooks(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(bookId);
+            return newSet;
+          });
+        } else {
+          alert(result.error || 'فشل في إزالة الكتاب من المفضلة');
+        }
+      } else {
+        const result = await addToFavorites({
+          book_id: bookId,
+          book_title: book.title,
+          book_author: book.author || 'غير محدد',
+          book_image: book.image
+        });
+        
+        if (result.success) {
+          setFavoriteBooks(prev => new Set(prev).add(bookId));
+        } else {
+          alert(result.error || 'فشل في إضافة الكتاب للمفضلة');
+        }
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+      alert('حدث خطأ أثناء تحديث المفضلة');
+    } finally {
+      setLoadingFavorites(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(bookId);
+        return newSet;
+      });
+    }
+  };
+
+  const books: Book[] = [
+    // Your books array here
+      // إصدارات دار الطموح
+      {
+        id: 21,
+        title: "دليلك للنجاح في حياتك المهنية",
+        category: "إصدارات دار الطموح",
+        description: "إصدار حصري من دار الطموح يقدم استراتيجيات عملية للنجاح المهني وتطوير المهارات القيادية",
+        price: 350,
+        image: "public/book-images/career_success.jpeg",
+        author: "دار الطموح للنشر"
+      },
+      {
+        id: 22,
+        title: "فن الإبداع والابتكار",
+        category: "إصدارات دار الطموح",
+        description: "كتاب متميز من إصدارات دار الطموح يستكشف طرق تنمية الإبداع والابتكار في الحياة والعمل",
+        price: 380,
+        image: "public/book-images/creativity_art.jpeg",
+        author: "دار الطموح للنشر"
+      },
+  
+      // الكتب الأكثر مبيعاً
+  
+      {
+        id: 2,
+        title: "الحضارة الإسلامية",
+        category: "الكتب الأكثر مبيعاً",
+        description: "رحلة شاملة عبر تاريخ الحضارة الإسلامية وإنجازاتها في العلوم والفنون والعمارة والفلسفة",
+        price: 360,
+        image: "public/book-images/islamic_civilization.jpeg",
+        author: "د. فاطمة الزهراني",
+      },
+  
+      // الدين
+      {
+        id: 3,
+        title: "القرآن الكريم",
+        category: "دين",
+        description: "القرآن الكريم",
+        price: 450,
+        image: "public/book-images/Din/Dinbook1.png",
+      },
+      {
+        id: 101,
+        title: "صحيح البخاري",
+        category: "دين",
+        description: "أصح كتب الحديث بعد القرآن الكريم، جمع فيه الإمام البخاري الأحاديث الصحيحة",
+        price: 520,
+        image: "public/book-images/Din/Dinbook2.jpg",
+        author: "الإمام البخاري"
+      },
+      {
+        id: 102,
+        title: "صحيح الإمام مسلم",
+        category: "دين",
+        description: "ثاني أصح كتب الحديث، يحتوي على الأحاديث النبوية الصحيحة",
+        price: 490,
+        image: "public/book-images/Din/Dinbook3.jpg",
+        author: "الإمام مسلم"
+      },
+      {
+        id: 103,
+        title: "رياض الصالحين من كلام سيد المرسلين",
+        category: "دين",
+        description: "مجموعة من الأحاديث النبوية الشريفة في مختلف أبواب الدين والأخلاق",
+        price: 320,
+        image: "public/book-images/Din/Dinbook4.jpg",
+        author: "الإمام النووي"
+      },
+      {
+        id: 104,
+        title: "إحياء علوم الدين",
+        category: "دين",
+        description: "موسوعة في العلوم الإسلامية تجمع بين الفقه والتصوف والأخلاق",
+        price: 680,
+        image: "public/book-images/Din/Dinbook5.jpg",
+        author: "الإمام الغزالي"
+      },
+      {
+        id: 105,
+        title: "زاد المعاد في هدي خير العباد",
+        category: "دين",
+        description: "كتاب شامل في السيرة النبوية والفقه والأخلاق الإسلامية",
+        price: 450,
+        image: "public/book-images/Din/Dinbook6.jpg",
+        author: "ابن قيم الجوزية"
+      },
+      {
+        id: 106,
+        title: "الرحيق المختوم",
+        category: "دين",
+        description: "سيرة الرسول صلى الله عليه وسلم مكتوبة بأسلوب معاصر وشامل",
+        price: 380,
+        image: "public/book-images/Din/Dinbook7.jpeg",
+        author: "صفي الرحمن المباركفوري"
+      },
+  
+      // التاريخ
+      {
+        id: 201,
+        title: "البداية والنهاية",
+        category: "تاريخ",
+        description: "موسوعة تاريخية شاملة من بداية الخلق حتى نهاية الزمان",
+        price: 850,
+        image: "public/book-images/History/Hbook1.jpg",
+        author: "ابن كثير",
+      },
+      {
+        id: 202,
+        title: "تاريخ الطبري",
+        category: "تاريخ",
+        description: "تاريخ الرسل والملوك، من أهم المراجع التاريخية الإسلامية",
+        price: 720,
+        image: "public/book-images/History/Hbook2.jpg",
+        author: "الطبري",
+      },
+      {
+        id: 203,
+        title: "الكامل في التاريخ",
+        category: "تاريخ",
+        description: "موسوعة تاريخية شاملة تغطي تاريخ العالم الإسلامي",
+        price: 680,
+        image: "public/book-images/History/Hbook3.jpg",
+        author: "ابن الأثير",
+      },
+      {
+        id: 204,
+        title: "السيرة النبوية",
+        category: "تاريخ",
+        description: "سيرة الرسول صلى الله عليه وسلم مفصلة ومدققة",
+        price: 420,
+        image: "public/book-images/History/Hbook4.jpg",
+        author: "ابن هشام",
+      },
+      {
+        id: 205,
+        title: "الحرب البيلوبونيزية",
+        category: "تاريخ",
+        description: "تاريخ الحرب الشهيرة بين أثينا وإسبرطة في اليونان القديمة",
+        price: 380,
+        image: "public/book-images/History/Hbook5.png",
+        author: "ثوكيديدس",
+      },
+      {
+        id: 206,
+        title: "قصة الحضارة",
+        category: "تاريخ",
+        description: "موسوعة شاملة لتاريخ الحضارات الإنسانية عبر العصور",
+        price: 950,
+        image: "public/book-images/History/Hbook6.jpeg",
+        author: "ول ديورانت",
+      },
+  
+      // التحقيق والجريمة
+      {
+        id: 301,
+        title: "دراسة في اللون القرمزي",
+        category: "تحقيق و جريمة",
+        description: "أول مغامرات شيرلوك هولمز مع الدكتور واتسون في حل الجرائم الغامضة",
+        price: 320,
+        image: "public/book-images/Crime/Cbook1.jpg",
+        author: "آرثر كونان دويل",
+      },
+      {
+        id: 302,
+        title: "كلب آل باسكرفيل",
+        category: "تحقيق و جريمة",
+        description: "من أشهر قصص شيرلوك هولمز، قصة مليئة بالغموض والإثارة",
+        price: 340,
+        image: "public/book-images/Crime/Cbook2.png",
+        author: "آرثر كونان دويل",
+      },
+      {
+        id: 303,
+        title: "جريمة في قطار الشرق السريع",
+        category: "تحقيق و جريمة",
+        description: "رواية بوليسية كلاسيكية من أعمال أجاثا كريستي الشهيرة",
+        price: 360,
+        image: "public/book-images/Crime/Cbook3.png",
+        author: "أجاثا كريستي",
+      },
+      {
+        id: 304,
+        title: "ثم لم يبقى أحد",
+        category: "تحقيق و جريمة",
+        description: "رواية إثارة وتشويق من روائع أجاثا كريستي",
+        price: 350,
+        image: "public/book-images/Crime/Cbook4.jpg",
+        author: "أجاثا كريستي",
+      },
+      {
+        id: 305,
+        title: "البيت المائل",
+        category: "تحقيق و جريمة",
+        description: "قصة جريمة معقدة تكشف أسرار عائلة غامضة",
+        price: 330,
+        image: "public/book-images/Crime/Cbook5.jpg",
+        author: "أجاثا كريستي",
+      },
+      {
+        id: 306,
+        title: "دور علم البصمات",
+        category: "تحقيق و جريمة",
+        description: "كتاب علمي يشرح استخدام البصمات في التحقيقات الجنائية",
+        price: 280,
+        image: "public/book-images/Crime/Cbook6.jpg",
+        author: "د. عالم التحقيق",
+      },
+      {
+        id: 307,
+        title: "شيتلر",
+        category: "تحقيق و جريمة",
+        description: "رواية بوليسية مثيرة تدور أحداثها حول جرائم غامضة",
+        price: 310,
+        image: "public/book-images/Crime/Cbook7.jpg",
+        author: "كاتب مجهول",
+      },
+      {
+        id: 308,
+        title: "بدم بارد",
+        category: "تحقيق و جريمة",
+        description: "قصة حقيقية مروعة عن جريمة قتل هزت أمريكا",
+        price: 380,
+        image: "public/book-images/Crime/Cbook8.jpg",
+        author: "ترومان كابوتي",
+      },
+  
+      // الفلسفة وعلم النفس
+      {
+        id: 401,
+        title: "تفسير الأحلام",
+        category: "فلسفة و علم نفس",
+        description: "عمل رائد في علم النفس التحليلي يكشف أسرار اللاوعي",
+        price: 420,
+        image: "public/book-images/Philosophy & Psychology/Ppbook1.jpeg",
+        author: "سيجموند فرويد",
+      },
+      {
+        id: 402,
+        title: "الإنسان يبحث عن المعنى",
+        category: "فلسفة و علم نفس",
+        description: "كتاب فلسفي عميق حول معنى الحياة والوجود الإنساني",
+        price: 350,
+        image: "public/book-images/Philosophy & Psychology/Ppbook2.jpg",
+        author: "فيكتور فرانكل",
+      },
+      {
+        id: 403,
+        title: "العادات السبع للناس الأكثر فعالية",
+        category: "فلسفة و علم نفس",
+        description: "دليل عملي لتطوير الشخصية وتحقيق النجاح في الحياة",
+        price: 380,
+        image: "public/book-images/Philosophy & Psychology/Ppbook3.jpg",
+        author: "ستيفن كوفي",
+      },
+      {
+        id: 404,
+        title: "التفكير السريع والبطيء",
+        category: "فلسفة و علم نفس",
+        description: "كتاب رائد في علم النفس المعرفي وآليات اتخاذ القرارات",
+        price: 450,
+        image: "public/book-images/Philosophy & Psychology/Ppbook4.jpg",
+        author: "دانييل كانمان",
+      },
+      {
+        id: 405,
+        title: "سيكولوجية الجماهير",
+        category: "فلسفة و علم نفس",
+        description: "دراسة رائدة في علم النفس الاجتماعي وسلوك الحشود",
+        price: 320,
+        image: "public/book-images/Philosophy & Psychology/Ppbook5.jpg",
+        author: "غوستاف لوبون",
+      },
+      {
+        id: 406,
+        title: "جمهورية أفلاطون",
+        category: "فلسفة و علم نفس",
+        description: "من أعظم الأعمال الفلسفية في التاريخ حول العدالة والحكم",
+        price: 480,
+        image: "public/book-images/Philosophy & Psychology/Ppbook6.jpg",
+        author: "أفلاطون",
+      },
+      {
+        id: 407,
+        title: "التأملات",
+        category: "فلسفة و علم نفس",
+        description: "تأملات فلسفية عميقة في الحياة والوجود والأخلاق",
+        price: 360,
+        image: "public/book-images/Philosophy & Psychology/Ppbook7.jpeg",
+        author: "ماركوس أوريليوس",
+      },
+      {
+        id: 408,
+        title: "هكذا تكلم زرادشت للمجتمع لا للفرد",
+        category: "فلسفة و علم نفس",
+        description: "عمل فلسفي معقد يتناول قضايا الوجود والإنسان الأعلى",
+        price: 520,
+        image: "public/book-images/Philosophy & Psychology/Ppbook8.jpg",
+        author: "فريدريش نيتشه",
+      },
+      {
+        id: 409,
+        title: "نقد العقل المحض",
+        category: "فلسفة و علم نفس",
+        description: "عمل فلسفي أساسي حول حدود المعرفة الإنسانية",
+        price: 650,
+        image: "public/book-images/Philosophy & Psychology/Ppbook9.png",
+        author: "إيمانويل كانت",
+      },
+      {
+        id: 410,
+        title: "مقدمة ابن خلدون",
+        category: "فلسفة و علم نفس",
+        description: "عمل رائد في علم الاجتماع والتاريخ والفلسفة السياسية",
+        price: 580,
+        image: "public/book-images/Philosophy & Psychology/Ppbook10.jpg",
+        author: "ابن خلدون",
+      },
+  
+      // الأدب
+      {
+        id: 501,
+        title: "الأبله",
+        category: "أدب",
+        description: "رواية نفسية عميقة تتناول صراع الخير والشر في النفس البشرية",
+        price: 420,
+        image: "public/book-images/Literature/Lbook1.jpg",
+        author: "فيودور دوستويفسكي",
+      },
+      {
+        id: 502,
+        title: "الجريمة والعقاب",
+        category: "أدب",
+        description: "رواية فلسفية عظيمة تستكشف طبيعة الإنسان والأخلاق",
+        price: 450,
+        image: "public/book-images/Literature/Lbook2.jpg",
+        author: "فيودور دوستويفسكي",
+      },
+      {
+        id: 503,
+        title: "الإخوة كارامازوف",
+        category: "أدب",
+        description: "آخر روايات دوستويفسكي وأعمقها فلسفياً ونفسياً",
+        price: 520,
+        image: "public/book-images/Literature/Lbook3.jpg",
+        author: "فيودور دوستويفسكي",
+      },
+      {
+        id: 504,
+        title: "الحرب والسلام",
+        category: "أدب",
+        description: "ملحمة أدبية عظيمة تصور روسيا في عهد نابليون",
+        price: 680,
+        image: "public/book-images/Literature/Lbook4.jpg",
+        author: "ليو تولستوي",
+      },
+      {
+        id: 505,
+        title: "آنا كارنينا",
+        category: "أدب",
+        description: "رواية عاطفية عميقة تصور المجتمع الروسي في القرن التاسع عشر",
+        price: 480,
+        image: "public/book-images/Literature/Lbook5.jpg",
+        author: "ليو تولستوي",
+      },
+      {
+        id: 506,
+        title: "البؤساء",
+        category: "أدب",
+        description: "ملحمة أدبية اجتماعية تصور معاناة الطبقات الفقيرة في فرنسا",
+        price: 650,
+        image: "public/book-images/Literature/Lbook6.jpg",
+        author: "فيكتور هوغو",
+      },
+      {
+        id: 507,
+        title: "أحدب نوتردام",
+        category: "أدب",
+        description: "رواية رومانسية تراجيدية تدور حول كاتدرائية نوتردام",
+        price: 420,
+        image: "public/book-images/Literature/Lbook7.jpg",
+        author: "فيكتور هوغو",
+      },
+      {
+        id: 508,
+        title: "مئة عام من العزلة",
+        category: "أدب",
+        description: "رواية الواقعية السحرية الأشهر في الأدب اللاتيني",
+        price: 480,
+        image: "public/book-images/Literature/Lbook8.jpg",
+        author: "غابرييل غارسيا ماركيز",
+      },
+      {
+        id: 509,
+        title: "الأيام",
+        category: "أدب",
+        description: "سيرة ذاتية لعميد الأدب العربي طه حسين",
+        price: 350,
+        image: "public/book-images/Literature/Lbook9.jpeg",
+        author: "طه حسين",
+      },
+      {
+        id: 510,
+        title: "مدام بوفاري",
+        category: "أدب",
+        description: "رواية واقعية تحليلية تصور المجتمع البرجوازي الفرنسي",
+        price: 380,
+        image: "public/book-images/Literature/Lbook10.jpeg",
+        author: "غوستاف فلوبير",
+      },
+      {
+        id: 511,
+        title: "الغريب",
+        category: "أدب",
+        description: "رواية وجودية تستكشف معنى الحياة واللامعنى",
+        price: 320,
+        image: "public/book-images/Literature/Lbook11.jpeg",
+        author: "ألبير كامو",
+      },
+      {
+        id: 512,
+        title: "اللص والكلاب",
+        category: "أدب",
+        description: "رواية واقعية نقدية من أعمال نوبل الأدب نجيب محفوظ",
+        price: 280,
+        image: "public/book-images/Literature/Lbook12.jpg",
+        author: "نجيب محفوظ"
+      },
+      {
+        id: 513,
+        title: "بين القصرين",
+        category: "أدب",
+        description: "الجزء الأول من الثلاثية الشهيرة لنجيب محفوظ",
+        price: 350,
+        image: "public/book-images/Literature/Lbook13.jpg",
+        author: "نجيب محفوظ"
+      },
+      {
+        id: 514,
+        title: "قصر الشوق",
+        category: "أدب",
+        description: "الجزء الثاني من ثلاثية نجيب محفوظ الشهيرة",
+        price: 350,
+        image: "public/book-images/Literature/Lbook14.jpg",
+        author: "نجيب محفوظ"
+      },
+      {
+        id: 515,
+        title: "السكرية",
+        category: "أدب",
+        description: "الجزء الثالث والأخير من ثلاثية نجيب محفوظ",
+        price: 350,
+        image: "public/book-images/Literature/Lbook15.jpg",
+        author: "نجيب محفوظ"
+      },
+      {
+        id: 516,
+        title: "موسم الهجرة إلى الشمال",
+        category: "أدب",
+        description: "رواية سودانية مهمة تتناول قضايا الهوية والاستعمار",
+        price: 320,
+        image: "public/book-images/Literature/Lbook16.jpg",
+        author: "الطيب صالح"
+      },
+      {
+        id: 517,
+        title: "الخبز الحافي",
+        category: "أدب",
+        description: "رواية مغربية تصور الحياة في الأحياء الشعبية",
+        price: 300,
+        image: "public/book-images/Literature/Lbook17.jpg",
+        author: "محمد شكري"
+      },
+      {
+        id: 518,
+        title: "رجال في الشمس",
+        category: "أدب",
+        description: "رواية فلسطينية تصور معاناة اللاجئين الفلسطينيين",
+        price: 280,
+        image: "public/book-images/Literature/Lbook18.jpg",
+        author: "غسان كنفاني"
+      },
+      {
+        id: 519,
+        title: "عائد إلى حيفا",
+        category: "أدب",
+        description: "رواية فلسطينية مؤثرة عن النكبة وتأثيرها على الأسر",
+        price: 290,
+        image: "public/book-images/Literature/Lbook19.jpg",
+        author: "غسان كنفاني"
+      },
+  
+      // الاقتصاد
+      {
+        id: 601,
+        title: "ثورة الأمم",
+        category: "اقتصاد",
+        description: "كتاب كلاسيكي في الاقتصاد يؤسس لنظريات الاقتصاد الحديث",
+        price: 450,
+        image: "public/book-images/Economy/Ebook1.jpeg",
+        author: "آدم سميث"
+      },
+      {
+        id: 602,
+        title: "رأس المال",
+        category: "اقتصاد",
+        description: "تحليل نقدي للنظام الرأسمالي وآليات الإنتاج والتوزيع",
+        price: 520,
+        image: "public/book-images/Economy/Ebook2.jpg",
+        author: "كارل ماركس"
+      },
+      {
+        id: 603,
+        title: "أخلاقيات الرأسمالية",
+        category: "اقتصاد",
+        description: "دراسة للجوانب الأخلاقية في النظام الاقتصادي الرأسمالي",
+        price: 380,
+        image: "public/book-images/Economy/Ebook3.jpg",
+        author: "د. اقتصادي أخلاقي"
+      },
+      {
+        id: 604,
+        title: "الاقتصاد العاري",
+        category: "اقتصاد",
+        description: "شرح مبسط للمفاهيم الاقتصادية المعقدة للقارئ العام",
+        price: 320,
+        image: "public/book-images/Economy/Ebook4.jpg",
+        author: "تشارلز ويلان"
+      },
+  
+      // السياسة
+      {
+        id: 701,
+        title: "الأمير",
+        category: "سياسة",
+        description: "كتاب كلاسيكي في الفكر السياسي حول فن الحكم والسلطة",
+        price: 350,
+        image: "public/book-images/Policy/Pbook1.jpg",
+        author: "نيكولو مكيافيلي"
+      },
+  
+      // التطوير الذاتي
+      {
+        id: 801,
+        title: "الذكاء العاطفي",
+        category: "تطوير الذات",
+        description: "كتاب رائد في تطوير المهارات العاطفية والاجتماعية للنجاح في الحياة",
+        price: 350,
+        image: "public/book-images/Self-dev/Sdbook1.jpg",
+        author: "دانييل جولمان"
+      },
+      {
+        id: 802,
+        title: "فن اللامبالاة",
+        category: "تطوير الذات",
+        description: "منهج عملي للتركيز على ما يهم حقاً في الحياة",
+        price: 320,
+        image: "public/book-images/Self-dev/Sdbook2.jpeg",
+        author: "مارك مانسون"
+      }
+  ];
+
+  const shuffleArray = (array: Book[]) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  const allCategories = [...new Set(books.map(book => book.category))];
+  const priorityCategories = ["الأكثر مبيعاً", "إصدارات دار الطموح"];
+  const otherCategories = allCategories.filter(cat => !priorityCategories.includes(cat));
+  
+  // Add Favorites category only if user is logged in
+  const categories = user 
+    ? ["المفضلة", ...priorityCategories.filter(cat => allCategories.includes(cat)), ...otherCategories]
+    : [...priorityCategories.filter(cat => allCategories.includes(cat)), ...otherCategories];
+
+  const getCategoryIcon = (category: string) => {
+    const iconMap: { [key: string]: any } = {
+      "المفضلة": Heart,
+      "دين": Book,
+      "تاريخ": Compass,
+      "علوم": Lightbulb,
+      "تحقيق و جريمة": Shield,
+      "فلسفة و علم نفس": Brain,
+      "أدب": BookOpen,
+      "طب": Plus,
+      "اقتصاد": Trophy,
+      "قانون": Users,
+      "إصدارات دار الطموح": Award,
+      "سياسة": Target,
+      "تطوير الذات": Star
+    };
+    return iconMap[category] || BookOpen;
+  };
+
+  const filteredBooks = shuffledBooks.filter(book => {
+    const matchesSearch = searchTerm === '' || 
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.author?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.description.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesCategory = !selectedCategory || book.category === selectedCategory;
+    
+    return matchesSearch && matchesCategory;
+  });
+
+  const getBooksByCategory = (category: string) => {
+    if (category === "المفضلة") {
+      return Array.from(favoriteBooks).slice(0, favoriteBooks.size);
+    }
+    return shuffledBooks.filter(book => book.category === category);
+  };
+
+  const displayedBooks = showCategorySelection ? [] : filteredBooks.slice(0, visibleBooksCount);
+  const hasMoreBooks = !showCategorySelection && filteredBooks.length > visibleBooksCount;
+
+  const handleShowMore = () => {
+    const increment = isSmallDevice ? 6 : 12;
+    setVisibleBooksCount(prev => prev + increment);
+  };
+
+  // Cart Functions
+  const addToCart = (book: Book) => {
+    setCart(prevCart => {
+      const existingItem = prevCart.find(item => item.id === book.id);
+      if (existingItem) {
+        return prevCart.map(item =>
+          item.id === book.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        return [...prevCart, { ...book, quantity: 1 }];
+      }
+    });
+  };
+
+  const removeFromCart = (bookId: number) => {
+    setCart(prevCart => prevCart.filter(item => item.id !== bookId));
+  };
+
+  const updateQuantity = (bookId: number, newQuantity: number) => {
+    if (newQuantity <= 0) {
+      removeFromCart(bookId);
+    } else {
+      setCart(prevCart =>
+        prevCart.map(item =>
+          item.id === bookId
+            ? { ...item, quantity: newQuantity }
+            : item
+        )
+      );
+    }
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const getTotalPrice = () => {
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
+  const getTotalItems = () => {
+    return cart.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const generateOrderMessage = () => {
+    let message = "السلام عليكم، أرغب في طلب الكتب التالية:\n\n";
+    
+    cart.forEach((item, index) => {
+      message += `${index + 1}. ${item.title}\n`;
+      message += `   - المؤلف: ${item.author || 'غير محدد'}\n`;
+      message += `   - السعر: ${item.price} ₺\n`;
+      message += `   - الكمية: ${item.quantity}\n`;
+      message += `   - المجموع: ${item.price * item.quantity} ₺\n\n`;
+    });
+    
+    message += `إجمالي الطلب: ${getTotalPrice()} ₺\n`;
+    message += `عدد الكتب: ${getTotalItems()} كتاب\n\n`;
+    message += "أرجو تأكيد الطلب وإعلامي بتفاصيل التوصيل والدفع.";
+    
+    return message;
+  };
+
+  const sendToWhatsApp = () => {
+    const message = generateOrderMessage();
+    window.open(`https://wa.me/905376791661?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  const selectCategory = (category: string) => {
+    setSelectedCategory(category);
+    setShowCategorySelection(false);
+    setSearchTerm('');
+    // Reset visible books count when selecting a category
+    const initialCount = isSmallDevice ? 6 : 12;
+    setVisibleBooksCount(initialCount);
+  };
+
+  const goBackToCategories = () => {
+    setShowCategorySelection(true);
+    setSelectedCategory(null);
+    setSearchTerm('');
+    setSelectedBook(null);
+    setVisibleBooksCount(0);
+  };
+
+  const openBookDetails = (book: Book) => {
+    setSelectedBook(book);
+    setIsBookModalOpen(true);
+  };
+
+  const closeBookModal = () => {
+    setIsBookModalOpen(false);
+    setSelectedBook(null);
+  };
+
+  const generateBookOrderMessage = (book: Book) => {
+    let message = "السلام عليكم، أرغب في طلب الكتاب التالي:\n\n";
+    message += `الكتاب: ${book.title}\n`;
+    message += `المؤلف: ${book.author || 'غير محدد'}\n`;
+    message += `الفئة: ${book.category}\n`;
+    message += `السعر: ${book.price} ₺\n\n`;
+    message += "أرجو تأكيد الطلب وإعلامي بتفاصيل التوصيل والدفع.";
+    return message;
+  };
+
+  const sendBookToWhatsApp = (book: Book) => {
+    const message = generateBookOrderMessage(book);
+    window.open(`https://wa.me/905376791661?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  // If Favorites category is selected, show the FavoritesList component with go back functionality
+  if (selectedCategory === "المفضلة" && !showCategorySelection) {
+    return <FavoritesList onBack={goBackToCategories} />;
+  }
+
+  // Book Details Modal Component - Improved mobile responsiveness
+  const BookModal = ({ book, isOpen, onClose }: { book: Book | null, isOpen: boolean, onClose: () => void }) => {
+    if (!book || !isOpen) return null;
+
+    const isBookFavorite = favoriteBooks.has(book.id.toString());
+    const isLoadingFavorite = loadingFavorites.has(book.id.toString());
+
+    return (
+      <>
+        {/* Modal Backdrop */}
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity duration-300"
+          onClick={onClose}
+        ></div>
+        
+        {/* Modal Content - Better mobile responsiveness */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+          <div 
+            className="relative bg-gradient-to-b dark:from-slate-800 dark:via-slate-900 dark:to-gray-900 from-[#f4f7fb] via-[#f7f9fb] to-[#ffffff] rounded-2xl shadow-2xl w-full max-w-6xl max-h-[98vh] sm:max-h-[95vh] overflow-y-auto transform transition-all duration-300 scale-100 mx-2 sm:mx-0"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button - Hidden on small screens, visible on larger screens */}
+            <button
+              onClick={onClose}
+              className="hidden sm:block absolute top-6 left-6 z-10 p-3 bg-white/90 dark:bg-slate-800/90 hover:bg-white dark:hover:bg-slate-700 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+            >
+              <X className="h-6 w-6 dark:text-slate-300 text-gray-600" />
+            </button>
+
+            {/* Mobile Header - Only visible on small screens */}
+            <div className="sm:hidden flex items-center justify-between p-3 border-b dark:border-slate-700/50 border-orange-200/30">
+              <button
+                onClick={onClose}
+                className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 rounded-lg transition-all duration-300"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <span className="text-sm font-medium">رجوع</span>
+              </button>
+              <div className="flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl shadow-lg">
+                <span className="text-base font-bold">{book.price}</span>
+                <span className="text-xs">₺</span>
+              </div>
+            </div>
+
+            <div className="p-3 sm:p-8 lg:p-12">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+                
+                {/* Book Image */}
+                <div className="flex justify-center">
+                  <div className="relative">
+                    <img
+                      src={book.image}
+                      alt={book.title}
+                      className="w-48 h-60 sm:w-64 sm:h-80 lg:w-96 lg:h-[600px] object-contain rounded-2xl shadow-2xl"
+                      onError={(e) => {
+                        e.currentTarget.src = `https://via.placeholder.com/400x600/f97316/ffffff?text=${encodeURIComponent(book.title)}`;
+                      }}
+                    />
+                    {/* Price Badge - Only visible on larger screens */}
+                    <div className="hidden sm:block absolute -top-3 -right-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-2xl font-bold text-lg lg:text-xl shadow-2xl border-4 border-white dark:border-slate-800">
+                      <div className="flex items-center gap-2">
+                        <span>{book.price}</span>
+                        <span className="text-sm lg:text-lg">₺</span>
+                      </div>
+                    </div>
+                    
+                    {/* Favorite Button - Only show if user is logged in */}
+                    {user && (
+                      <button
+                        onClick={() => handleToggleFavorite(book)}
+                        disabled={isLoadingFavorite}
+                        className={`absolute top-3 left-3 w-8 h-8 lg:w-12 lg:h-12 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center ${
+                          isBookFavorite 
+                            ? 'bg-red-500 hover:bg-red-600 text-white' 
+                            : 'bg-white/90 hover:bg-white text-gray-600 hover:text-red-500'
+                        } ${isLoadingFavorite ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'}`}
+                      >
+                        <Heart 
+                          className={`h-4 w-4 lg:h-6 lg:w-6 transition-all duration-300 ${
+                            isBookFavorite ? 'fill-current' : ''
+                          }`} 
+                        />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Book Information */}
+                <div className="space-y-4 lg:space-y-8">
+                  
+                  {/* Title and Author */}
+                  <div className="space-y-3">
+                    <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold dark:text-white text-[#1d2d50] leading-tight">
+                      {book.title}
+                    </h1>
+                    
+                    {book.author && (
+                      <p className="text-base sm:text-xl dark:text-slate-300 text-[#6c7a89] font-medium">
+                        بقلم: {book.author}
+                      </p>
+                    )}
+
+                    <div className="inline-flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-3 rounded-xl bg-gradient-to-r from-orange-500/20 to-orange-600/20 border border-orange-500/30">
+                      <Star className="h-4 w-4 lg:h-5 lg:w-5 text-orange-500" />
+                      <span className="text-sm sm:text-base font-medium dark:text-orange-200 text-orange-600">
+                        {book.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Add to Favorites Button for logged in users */}
+                  {user && (
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => handleToggleFavorite(book)}
+                        disabled={isLoadingFavorite}
+                        className={`flex items-center gap-2 px-4 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base ${
+                          isBookFavorite
+                            ? 'bg-red-500 hover:bg-red-600 text-white'
+                            : 'bg-gray-200 hover:bg-red-100 text-gray-700 hover:text-red-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-red-900/20 dark:hover:text-red-400'
+                        } ${isLoadingFavorite ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}`}
+                      >
+                        <Heart className={`h-4 w-4 transition-all duration-300 ${isBookFavorite ? 'fill-current' : ''}`} />
+                        {isLoadingFavorite ? 'جاري التحديث...' : isBookFavorite ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Contact Buttons - Only WhatsApp */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg sm:text-xl font-bold dark:text-white text-[#1d2d50]">
+                      تواصل معنا لطلب الكتاب
+                    </h3>
+                    
+                    <div className="space-y-3">
+                      <button 
+                        onClick={() => sendBookToWhatsApp(book)}
+                        className="w-full flex items-center justify-center gap-3 px-4 py-3 sm:py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-semibold text-base transition-all duration-300 shadow-lg hover:scale-105"
+                      >
+                        <MessageCircle className="h-5 w-5" />
+                        طلب عبر واتساب
+                      </button>
+                    </div>
+
+                    {/* Add to Cart Button */}
+                    <button 
+                      onClick={() => {
+                        addToCart(book);
+                        onClose();
+                      }}
+                      className="w-full flex items-center justify-center gap-3 px-4 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold text-base transition-all duration-300 shadow-lg hover:scale-105"
+                    >
+                      <Plus className="h-5 w-5" />
+                      أضف إلى السلة
+                    </button>
+                  </div>
+
+                  {/* Description */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg sm:text-2xl font-bold dark:text-white text-[#1d2d50]">
+                      نبذة عن الكتاب
+                    </h3>
+                    
+                    <div className="p-4 sm:p-6 dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm rounded-2xl border dark:border-slate-700/30 border-orange-200/30 shadow-lg">
+                      <p className="text-sm sm:text-lg dark:text-slate-300 text-[#6c7a89] leading-relaxed">
+                        {book.description}
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  return (
+    <section id="books" className="relative py-8 sm:py-16 lg:py-20 min-h-screen overflow-hidden bg-gradient-to-b dark:from-slate-800 dark:via-slate-900 dark:to-gray-900 from-[#f4f7fb] via-[#f7f9fb] to-[#ffffff] transition-all duration-500">
+      
+      {/* Background Effects */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `linear-gradient(rgba(255, 166, 0, 0.27) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 166, 0, 0.29) 1px, transparent 1px)`,
+          backgroundSize: '30px 30px',
+          animation: 'float 20s ease-in-out infinite'
+        }}></div>
+      </div>
+
+      {/* Decorative Elements - Better mobile positioning */}
+      <div className="absolute top-5 sm:top-20 right-5 sm:right-20 w-24 h-24 sm:w-72 sm:h-72 bg-gradient-to-br dark:from-orange-400/30 dark:via-orange-500/30 dark:to-yellow-400/20 from-orange-400/20 via-orange-500/20 to-yellow-400/15 rounded-full blur-2xl animate-pulse transition-all duration-500"></div>
+      <div className="absolute bottom-5 sm:bottom-20 left-5 sm:left-20 w-32 h-32 sm:w-96 sm:h-96 bg-gradient-to-br dark:from-gray-300/10 dark:to-gray-500/10 from-blue-200/8 to-blue-400/8 rounded-full blur-3xl transition-all duration-500"></div>
+
+      {/* Cart Button - Fixed positioning and proper cart icon */}
+      <div className="fixed bottom-4 right-4 z-50">
+        <button
+          onClick={() => setIsCartOpen(true)}
+          className="relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-full shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 hover:scale-110"
+        >
+          <ShoppingCart className="h-6 w-6" />
+          {getTotalItems() > 0 && (
+            <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold animate-pulse">
+              {getTotalItems()}
+            </div>
+          )}
+        </button>
+      </div>
+
+      {/* Cart Sidebar - Improved mobile responsiveness */}
+      <div className={`fixed inset-y-0 right-0 z-50 w-full sm:w-96 bg-gradient-to-b dark:from-slate-800 dark:via-slate-900 dark:to-gray-900 from-[#f4f7fb] via-[#f7f9fb] to-[#ffffff] shadow-2xl transform transition-transform duration-300 ${
+        isCartOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}>
+        <div className="flex flex-col h-full">
+          <div className="flex items-center justify-between p-4 border-b dark:border-slate-700/50 border-orange-200/30">
+            <h3 className="text-lg font-bold dark:text-white text-[#1d2d50] flex items-center gap-3">
+              <ShoppingCart className="h-5 w-5 text-orange-500" />
+              سلة التسوق
+            </h3>
+            <button onClick={() => setIsCartOpen(false)} className="p-2 hover:bg-orange-100 dark:hover:bg-slate-700/50 rounded-full">
+              <X className="h-5 w-5 dark:text-slate-400 text-[#6c7a89]" />
+            </button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto p-4">
+            {cart.length === 0 ? (
+              <div className="text-center py-12">
+                <ShoppingCart className="h-12 w-12 mx-auto mb-4 dark:text-slate-500 text-orange-400" />
+                <p className="dark:text-slate-300 text-[#1d2d50]">سلة التسوق فارغة</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {cart.map((item) => (
+                  <div key={item.id} className="flex items-center gap-3 p-3 dark:bg-slate-800/60 bg-white/90 rounded-2xl shadow-lg">
+                    <img src={item.image} alt={item.title} className="w-12 h-16 object-cover rounded-lg flex-shrink-0"
+                      onError={(e) => { e.currentTarget.src = `https://via.placeholder.com/200x300/f97316/ffffff?text=${encodeURIComponent(item.title)}`; }} />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold dark:text-white text-[#1d2d50] text-sm line-clamp-2">{item.title}</h4>
+                      <p className="text-orange-600 font-bold text-sm">{item.price} ₺</p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-1 hover:bg-gray-200 dark:hover:bg-slate-600 rounded">
+                          <Minus className="h-4 w-4" />
+                        </button>
+                        <span className="px-1 text-sm min-w-[20px] text-center">{item.quantity}</span>
+                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="p-1 hover:bg-gray-200 dark:hover:bg-slate-600 rounded">
+                          <Plus className="h-4 w-4" />
+                        </button>
+                        <button onClick={() => removeFromCart(item.id)} className="p-1 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/20 rounded ml-2">
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {cart.length > 0 && (
+            <div className="border-t dark:border-slate-700/50 border-orange-200/30 p-4 space-y-4">
+              <div className="flex justify-between text-lg font-bold">
+                <span className="dark:text-white text-[#1d2d50]">المجموع:</span>
+                <span className="text-orange-600">{getTotalPrice()} ₺</span>
+              </div>
+              <div className="space-y-3">
+                <button onClick={sendToWhatsApp} className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold text-base flex items-center justify-center gap-2">
+                  <MessageCircle className="h-5 w-5" />
+                  واتساب
+                </button>
+              </div>
+              <button onClick={clearCart} className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl font-semibold text-sm">
+                إفراغ السلة
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {isCartOpen && <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setIsCartOpen(false)}></div>}
+
+      {/* Book Details Modal */}
+      <BookModal book={selectedBook} isOpen={isBookModalOpen} onClose={closeBookModal} />
+
+      <div className="container mx-auto px-3 sm:px-6 lg:px-4 relative z-10">
+        <div className={`text-center mb-8 sm:mb-12 lg:mb-16 transition-all duration-1000 ${
+          isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
+          <div className="inline-flex items-center px-3 sm:px-5 py-2 sm:py-3 rounded-full dark:bg-slate-800/40 bg-white/60 backdrop-blur-sm mb-4 sm:mb-6 gap-2">
+            <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
+            <span className="text-sm sm:text-base dark:text-orange-200 text-orange-600">إصدارات حصرية ومتميزة</span>
+          </div>
+
+          <h2 className="text-5xl sm:text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white text-[#1d2d50] mb-4 sm:mb-6">
+            <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">مكتبة</span> الطموح
+          </h2>
+
+          <p className="text-base sm:text-lg lg:text-xl dark:text-slate-300 text-[#6c7a89] max-w-2xl mx-auto leading-relaxed px-2">
+            مجموعة متنوعة من الإصدارات الحصرية والمتميزة من دار الطموح للنشر والتوزيع
+          </p>
+
+          {!showCategorySelection && (
+            <button
+              onClick={goBackToCategories}
+              className="mt-6 sm:mt-8 inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:scale-105 text-sm sm:text-base"
+            >
+              <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+              العودة للفئات
+            </button>
+          )}
+        </div>
+
+        {showCategorySelection && (
+          <div className={`transition-all duration-1000 ${
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
+            <div className="text-center mb-6 sm:mb-12">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold dark:text-white text-[#1d2d50] mb-3 sm:mb-4">
+                اختر فئة من الكتب
+              </h3>
+              <p className="text-sm sm:text-base lg:text-lg dark:text-slate-300 text-[#6c7a89] px-2">
+                استكشف مجموعتنا المتنوعة من الكتب في مختلف المجالات
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 mb-12 sm:mb-16">
+              {categories.map((category) => {
+                const categoryBooks = getBooksByCategory(category);
+                const IconComponent = getCategoryIcon(category);
+                
+                return (
+                  <div key={category} className="group">
+                    <div className={`${
+                      category === "المفضلة" 
+                        ? "dark:bg-gradient-to-br dark:from-red-900/30 dark:via-red-800/30 dark:to-red-700/30 bg-gradient-to-br from-red-50/80 to-red-100/60 border-red-500/30"
+                        : "dark:bg-slate-800/60 bg-white/90 border-orange-200/30 dark:border-slate-700/30"
+                    } backdrop-blur-sm rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-105 border h-full`}>
+                      
+                      <div className={`relative p-3 sm:p-4 lg:p-6 ${
+                        category === "المفضلة"
+                          ? "bg-gradient-to-r dark:from-red-800/60 dark:to-red-700/60 from-red-100/80 to-red-200/60"
+                          : "bg-gradient-to-r dark:from-slate-700/60 dark:to-slate-600/60 from-orange-50/80 to-orange-100/60"
+                      } text-center`}>
+                        <div className={`absolute top-2 sm:top-4 right-2 sm:right-4 w-1.5 h-1.5 sm:w-2 sm:h-2 ${
+                          category === "المفضلة" ? "bg-red-400" : "bg-orange-400"
+                        } rounded-full animate-pulse`}></div>
+                        
+                        <div className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 mx-auto mb-2 sm:mb-3 lg:mb-4 ${
+                          category === "المفضلة"
+                            ? "bg-gradient-to-br from-red-500/20 to-red-600/20"
+                            : "bg-gradient-to-br from-orange-500/20 to-orange-600/20"
+                        } rounded-lg sm:rounded-xl flex items-center justify-center`}>
+                          <IconComponent className={`h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 ${
+                            category === "المفضلة" ? "text-red-500" : "text-orange-500"
+                          }`} />
+                        </div>
+                        
+                        <h4 className="text-xl sm:text-base lg:text-lg font-bold dark:text-white text-[#1d2d50] mb-1 sm:mb-2 line-clamp-2">
+                          {category}
+                        </h4>
+                      </div>
+
+                      <div className="p-2 sm:p-3 lg:p-4 flex-1 flex flex-col justify-between">
+                        <div className="mb-3 sm:mb-4">
+                        </div>
+
+                        <button
+                          onClick={() => selectCategory(category)}
+                          className={`w-full py-2 sm:py-3 rounded-lg sm:rounded-xl flex items-center justify-center gap-1 sm:gap-2 font-semibold transition-all duration-300 shadow-lg hover:shadow-xl text-xs sm:text-sm hover:scale-105 ${
+                            category === "المفضلة"
+                              ? "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white"
+                              : "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white"
+                          }`}
+                        >
+                          <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
+                          تصفح {category}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {!showCategorySelection && selectedCategory !== "المفضلة" && (
+          <div className={`transition-all duration-1000 ${
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
+            
+            <div className="mb-6 sm:mb-12">
+              <div className="max-w-2xl mx-auto">
+                <div className="relative mb-4 sm:mb-6">
+                  <div className="absolute inset-y-0 right-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-4 w-4 sm:h-5 sm:w-5 dark:text-slate-400 text-[#6c7a89]" />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder={selectedCategory ? `البحث في ${selectedCategory}...` : "البحث في جميع الكتب..."}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pr-10 sm:pr-12 pl-4 py-3 sm:py-4 dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm border dark:border-slate-700/30 border-orange-200/30 rounded-xl sm:rounded-2xl dark:text-white text-[#1d2d50] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/50 text-sm sm:text-base lg:text-lg shadow-lg"
+                  />
+                </div>
+
+                {!selectedCategory && (
+                  <div className="flex flex-wrap gap-2 sm:gap-3 justify-center">
+                    <button
+                      onClick={() => setSelectedCategory(null)}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl font-medium transition-all duration-300 bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg text-xs sm:text-sm"
+                    >
+                      جميع الفئات
+                    </button>
+                    {categories.filter(cat => cat !== "المفضلة").slice(0, 6).map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => setSelectedCategory(category)}
+                        className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl font-medium transition-all duration-300 dark:bg-slate-700/50 bg-orange-100/60 dark:text-slate-300 text-[#6c7a89] hover:bg-orange-200/80 text-xs sm:text-sm"
+                      >
+                        {category.length > 10 ? category.substring(0, 10) + '...' : category}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {selectedCategory && selectedCategory !== "المفضلة" && (
+              <div className="text-center mb-6 sm:mb-12">
+                <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r dark:from-slate-700/60 dark:to-slate-600/60 from-orange-50/80 to-orange-100/60 rounded-xl sm:rounded-2xl">
+                  <Filter className="h-4 w-4 sm:h-5 sm:w-5 text-orange-500" />
+                  <span className="text-sm sm:text-base lg:text-lg font-semibold dark:text-white text-[#1d2d50]">
+                    فئة: {selectedCategory}
+                  </span>
+                  <span className="text-xs sm:text-sm dark:text-slate-300 text-[#6c7a89] bg-orange-500/20 px-2 sm:px-3 py-1 rounded-lg">
+                    {filteredBooks.length} كتاب
+                  </span>
+                </div>
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 justify-items-center">
+              {displayedBooks.map((book) => {
+                const isBookFavorite = favoriteBooks.has(book.id.toString());
+                const isLoadingFavorite = loadingFavorites.has(book.id.toString());
+
+                return (
+                  <div key={book.id} className="group relative transition-all duration-500 hover:scale-105 w-full max-w-[260px] sm:max-w-sm cursor-pointer"
+                       onClick={() => openBookDetails(book)}>
+                    <div className="relative dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-3xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl">
+                      
+                      <div className="absolute left-0 top-0 w-1 sm:w-2 h-full bg-gradient-to-b from-green-400 to-green-600 opacity-60 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      
+                      <div className="relative h-48 sm:h-64 lg:h-80 dark:bg-slate-700/20 bg-green-50/30 p-2 sm:p-3 lg:p-4 flex items-center justify-center">
+                        <img 
+                          src={book.image} 
+                          alt={book.title}
+                          className="h-44 sm:h-56 lg:h-72 w-28 sm:w-40 lg:w-52 object-contain rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-105"
+                          onError={(e) => {
+                            e.currentTarget.src = `https://via.placeholder.com/200x300/f97316/ffffff?text=${encodeURIComponent(book.title)}`;
+                          }}
+                        />
+
+                        {/* Price Badge */}
+                        <div className="absolute top-1 sm:top-3 lg:top-4 left-1 sm:left-3 lg:left-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-1.5 sm:px-3 py-0.5 sm:py-1.5 rounded text-xs sm:text-sm font-bold shadow-lg">
+                          {book.price} ₺
+                        </div>
+
+                        {/* Favorite Button - Only show if user is logged in */}
+                        {user && (
+                          <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleToggleFavorite(book);
+                          }}
+                          disabled={isLoadingFavorite}
+                          className={`absolute top-1 sm:top-3 lg:top-4 right-1 sm:right-3 lg:right-4 w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center ${
+                            isBookFavorite 
+                              ? 'bg-red-500 hover:bg-red-600 text-white' 
+                              : 'bg-white/90 hover:bg-white text-gray-600 hover:text-red-500'
+                          } ${isLoadingFavorite ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'}`}
+                        >
+                          <Heart 
+                            className={`h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 transition-all duration-300 ${
+                              isBookFavorite ? 'fill-current' : ''
+                            }`} 
+                          />
+                        </button>
+                        )}
+                      </div>
+                      
+                      <div className="p-2 sm:p-4 lg:p-6 space-y-1 sm:space-y-3 lg:space-y-4">
+                        <span className="inline-flex items-center gap-1 text-xs sm:text-sm px-2 sm:px-3 lg:px-4 py-0.5 sm:py-1.5 lg:py-2 rounded-lg text-orange-400 dark:bg-orange-400/10 bg-orange-400/15">
+                          <Star className="h-3 w-3 sm:h-4 sm:w-4" />
+                          <span className="line-clamp-1 text-xs sm:text-sm">{book.category.length > 8 ? book.category.substring(0, 8) + '...' : book.category}</span>
+                        </span>
+                        
+                        <h3 className="text-xs sm:text-base lg:text-lg font-bold dark:text-white text-[#1d2d50] line-clamp-2 leading-relaxed">
+                          {book.title}
+                        </h3>
+                        
+                        {book.author && (
+                          <p className="dark:text-slate-400 text-[#6c7a89] text-xs sm:text-sm font-medium line-clamp-1">
+                            بقلم: {book.author}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Show More Button */}
+            {hasMoreBooks && (
+              <div className="text-center mt-8 sm:mt-12">
+                <button
+                  onClick={handleShowMore}
+                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:scale-105 text-sm sm:text-base"
+                >
+                  <Plus className="h-4 w-4 sm:h-5 sm:w-5" />
+                  عرض المزيد من الكتب
+                  <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5" />
+                </button>
+                <p className="text-xs sm:text-sm dark:text-slate-400 text-[#6c7a89] mt-2">
+                  عرض {displayedBooks.length} من أصل {filteredBooks.length} كتاب
+                </p>
+              </div>
+            )}
+
+            {filteredBooks.length > 0 && selectedCategory !== "المفضلة" && !hasMoreBooks && (
+              <div className="text-center mt-8 sm:mt-12">
+                <p className="dark:text-slate-400 text-[#6c7a89] text-sm sm:text-base">
+                  {selectedCategory 
+                    ? `تم عرض جميع الكتب في فئة ${selectedCategory}`
+                    : `تم عرض جميع الكتب من إصدارات دار الطموح`
+                  }
+                </p>
+              </div>
+            )}
+
+            {filteredBooks.length === 0 && selectedCategory !== "المفضلة" && (
+              <div className="text-center py-12 sm:py-24">
+                <BookOpen className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-4 sm:mb-6 dark:text-slate-500 text-[#6c7a89]" />
+                <h3 className="dark:text-slate-300 text-[#6c7a89] text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4">
+                  لم يتم العثور على نتائج
+                </h3>
+                <p className="dark:text-slate-500 text-[#6c7a89] mb-6 sm:mb-8 text-sm sm:text-base px-4">
+                  {searchTerm 
+                    ? `لم يتم العثور على كتب تحتوي على "${searchTerm}"`
+                    : `لا توجد كتب في فئة ${selectedCategory} حالياً`
+                  }
+                </p>
+                <button
+                  onClick={() => {
+                    setSearchTerm('');
+                    setSelectedCategory(null);
+                  }}
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg sm:rounded-xl font-semibold transition-all duration-300 shadow-lg hover:scale-105 text-sm sm:text-base"
+                >
+                  مسح الفلاتر والعودة لجميع الكتب
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="mt-12 sm:mt-16 text-center">
+          <div className="inline-flex items-center gap-2 sm:gap-4 px-4 sm:px-8 py-3 sm:py-5 bg-gradient-to-r from-orange-500/20 to-orange-600/20 backdrop-blur-sm border border-orange-500/30 rounded-xl sm:rounded-2xl">
+            <Star className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 text-orange-400 animate-pulse" />
+            <span className="text-orange-400 font-bold text-sm sm:text-lg lg:text-xl">مكتبة دار الطموح</span>
+            <Star className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 text-orange-400 animate-pulse" />
+          </div>
+        </div>
+      </div>
+
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .line-clamp-1 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+          
+          .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+          
+          .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+          
+          @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+          }
+          
+          .group:hover img {
+            filter: brightness(1.1) contrast(1.05);
+          }
+          
+          button, .group, input {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+          
+          ::-webkit-scrollbar {
+            width: 6px;
+          }
+          
+          ::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          
+          ::-webkit-scrollbar-thumb {
+            background: rgba(255, 166, 0, 0.3);
+            border-radius: 3px;
+          }
+          
+          ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 166, 0, 0.5);
+          }
+          
+          @media (max-width: 640px) {
+            .container {
+              padding-left: 0.75rem;
+              padding-right: 0.75rem;
+            }
+          }
+        `
+      }} />
+    </section>
+  );
+};
+
+export default Books;

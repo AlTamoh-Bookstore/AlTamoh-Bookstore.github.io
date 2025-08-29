@@ -1,0 +1,19 @@
+1 - الأبله		Lbook1.jpg
+2 - الجريمة والعقاب	Lbook2.jpg
+3 - الإخوة كارامازوف	Lbook3.jpg
+4 - الحرب والسلام		Lbook4.jpg
+5 - آنا كارنينا		Lbook5.jpg
+6 - البؤساء		Lbook6.jpg
+7 - أحدب نوتردام		Lbook7.jpg
+8 -مئة عام من العزلة	Lbook8.jpg
+9 - الأيام		Lbook9.jpeg
+10 - مدام بوفاري		Lbook10.jpeg
+11 - الغريب		Lbook11.jpeg
+12 - اللص و الكلاب		Lbook12.jpg
+13 - بين القصرين		Lbook13.jpg
+14 - قصر الشوق		Lbook14.jpg
+15 - السكرية		Lbook15.jpg
+16 - موسم الهجرة إلى الشمال	Lbook16.jpg
+17 - الخبز الحافي		Lbook17.jpg
+18 - رجال في الشمس	Lbook18.jpg
+19 - عائد إلى حيفا		Lbook19.jpg

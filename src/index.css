@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Cairo', sans-serif;
+}
+
+html {
+  direction: rtl;
+}
+
+@layer base {
+  body {
+    font-family: 'Cairo', sans-serif;
+  }
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #0d0e2a 0%, #d15f19 100%);
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  transition: all 0.3s ease;
+}
+
+.category-btn.active {
+  background-color: #e36414;
+  color: white;
+}
+
+.category-btn:not(.active) {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.whatsapp-btn {
+  background: linear-gradient(45deg, #25d366, #128c7e);
+  transition: all 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+}
