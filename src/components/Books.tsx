@@ -238,7 +238,7 @@ const Books = () => {
         category: "دين",
         description: "ثاني أصح كتب الحديث، يحتوي على الأحاديث النبوية الصحيحة",
         price: 490,
-        image: "public/book-images/Din/Dinbook3.jpg",
+        image: "/Altamooh-book-store/book-images/Din/Dinbook3.jpg"
         author: "الإمام مسلم"
       },
       {
@@ -1557,3 +1557,4 @@ const Books = () => {
 };
 
 export default Books;
+
