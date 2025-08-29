@@ -183,36 +183,9 @@ const Books = () => {
   const books: Book[] = [
     // Your books array here
       // إصدارات دار الطموح
-      {
-        id: 21,
-        title: "دليلك للنجاح في حياتك المهنية",
-        category: "إصدارات دار الطموح",
-        description: "إصدار حصري من دار الطموح يقدم استراتيجيات عملية للنجاح المهني وتطوير المهارات القيادية",
-        price: 350,
-        image: "public/book-images/career_success.jpeg",
-        author: "دار الطموح للنشر"
-      },
-      {
-        id: 22,
-        title: "فن الإبداع والابتكار",
-        category: "إصدارات دار الطموح",
-        description: "كتاب متميز من إصدارات دار الطموح يستكشف طرق تنمية الإبداع والابتكار في الحياة والعمل",
-        price: 380,
-        image: "public/book-images/creativity_art.jpeg",
-        author: "دار الطموح للنشر"
-      },
   
       // الكتب الأكثر مبيعاً
-  
-      {
-        id: 2,
-        title: "الحضارة الإسلامية",
-        category: "الكتب الأكثر مبيعاً",
-        description: "رحلة شاملة عبر تاريخ الحضارة الإسلامية وإنجازاتها في العلوم والفنون والعمارة والفلسفة",
-        price: 360,
-        image: "public/book-images/islamic_civilization.jpeg",
-        author: "د. فاطمة الزهراني",
-      },
+
   
       // الدين
       {
@@ -221,7 +194,7 @@ const Books = () => {
         category: "دين",
         description: "القرآن الكريم",
         price: 450,
-        image: "/Altamooh-book-store/book-images/Din/Dinbook1.jpg",
+        image: "/Altamooh-book-store/book-images/Din/Dinbook1.png",
       },
       {
         id: 101,
@@ -274,7 +247,7 @@ const Books = () => {
         category: "دين",
         description: "سيرة الرسول صلى الله عليه وسلم مكتوبة بأسلوب معاصر وشامل",
         price: 380,
-        image: "/Altamooh-book-store/book-images/Din/Dinbook7.jpg",
+        image: "/Altamooh-book-store/book-images/Din/Dinbook7.jpeg",
         author: "صفي الرحمن المباركفوري"
       },
   
@@ -285,7 +258,7 @@ const Books = () => {
         category: "تاريخ",
         description: "موسوعة تاريخية شاملة من بداية الخلق حتى نهاية الزمان",
         price: 850,
-        image: "public/book-images/History/Hbook1.jpg",
+        image: "/Altamooh-book-store/book-images/History/Hbook1.jpg",
         author: "ابن كثير",
       },
       {
@@ -294,7 +267,7 @@ const Books = () => {
         category: "تاريخ",
         description: "تاريخ الرسل والملوك، من أهم المراجع التاريخية الإسلامية",
         price: 720,
-        image: "public/book-images/History/Hbook2.jpg",
+        image: "/Altamooh-book-store/book-images/History/Hbook2.jpg",
         author: "الطبري",
       },
       {
@@ -303,7 +276,7 @@ const Books = () => {
         category: "تاريخ",
         description: "موسوعة تاريخية شاملة تغطي تاريخ العالم الإسلامي",
         price: 680,
-        image: "public/book-images/History/Hbook3.jpg",
+        image: "/Altamooh-book-store/book-images/History/Hbook3.jpg",
         author: "ابن الأثير",
       },
       {
@@ -312,7 +285,7 @@ const Books = () => {
         category: "تاريخ",
         description: "سيرة الرسول صلى الله عليه وسلم مفصلة ومدققة",
         price: 420,
-        image: "public/book-images/History/Hbook4.jpg",
+        image: "/Altamooh-book-store/book-images/History/Hbook4.jpg",
         author: "ابن هشام",
       },
       {
@@ -321,7 +294,7 @@ const Books = () => {
         category: "تاريخ",
         description: "تاريخ الحرب الشهيرة بين أثينا وإسبرطة في اليونان القديمة",
         price: 380,
-        image: "public/book-images/History/Hbook5.png",
+        image: "/Altamooh-book-store/book-images/History/Hbook5.png",
         author: "ثوكيديدس",
       },
       {
@@ -330,7 +303,7 @@ const Books = () => {
         category: "تاريخ",
         description: "موسوعة شاملة لتاريخ الحضارات الإنسانية عبر العصور",
         price: 950,
-        image: "public/book-images/History/Hbook6.jpeg",
+        image: "/Altamooh-book-store/book-images/History/Hbook6.jpeg",
         author: "ول ديورانت",
       },
   
@@ -341,7 +314,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "أول مغامرات شيرلوك هولمز مع الدكتور واتسون في حل الجرائم الغامضة",
         price: 320,
-        image: "public/book-images/Crime/Cbook1.jpg",
+        image: "/Altamooh-book-store/book-images/Crime/Cbook1.jpg",
         author: "آرثر كونان دويل",
       },
       {
@@ -350,7 +323,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "من أشهر قصص شيرلوك هولمز، قصة مليئة بالغموض والإثارة",
         price: 340,
-        image: "public/book-images/Crime/Cbook2.png",
+        image: "/Altamooh-book-store/book-images/Crime/Cbook2.png",
         author: "آرثر كونان دويل",
       },
       {
@@ -359,7 +332,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "رواية بوليسية كلاسيكية من أعمال أجاثا كريستي الشهيرة",
         price: 360,
-        image: "public/book-images/Crime/Cbook3.png",
+        image: "/Altamooh-book-store/book-images/Crime/Cbook3.png",
         author: "أجاثا كريستي",
       },
       {
@@ -368,7 +341,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "رواية إثارة وتشويق من روائع أجاثا كريستي",
         price: 350,
-        image: "public/book-images/Crime/Cbook4.jpg",
+        image: "/Altamooh-book-store/book-images/Crime/Cbook4.jpg",
         author: "أجاثا كريستي",
       },
       {
@@ -377,7 +350,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "قصة جريمة معقدة تكشف أسرار عائلة غامضة",
         price: 330,
-        image: "public/book-images/Crime/Cbook5.jpg",
+        image: "/Altamooh-book-store/book-images/Crime/Cbook5.jpg",
         author: "أجاثا كريستي",
       },
       {
@@ -386,7 +359,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "كتاب علمي يشرح استخدام البصمات في التحقيقات الجنائية",
         price: 280,
-        image: "public/book-images/Crime/Cbook6.jpg",
+        image: "/Altamooh-book-store/book-images/Crime/Cbook6.jpg",
         author: "د. عالم التحقيق",
       },
       {
@@ -395,7 +368,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "رواية بوليسية مثيرة تدور أحداثها حول جرائم غامضة",
         price: 310,
-        image: "public/book-images/Crime/Cbook7.jpg",
+        image: "/Altamooh-book-store/book-images/Crime/Cbook7.jpg",
         author: "كاتب مجهول",
       },
       {
@@ -404,7 +377,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "قصة حقيقية مروعة عن جريمة قتل هزت أمريكا",
         price: 380,
-        image: "public/book-images/Crime/Cbook8.jpg",
+        image: "/Altamooh-book-store/book-images/Crime/Cbook8.jpg",
         author: "ترومان كابوتي",
       },
   
@@ -415,7 +388,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "عمل رائد في علم النفس التحليلي يكشف أسرار اللاوعي",
         price: 420,
-        image: "public/book-images/Philosophy & Psychology/Ppbook1.jpeg",
+        image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook1.jpeg",
         author: "سيجموند فرويد",
       },
       {
@@ -424,7 +397,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "كتاب فلسفي عميق حول معنى الحياة والوجود الإنساني",
         price: 350,
-        image: "public/book-images/Philosophy & Psychology/Ppbook2.jpg",
+        image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook2.jpg",
         author: "فيكتور فرانكل",
       },
       {
@@ -433,7 +406,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "دليل عملي لتطوير الشخصية وتحقيق النجاح في الحياة",
         price: 380,
-        image: "public/book-images/Philosophy & Psychology/Ppbook3.jpg",
+        image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook3.jpg",
         author: "ستيفن كوفي",
       },
       {
@@ -442,7 +415,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "كتاب رائد في علم النفس المعرفي وآليات اتخاذ القرارات",
         price: 450,
-        image: "public/book-images/Philosophy & Psychology/Ppbook4.jpg",
+        image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook4.jpg",
         author: "دانييل كانمان",
       },
       {
@@ -451,7 +424,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "دراسة رائدة في علم النفس الاجتماعي وسلوك الحشود",
         price: 320,
-        image: "public/book-images/Philosophy & Psychology/Ppbook5.jpg",
+        image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook5.jpg",
         author: "غوستاف لوبون",
       },
       {
@@ -460,7 +433,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "من أعظم الأعمال الفلسفية في التاريخ حول العدالة والحكم",
         price: 480,
-        image: "public/book-images/Philosophy & Psychology/Ppbook6.jpg",
+        image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook6.jpg",
         author: "أفلاطون",
       },
       {
@@ -469,7 +442,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "تأملات فلسفية عميقة في الحياة والوجود والأخلاق",
         price: 360,
-        image: "public/book-images/Philosophy & Psychology/Ppbook7.jpeg",
+        image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook7.jpeg",
         author: "ماركوس أوريليوس",
       },
       {
@@ -478,7 +451,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "عمل فلسفي معقد يتناول قضايا الوجود والإنسان الأعلى",
         price: 520,
-        image: "public/book-images/Philosophy & Psychology/Ppbook8.jpg",
+        image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook8.jpg",
         author: "فريدريش نيتشه",
       },
       {
@@ -487,7 +460,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "عمل فلسفي أساسي حول حدود المعرفة الإنسانية",
         price: 650,
-        image: "public/book-images/Philosophy & Psychology/Ppbook9.png",
+        image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook9.png",
         author: "إيمانويل كانت",
       },
       {
@@ -496,7 +469,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "عمل رائد في علم الاجتماع والتاريخ والفلسفة السياسية",
         price: 580,
-        image: "public/book-images/Philosophy & Psychology/Ppbook10.jpg",
+        image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook10.jpg",
         author: "ابن خلدون",
       },
   
@@ -507,7 +480,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية نفسية عميقة تتناول صراع الخير والشر في النفس البشرية",
         price: 420,
-        image: "public/book-images/Literature/Lbook1.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook1.jpg",
         author: "فيودور دوستويفسكي",
       },
       {
@@ -516,7 +489,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية فلسفية عظيمة تستكشف طبيعة الإنسان والأخلاق",
         price: 450,
-        image: "public/book-images/Literature/Lbook2.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook2.jpg",
         author: "فيودور دوستويفسكي",
       },
       {
@@ -525,7 +498,7 @@ const Books = () => {
         category: "أدب",
         description: "آخر روايات دوستويفسكي وأعمقها فلسفياً ونفسياً",
         price: 520,
-        image: "public/book-images/Literature/Lbook3.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook3.jpg",
         author: "فيودور دوستويفسكي",
       },
       {
@@ -534,7 +507,7 @@ const Books = () => {
         category: "أدب",
         description: "ملحمة أدبية عظيمة تصور روسيا في عهد نابليون",
         price: 680,
-        image: "public/book-images/Literature/Lbook4.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook4.jpg",
         author: "ليو تولستوي",
       },
       {
@@ -543,7 +516,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية عاطفية عميقة تصور المجتمع الروسي في القرن التاسع عشر",
         price: 480,
-        image: "public/book-images/Literature/Lbook5.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook5.jpg",
         author: "ليو تولستوي",
       },
       {
@@ -552,7 +525,7 @@ const Books = () => {
         category: "أدب",
         description: "ملحمة أدبية اجتماعية تصور معاناة الطبقات الفقيرة في فرنسا",
         price: 650,
-        image: "public/book-images/Literature/Lbook6.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook6.jpg",
         author: "فيكتور هوغو",
       },
       {
@@ -561,7 +534,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية رومانسية تراجيدية تدور حول كاتدرائية نوتردام",
         price: 420,
-        image: "public/book-images/Literature/Lbook7.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook7.jpg",
         author: "فيكتور هوغو",
       },
       {
@@ -570,7 +543,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية الواقعية السحرية الأشهر في الأدب اللاتيني",
         price: 480,
-        image: "public/book-images/Literature/Lbook8.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook8.jpg",
         author: "غابرييل غارسيا ماركيز",
       },
       {
@@ -579,7 +552,7 @@ const Books = () => {
         category: "أدب",
         description: "سيرة ذاتية لعميد الأدب العربي طه حسين",
         price: 350,
-        image: "public/book-images/Literature/Lbook9.jpeg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook9.jpeg",
         author: "طه حسين",
       },
       {
@@ -588,7 +561,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية واقعية تحليلية تصور المجتمع البرجوازي الفرنسي",
         price: 380,
-        image: "public/book-images/Literature/Lbook10.jpeg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook10.jpeg",
         author: "غوستاف فلوبير",
       },
       {
@@ -597,7 +570,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية وجودية تستكشف معنى الحياة واللامعنى",
         price: 320,
-        image: "public/book-images/Literature/Lbook11.jpeg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook11.jpeg",
         author: "ألبير كامو",
       },
       {
@@ -606,7 +579,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية واقعية نقدية من أعمال نوبل الأدب نجيب محفوظ",
         price: 280,
-        image: "public/book-images/Literature/Lbook12.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook12.jpg",
         author: "نجيب محفوظ"
       },
       {
@@ -615,7 +588,7 @@ const Books = () => {
         category: "أدب",
         description: "الجزء الأول من الثلاثية الشهيرة لنجيب محفوظ",
         price: 350,
-        image: "public/book-images/Literature/Lbook13.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook13.jpg",
         author: "نجيب محفوظ"
       },
       {
@@ -624,7 +597,7 @@ const Books = () => {
         category: "أدب",
         description: "الجزء الثاني من ثلاثية نجيب محفوظ الشهيرة",
         price: 350,
-        image: "public/book-images/Literature/Lbook14.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook14.jpg",
         author: "نجيب محفوظ"
       },
       {
@@ -633,7 +606,7 @@ const Books = () => {
         category: "أدب",
         description: "الجزء الثالث والأخير من ثلاثية نجيب محفوظ",
         price: 350,
-        image: "public/book-images/Literature/Lbook15.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook15.jpg",
         author: "نجيب محفوظ"
       },
       {
@@ -642,7 +615,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية سودانية مهمة تتناول قضايا الهوية والاستعمار",
         price: 320,
-        image: "public/book-images/Literature/Lbook16.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook16.jpg",
         author: "الطيب صالح"
       },
       {
@@ -651,7 +624,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية مغربية تصور الحياة في الأحياء الشعبية",
         price: 300,
-        image: "public/book-images/Literature/Lbook17.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook17.jpg",
         author: "محمد شكري"
       },
       {
@@ -660,7 +633,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية فلسطينية تصور معاناة اللاجئين الفلسطينيين",
         price: 280,
-        image: "public/book-images/Literature/Lbook18.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook18.jpg",
         author: "غسان كنفاني"
       },
       {
@@ -669,7 +642,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية فلسطينية مؤثرة عن النكبة وتأثيرها على الأسر",
         price: 290,
-        image: "public/book-images/Literature/Lbook19.jpg",
+        image: "/Altamooh-book-store/book-images/Literature/Lbook19.jpg",
         author: "غسان كنفاني"
       },
   
@@ -680,7 +653,7 @@ const Books = () => {
         category: "اقتصاد",
         description: "كتاب كلاسيكي في الاقتصاد يؤسس لنظريات الاقتصاد الحديث",
         price: 450,
-        image: "public/book-images/Economy/Ebook1.jpeg",
+        image: "/Altamooh-book-store/book-images/Economy/Ebook1.jpeg",
         author: "آدم سميث"
       },
       {
@@ -689,7 +662,7 @@ const Books = () => {
         category: "اقتصاد",
         description: "تحليل نقدي للنظام الرأسمالي وآليات الإنتاج والتوزيع",
         price: 520,
-        image: "public/book-images/Economy/Ebook2.jpg",
+        image: "/Altamooh-book-store/book-images/Economy/Ebook2.jpg",
         author: "كارل ماركس"
       },
       {
@@ -698,7 +671,7 @@ const Books = () => {
         category: "اقتصاد",
         description: "دراسة للجوانب الأخلاقية في النظام الاقتصادي الرأسمالي",
         price: 380,
-        image: "public/book-images/Economy/Ebook3.jpg",
+        image: "/Altamooh-book-store/book-images/Economy/Ebook3.jpg",
         author: "د. اقتصادي أخلاقي"
       },
       {
@@ -707,7 +680,7 @@ const Books = () => {
         category: "اقتصاد",
         description: "شرح مبسط للمفاهيم الاقتصادية المعقدة للقارئ العام",
         price: 320,
-        image: "public/book-images/Economy/Ebook4.jpg",
+        image: "/Altamooh-book-store/book-images/Economy/Ebook4.jpg",
         author: "تشارلز ويلان"
       },
   
@@ -718,7 +691,7 @@ const Books = () => {
         category: "سياسة",
         description: "كتاب كلاسيكي في الفكر السياسي حول فن الحكم والسلطة",
         price: 350,
-        image: "public/book-images/Policy/Pbook1.jpg",
+        image: "/Altamooh-book-store/book-images/Policy/Pbook1.jpg",
         author: "نيكولو مكيافيلي"
       },
   
@@ -729,7 +702,7 @@ const Books = () => {
         category: "تطوير الذات",
         description: "كتاب رائد في تطوير المهارات العاطفية والاجتماعية للنجاح في الحياة",
         price: 350,
-        image: "public/book-images/Self-dev/Sdbook1.jpg",
+        image: "/Altamooh-book-store/book-images/Self-dev/Sdbook1.jpg",
         author: "دانييل جولمان"
       },
       {
@@ -738,7 +711,7 @@ const Books = () => {
         category: "تطوير الذات",
         description: "منهج عملي للتركيز على ما يهم حقاً في الحياة",
         price: 320,
-        image: "public/book-images/Self-dev/Sdbook2.jpeg",
+        image: "/Altamooh-book-store/book-images/Self-dev/Sdbook2.jpeg",
         author: "مارك مانسون"
       }
   ];
@@ -1557,5 +1530,6 @@ const Books = () => {
 };
 
 export default Books;
+
 
 
