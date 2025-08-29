@@ -88,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
               isScrolled ? 'w-7 h-7' : 'w-9 h-9'
             }`}>
               <img 
-                src="/assets/logo14.png" 
+                src="/Altamooh-book-store/assets/logo14.png" 
                 alt="مكتبة الطموح" 
                 className="h-full w-full object-cover rounded-lg"
               />
@@ -262,5 +262,6 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
     </header>
   );
 };
+
 
 export default Header;
