@@ -18,6 +18,18 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: true
+    detectSessionInUrl: true,
+    flowType: 'pkce'  // إضافة PKCE flow للأمان
   }
 })
+
+// دالة مساعدة للحصول على الـ redirect URL الصحيح
+export const getRedirectUrl = () => {
+  // في حالة التطوير المحلي
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return `${window.location.origin}`
+  }
+  
+  // في حالة GitHub Pages
+  return 'https://al0tamoh.github.io/Altamooh-book-store/'
+}
