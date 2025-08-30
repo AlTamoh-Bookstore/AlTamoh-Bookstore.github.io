@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Heart, ChevronUp, MessageCircle, Send, Instagram, Percent, Star } from 'lucide-react';
+import { BookOpen, Heart, ChevronUp, MessageCircle, Send, Instagram, Star, Book, Compass, Lightbulb, Shield, Brain, Plus, Trophy, Users, Target } from 'lucide-react';
 
 const Footer = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -32,7 +32,7 @@ const Footer = () => {
     window.open('https://www.instagram.com/tomouh.bookstore/', '_blank');
   };
 
-  // Simple function to just scroll to books section without any category manipulation
+  // Function to scroll to books section and potentially filter by category
   const scrollToCategoryBooks = (category: string) => {
     // Just scroll to books section - let the user manually select the category
     const booksElement = document.getElementById('books');
@@ -52,13 +52,51 @@ const Footer = () => {
     { name: 'تواصل معنا', id: 'contact' }
   ];
 
+  // Get category icon function - matching the Books component
+  const getCategoryIcon = (category: string) => {
+    const iconMap: { [key: string]: any } = {
+      "دين": Book,
+      "تاريخ": Compass,
+      "علوم": Lightbulb,
+      "تحقيق و جريمة": Shield,
+      "فلسفة و علم نفس": Brain,
+      "أدب": BookOpen,
+      "طب": Plus,
+      "اقتصاد": Trophy,
+      "قانون": Users,
+      "إصدارات دار الطموح": Star,
+      "سياسة": Target,
+      "تطوير الذات": Star,
+      "الأكثر مبيعاً": Trophy,
+      "الأدب العربي": BookOpen,
+      "الفلسفة وعلم النفس": Brain,
+      "التحقيق والجريمة": Shield,
+      "المقالات الأدبية": BookOpen,
+      "التنمية الذاتية": Target
+    };
+    return iconMap[category] || BookOpen;
+  };
+
+  // Categories extracted from the Books component - these are the actual categories used
   const categories = [
     { name: 'إصدارات دار الطموح', icon: Star, color: 'text-green-400', special: true },
-    { name: 'الأدب العربي', icon: null, color: 'text-slate-300', special: false },
-    { name: 'الفلسفة وعلم النفس', icon: null, color: 'text-slate-300', special: false },
-    { name: 'التحقيق والجريمة', icon: null, color: 'text-slate-300', special: false },
-    { name: 'المقالات الأدبية', icon: null, color: 'text-slate-300', special: false },
-    { name: 'التنمية الذاتية', icon: null, color: 'text-slate-300', special: false }
+    { name: 'الأكثر مبيعاً', icon: Trophy, color: 'text-yellow-400', special: true },
+    { name: 'دين', icon: Book, color: 'text-slate-300', special: false },
+    { name: 'تاريخ', icon: Compass, color: 'text-slate-300', special: false },
+    { name: 'علوم', icon: Lightbulb, color: 'text-slate-300', special: false },
+    { name: 'تحقيق و جريمة', icon: Shield, color: 'text-slate-300', special: false },
+    { name: 'فلسفة و علم نفس', icon: Brain, color: 'text-slate-300', special: false },
+    { name: 'أدب', icon: BookOpen, color: 'text-slate-300', special: false },
+    { name: 'طب', icon: Plus, color: 'text-slate-300', special: false },
+    { name: 'اقتصاد', icon: Trophy, color: 'text-slate-300', special: false },
+    { name: 'قانون', icon: Users, color: 'text-slate-300', special: false },
+    { name: 'سياسة', icon: Target, color: 'text-slate-300', special: false },
+    { name: 'تطوير الذات', icon: Target, color: 'text-slate-300', special: false },
+    { name: 'الأدب العربي', icon: BookOpen, color: 'text-slate-300', special: false },
+    { name: 'الفلسفة وعلم النفس', icon: Brain, color: 'text-slate-300', special: false },
+    { name: 'التحقيق والجريمة', icon: Shield, color: 'text-slate-300', special: false },
+    { name: 'المقالات الأدبية', icon: BookOpen, color: 'text-slate-300', special: false },
+    { name: 'التنمية الذاتية', icon: Target, color: 'text-slate-300', special: false }
   ];
 
   return (
@@ -175,43 +213,53 @@ const Footer = () => {
                 <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full"></div>
                 تصنيفات إصداراتنا
               </h3>
-              <ul className="space-y-4">
-                {categories.map((category, index) => {
-                  const IconComponent = category.icon;
-                  return (
-                    <li key={index}>
-                      <button 
-                        onClick={() => scrollToCategoryBooks(category.name)}
-                        className={`${category.color} hover:text-orange-400 transition-colors duration-300 flex items-center gap-2 group w-full text-right`}
-                      >
-                        <div className={`w-1.5 h-1.5 rounded-full group-hover:bg-orange-400 transition-colors ${
-                          category.special 
-                            ? 'bg-green-400/50 group-hover:bg-green-400'
-                            : 'bg-orange-400/50'
-                        }`}></div>
-                        
-                        <div className="flex items-center gap-1.5">
-                          {IconComponent && (
-                            <IconComponent className={`h-3.5 w-3.5 ${
-                              category.special ? 'animate-pulse' : ''
-                            }`} />
-                          )}
-                          <span className={category.special ? 'font-medium' : ''}>{category.name}</span>
-                        </div>
-
-                        {/* Special badge for Dar Al-Tumooh publications */}
-                        {category.name === 'إصدارات دار الطموح' && (
-                          <div className="mr-auto">
-                            <span className="bg-green-500 text-white text-xs px-2 py-0.5 rounded-full">
-                              إصدارات حصرية
-                            </span>
+              <div className="max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-orange-400/30 scrollbar-track-transparent">
+                <ul className="space-y-4">
+                  {categories.map((category, index) => {
+                    const IconComponent = category.icon;
+                    return (
+                      <li key={index}>
+                        <button 
+                          onClick={() => scrollToCategoryBooks(category.name)}
+                          className={`${category.color} hover:text-orange-400 transition-colors duration-300 flex items-center gap-2 group w-full text-right`}
+                        >
+                          <div className={`w-1.5 h-1.5 rounded-full group-hover:bg-orange-400 transition-colors ${
+                            category.special 
+                              ? 'bg-green-400/50 group-hover:bg-green-400'
+                              : 'bg-orange-400/50'
+                          }`}></div>
+                          
+                          <div className="flex items-center gap-1.5">
+                            {IconComponent && (
+                              <IconComponent className={`h-3.5 w-3.5 ${
+                                category.special ? 'animate-pulse' : ''
+                              }`} />
+                            )}
+                            <span className={`${category.special ? 'font-medium' : ''} text-sm`}>{category.name}</span>
                           </div>
-                        )}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
+
+                          {/* Special badges for priority categories */}
+                          {category.name === 'إصدارات دار الطموح' && (
+                            <div className="mr-auto">
+                              <span className="bg-green-500 text-white text-xs px-2 py-0.5 rounded-full">
+                                إصدارات حصرية
+                              </span>
+                            </div>
+                          )}
+                          
+                          {category.name === 'الأكثر مبيعاً' && (
+                            <div className="mr-auto">
+                              <span className="bg-yellow-500 text-white text-xs px-2 py-0.5 rounded-full">
+                                الأكثر طلباً
+                              </span>
+                            </div>
+                          )}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
 
               {/* Publications Notice */}
               <div className="mt-6 p-3 bg-gradient-to-r from-orange-500/10 to-orange-600/10 rounded-lg border border-orange-500/20">
@@ -220,7 +268,7 @@ const Footer = () => {
                   <span>إصدارات متميزة</span>
                 </div>
                 <p className="text-xs text-slate-400">
-                  تصفح مجموعة إصداراتنا الحصرية والمتنوعة
+                  تصفح مجموعة إصداراتنا الحصرية والمتنوعة في {categories.length} فئة مختلفة
                 </p>
               </div>
             </div>
@@ -297,6 +345,23 @@ const Footer = () => {
               transform: scale(1.1);
               opacity: 0.7;
             }
+          }
+          
+          .scrollbar-thin {
+            scrollbar-width: thin;
+          }
+          
+          .scrollbar-thumb-orange-400\/30::-webkit-scrollbar-thumb {
+            background-color: rgba(251, 146, 60, 0.3);
+            border-radius: 3px;
+          }
+          
+          .scrollbar-track-transparent::-webkit-scrollbar-track {
+            background-color: transparent;
+          }
+          
+          ::-webkit-scrollbar {
+            width: 4px;
           }
         `
       }} />
