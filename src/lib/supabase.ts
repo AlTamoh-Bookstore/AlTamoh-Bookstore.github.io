@@ -18,12 +18,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: true,
-    flowType: 'pkce'  // إضافة PKCE flow للأمان
+    detectSessionInUrl: false, // تعطيل الكشف التلقائي عن الجلسة في الرابط
+    flowType: 'pkce' // استخدام PKCE flow للأمان
   }
 })
 
-// دالة مساعدة للحصول على الـ redirect URL الصحيح
+// دالة للحصول على الـ redirect URL المناسب
 export const getRedirectUrl = () => {
   // في حالة التطوير المحلي
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
@@ -32,4 +32,37 @@ export const getRedirectUrl = () => {
   
   // في حالة GitHub Pages
   return 'https://al0tamoh.github.io/Altamooh-book-store/'
+}
+
+// دالة مساعدة لإرسال OTP
+export const sendOTP = async (email: string, type: 'signup' | 'magiclink' | 'recovery' = 'signup') => {
+  const { data, error } = await supabase.auth.signInWithOtp({
+    email: email,
+    options: {
+      shouldCreateUser: type === 'signup' // إنشاء مستخدم جديد فقط في حالة التسجيل
+    }
+  })
+  
+  return { data, error }
+}
+
+// دالة مساعدة للتحقق من OTP
+export const verifyOTP = async (email: string, token: string, type: 'signup' | 'magiclink' | 'recovery' = 'signup') => {
+  const { data, error } = await supabase.auth.verifyOtp({
+    email,
+    token,
+    type
+  })
+  
+  return { data, error }
+}
+
+// دالة مساعدة لإعادة إرسال OTP
+export const resendOTP = async (email: string, type: 'signup' | 'email_change' = 'signup') => {
+  const { data, error } = await supabase.auth.resend({
+    type: type,
+    email: email
+  })
+  
+  return { data, error }
 }
