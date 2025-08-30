@@ -1,53 +1,71 @@
-name: Deploy Vite React App
+```yml
+name: Deploy Vite App to GitHub Pages
+
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Prevent overlapping deploys
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build
-      env:
-        VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-        VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-      run: npm run build
-      
-    - name: Copy public assets to dist
-      run: |
-        if [ -d "public" ]; then
-          cp -r public/* dist/ 2>/dev/null || echo "No public files to copy"
-        fi
-      
-    - name: Setup Pages
-      uses: actions/configure-pages@v5
-      
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./dist
-        
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Build site
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: npm run build
+
+      - name: 📂 Copy public assets to dist
+        run: |
+          if [ -d "public" ]; then
+            cp -r public/* dist/ 2>/dev/null || echo "No public files to copy"
+          fi
+
+      - name: 🧱 Add fallback 404.html for React Router
+        run: cp dist/index.html dist/404.html
+
+      - name: 🚫 Disable Jekyll processing
+        run: echo "" > dist/.nojekyll
+
+      - name: ⚙️ Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: 📤 Upload build to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
