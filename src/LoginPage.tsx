@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Mail, Shield, CheckCircle, Loader2, Star, Bell, Heart, Gift, Users, Zap, User, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Mail, Shield, CheckCircle, Loader2, Star, Bell, Heart, Gift, Users, Zap, User, Lock, Eye, EyeOff, AlertCircle, KeyRound, ArrowRight } from 'lucide-react';
 import { supabase } from './lib/supabase';
 import { AuthMode, SignUpData, SignInData } from './types/auth';
 
@@ -10,22 +10,34 @@ interface LoginPageProps {
 
 const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
   const [mode, setMode] = React.useState<AuthMode>('signin');
+  const [step, setStep] = React.useState<'form' | 'verify'>('form'); // خطوة جديدة للتحقق
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',
     password: ''
   });
+  const [verificationCode, setVerificationCode] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState('');
   const [successMessage, setSuccessMessage] = React.useState('');
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [resendCooldown, setResendCooldown] = React.useState(0);
 
   React.useEffect(() => {
     setIsLoaded(true);
-    // Test Supabase connection on component mount
     testSupabaseConnection();
   }, []);
+
+  // عداد إعادة الإرسال
+  React.useEffect(() => {
+    if (resendCooldown > 0) {
+      const timer = setTimeout(() => {
+        setResendCooldown(resendCooldown - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [resendCooldown]);
 
   const testSupabaseConnection = async () => {
     try {
@@ -83,6 +95,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
     setError('');
   };
 
+  const handleVerificationCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9]/g, ''); // السماح بالأرقام فقط
+    if (value.length <= 6) {
+      setVerificationCode(value);
+      setError('');
+    }
+  };
+
   const validateForm = (): boolean => {
     if (!formData.email || !formData.password) {
       setError('يرجى ملء جميع الحقول المطلوبة');
@@ -109,11 +129,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
   };
 
   const handleSignUp = async (data: SignUpData) => {
+    // استخدام نظام OTP بدلاً من email confirmation
     const { data: authData, error } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
       options: {
-          emailRedirectTo: 'https://al0tamoh.github.io/Altamooh-book-store/',
         data: {
           full_name: data.name,
         }
@@ -134,8 +154,72 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
     return authData;
   };
 
+  const handleResendCode = async () => {
+    if (resendCooldown > 0) return;
+    
+    setIsLoading(true);
+    setError('');
+    
+    try {
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: formData.email
+      });
+      
+      if (error) throw error;
+      
+      setSuccessMessage('تم إعادة إرسال الكود بنجاح');
+      setResendCooldown(60); // كول داون 60 ثانية
+    } catch (err: any) {
+      setError('فشل في إعادة إرسال الكود');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerifyCode = async () => {
+    if (verificationCode.length !== 6) {
+      setError('يرجى إدخال كود التحقق كاملاً');
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const { data, error } = await supabase.auth.verifyOtp({
+        email: formData.email,
+        token: verificationCode,
+        type: 'signup'
+      });
+
+      if (error) throw error;
+
+      if (data?.user) {
+        setSuccessMessage('تم تأكيد الحساب بنجاح!');
+        setTimeout(() => onSuccess?.(data.user), 1500);
+      }
+    } catch (err: any) {
+      console.error('Verification error:', err);
+      if (err.message.includes('Invalid token')) {
+        setError('كود التحقق غير صحيح');
+      } else if (err.message.includes('Token has expired')) {
+        setError('انتهت صلاحية كود التحقق. يرجى طلب كود جديد');
+      } else {
+        setError('حدث خطأ في التحقق. يرجى المحاولة مرة أخرى');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (step === 'verify') {
+      await handleVerifyCode();
+      return;
+    }
     
     if (!validateForm()) return;
 
@@ -146,11 +230,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
     try {
       if (mode === 'signup') {
         const result = await handleSignUp(formData as SignUpData);
-        if (result?.user && !result.user.email_confirmed_at) {
-          setSuccessMessage('تم إرسال رابط التأكيد إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد');
-        } else if (result?.user) {
-          setSuccessMessage('تم إنشاء الحساب بنجاح!');
-          setTimeout(() => onSuccess?.(result.user), 1500);
+        if (result?.user) {
+          setSuccessMessage('تم إرسال كود التحقق إلى بريدك الإلكتروني');
+          setStep('verify'); // الانتقال لخطوة التحقق
+          setResendCooldown(60);
         }
       } else {
         const result = await handleSignIn(formData as SignInData);
@@ -162,7 +245,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
     } catch (err: any) {
       console.error('Auth error:', err);
       
-      // Handle network and connection errors
       if (err.name === 'AuthRetryableFetchError' || err.message.includes('NetworkError')) {
         setError('لا يمكن الاتصال بالخادم. يرجى التحقق من الاتصال بالإنترنت أو إعدادات Supabase.');
       } else if (err.message.includes('Invalid login credentials')) {
@@ -171,8 +253,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
         setError('هذا البريد الإلكتروني مسجل بالفعل');
       } else if (err.message.includes('Email not confirmed')) {
         setError('يرجى تأكيد بريدك الإلكتروني أولاً');
-      } else if (err.message.includes('Invalid API key') || err.message.includes('Invalid JWT')) {
-        setError('خطأ في إعدادات الخادم. يرجى المحاولة لاحقاً');
       } else {
         setError(err.message || 'حدث خطأ غير متوقع');
       }
@@ -183,9 +263,18 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
 
   const switchMode = () => {
     setMode(mode === 'signin' ? 'signup' : 'signin');
+    setStep('form');
     setError('');
     setSuccessMessage('');
+    setVerificationCode('');
     setFormData({ name: '', email: '', password: '' });
+  };
+
+  const goBackToForm = () => {
+    setStep('form');
+    setError('');
+    setSuccessMessage('');
+    setVerificationCode('');
   };
 
   return (
@@ -227,170 +316,218 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
         <div className="w-full max-w-6xl">
           {/* Back Button */}
           <button
-            onClick={onBack}
+            onClick={step === 'verify' ? goBackToForm : onBack}
             className={`mb-6 flex items-center space-x-2 space-x-reverse text-slate-600 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300 group ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
           >
             <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform duration-200" />
-            <span className="font-medium">العودة للرئيسية</span>
+            <span className="font-medium">
+              {step === 'verify' ? 'العودة للنموذج' : 'العودة للرئيسية'}
+            </span>
           </button>
 
           <div className="grid lg:grid-cols-2 gap-8 items-start">
-            {/* Benefits Section */}
-            <div className={`space-y-6 transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              {/* Header */}
-              <div className="bg-white/80 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 dark:border-slate-700/50 overflow-hidden mb-8">
-                <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-8 text-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/10"></div>
-                  <div className="relative z-10">
-                    <div className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-white/20 backdrop-blur-sm mb-4 group transition-all duration-500">
-                      <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full ml-2 sm:ml-4 animate-pulse"></div>
-                      <span className="text-xs sm:text-sm font-medium text-white transition-colors duration-500">
-                        فوائد التسجيل
-                      </span>
+            {/* Benefits Section - مخفية في خطوة التحقق */}
+            {step === 'form' && (
+              <div className={`space-y-6 transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                {/* Header */}
+                <div className="bg-white/80 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 dark:border-slate-700/50 overflow-hidden mb-8">
+                  <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-8 text-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-black/10"></div>
+                    <div className="relative z-10">
+                      <div className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-white/20 backdrop-blur-sm mb-4 group transition-all duration-500">
+                        <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full ml-2 sm:ml-4 animate-pulse"></div>
+                        <span className="text-xs sm:text-sm font-medium text-white transition-colors duration-500">
+                          فوائد التسجيل
+                        </span>
+                      </div>
+                      <h2 className="text-3xl font-bold mb-2 text-white">
+                        في ماذا سيفيدك{' '}
+                        <span className="text-orange-200">
+                          التسجيل؟
+                        </span>
+                      </h2>
+                      <p className="text-orange-100">
+                        انضم إلى آلاف القراء واستمتع بمزايا حصرية
+                      </p>
                     </div>
-                    <h2 className="text-3xl font-bold mb-2 text-white">
-                      في ماذا سيفيدك{' '}
-                      <span className="text-orange-200">
-                        التسجيل؟
-                      </span>
-                    </h2>
-                    <p className="text-orange-100">
-                      انضم إلى آلاف القراء واستمتع بمزايا حصرية
-                    </p>
                   </div>
-                  <div className="absolute top-0 left-0 w-full h-full bg-white/10 transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000"></div>
+                </div>
+
+                {/* Benefits Grid */}
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {benefits.map((benefit, index) => (
+                    <div
+                      key={index}
+                      className={`bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 dark:border-slate-700/50 hover:border-orange-300 dark:hover:border-orange-400/50 transition-all duration-500 hover:scale-105 hover:shadow-xl group ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                      style={{ transitionDelay: `${400 + index * 100}ms` }}
+                    >
+                      <div className="flex items-start space-x-4 space-x-reverse">
+                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <benefit.icon className="h-6 w-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-lg dark:text-white text-[#1d2d50] mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
+                            {benefit.title}
+                          </h3>
+                          <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            {benefit.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-
-              {/* Benefits Grid */}
-              <div className="grid sm:grid-cols-2 gap-4">
-                {benefits.map((benefit, index) => (
-                  <div
-                    key={index}
-                    className={`bg-white/70 dark:bg-slate-800/40 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 dark:border-slate-700/50 hover:border-orange-300 dark:hover:border-orange-400/50 transition-all duration-500 hover:scale-105 hover:shadow-xl group ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                    style={{ transitionDelay: `${400 + index * 100}ms` }}
-                  >
-                    <div className="flex items-start space-x-4 space-x-reverse">
-                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <benefit.icon className="h-6 w-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-lg dark:text-white text-[#1d2d50] mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
-                          {benefit.title}
-                        </h3>
-                        <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                          {benefit.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            )}
 
             {/* Auth Form */}
-            <div className={`transition-all duration-1000 delay-600 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className={`transition-all duration-1000 delay-600 ${step === 'verify' ? 'lg:col-span-2 max-w-md mx-auto' : ''} ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <div className="bg-white/80 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 dark:border-slate-700/50 overflow-hidden">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-8 text-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-black/10"></div>
                   <div className="relative z-10">
                     <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                      {mode === 'signin' ? (
+                      {step === 'verify' ? (
+                        <KeyRound className="h-10 w-10 text-white" />
+                      ) : mode === 'signin' ? (
                         <Shield className="h-10 w-10 text-white" />
                       ) : (
                         <User className="h-10 w-10 text-white" />
                       )}
                     </div>
                     <h1 className="text-3xl font-bold text-white mb-2">
-                      {mode === 'signin' ? 'تسجيل الدخول' : 'إنشاء حساب جديد'}
+                      {step === 'verify' 
+                        ? 'تأكيد البريد الإلكتروني'
+                        : mode === 'signin' 
+                          ? 'تسجيل الدخول' 
+                          : 'إنشاء حساب جديد'
+                      }
                     </h1>
                     <p className="text-orange-100">
-                      {mode === 'signin' 
-                        ? 'أدخل بياناتك لتسجيل الدخول'
-                        : 'انضم إلينا واستمتع بمزايا عضوية مميزة'
+                      {step === 'verify'
+                        ? `أدخل الكود المرسل إلى ${formData.email}`
+                        : mode === 'signin' 
+                          ? 'أدخل بياناتك لتسجيل الدخول'
+                          : 'انضم إلينا واستمتع بمزايا عضوية مميزة'
                       }
                     </p>
                   </div>
-                  <div className="absolute top-0 left-0 w-full h-full bg-white/10 transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000"></div>
                 </div>
 
                 {/* Form Content */}
                 <div className="px-8 py-8">
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Name Field (only for signup) */}
-                    {mode === 'signup' && (
+                    {step === 'form' ? (
+                      <>
+                        {/* Name Field (only for signup) */}
+                        {mode === 'signup' && (
+                          <div>
+                            <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                              الاسم الكامل
+                            </label>
+                            <div className="relative">
+                              <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                className="w-full px-4 py-4 pr-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
+                                placeholder="أدخل اسمك الكامل"
+                                disabled={isLoading}
+                              />
+                              <User className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Email Field */}
+                        <div>
+                          <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                            البريد الإلكتروني
+                          </label>
+                          <div className="relative">
+                            <input
+                              type="email"
+                              id="email"
+                              name="email"
+                              value={formData.email}
+                              onChange={handleInputChange}
+                              className="w-full px-4 py-4 pr-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
+                              placeholder="example@email.com"
+                              disabled={isLoading}
+                            />
+                            <Mail className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          </div>
+                        </div>
+
+                        {/* Password Field */}
+                        <div>
+                          <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                            كلمة المرور
+                          </label>
+                          <div className="relative">
+                            <input
+                              type={showPassword ? 'text' : 'password'}
+                              id="password"
+                              name="password"
+                              value={formData.password}
+                              onChange={handleInputChange}
+                              className="w-full px-4 py-4 pr-12 pl-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
+                              placeholder="أدخل كلمة المرور"
+                              disabled={isLoading}
+                              minLength={6}
+                            />
+                            <Lock className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword(!showPassword)}
+                              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                            >
+                              {showPassword ? (
+                                <EyeOff className="h-5 w-5" />
+                              ) : (
+                                <Eye className="h-5 w-5" />
+                              )}
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      /* Verification Code Field */
                       <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                          الاسم الكامل
+                        <label htmlFor="verificationCode" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                          كود التحقق (6 أرقام)
                         </label>
                         <div className="relative">
                           <input
                             type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-4 pr-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
-                            placeholder="أدخل اسمك الكامل"
+                            id="verificationCode"
+                            value={verificationCode}
+                            onChange={handleVerificationCodeChange}
+                            className="w-full px-4 py-6 pr-12 bg-white/50 dark:bg-slate-700/50 border-2 border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-center text-2xl font-mono tracking-widest placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
+                            placeholder="000000"
                             disabled={isLoading}
+                            maxLength={6}
                           />
-                          <User className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          <KeyRound className="absolute right-4 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" />
+                        </div>
+                        <div className="mt-4 text-center">
+                          <button
+                            type="button"
+                            onClick={handleResendCode}
+                            disabled={resendCooldown > 0 || isLoading}
+                            className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 text-sm font-medium transition-colors duration-200 disabled:opacity-50 hover:underline"
+                          >
+                            {resendCooldown > 0 
+                              ? `إعادة الإرسال خلال ${resendCooldown} ثانية`
+                              : 'إعادة إرسال الكود'
+                            }
+                          </button>
                         </div>
                       </div>
                     )}
-
-                    {/* Email Field */}
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                        البريد الإلكتروني
-                      </label>
-                      <div className="relative">
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-4 pr-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
-                          placeholder="example@email.com"
-                          disabled={isLoading}
-                        />
-                        <Mail className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                      </div>
-                    </div>
-
-                    {/* Password Field */}
-                    <div>
-                      <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                        كلمة المرور
-                      </label>
-                      <div className="relative">
-                        <input
-                          type={showPassword ? 'text' : 'password'}
-                          id="password"
-                          name="password"
-                          value={formData.password}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-4 pr-12 pl-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
-                          placeholder="أدخل كلمة المرور"
-                          disabled={isLoading}
-                          minLength={6}
-                        />
-                        <Lock className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
-                        >
-                          {showPassword ? (
-                            <EyeOff className="h-5 w-5" />
-                          ) : (
-                            <Eye className="h-5 w-5" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
 
                     {/* Error Message */}
                     {error && (
@@ -414,7 +551,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      disabled={isLoading}
+                      disabled={isLoading || (step === 'verify' && verificationCode.length !== 6)}
                       className="w-full bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 disabled:from-orange-400 disabled:via-orange-400 disabled:to-orange-400 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-3 space-x-reverse shadow-lg hover:shadow-xl hover:shadow-orange-500/25 group relative overflow-hidden"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
@@ -422,38 +559,55 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
                         <>
                           <Loader2 className="h-5 w-5 animate-spin relative z-10" />
                           <span className="relative z-10">
-                            {mode === 'signin' ? 'جاري تسجيل الدخول...' : 'جاري إنشاء الحساب...'}
+                            {step === 'verify' 
+                              ? 'جاري التحقق...'
+                              : mode === 'signin' 
+                                ? 'جاري تسجيل الدخول...' 
+                                : 'جاري إنشاء الحساب...'
+                            }
                           </span>
                         </>
                       ) : (
                         <>
-                          {mode === 'signin' ? (
+                          {step === 'verify' ? (
+                            <CheckCircle className="h-5 w-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                          ) : mode === 'signin' ? (
                             <Shield className="h-5 w-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
                           ) : (
                             <User className="h-5 w-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
                           )}
                           <span className="relative z-10">
-                            {mode === 'signin' ? 'تسجيل الدخول' : 'إنشاء حساب جديد'}
+                            {step === 'verify' 
+                              ? 'تأكيد الكود'
+                              : mode === 'signin' 
+                                ? 'تسجيل الدخول' 
+                                : 'إنشاء حساب جديد'
+                            }
                           </span>
+                          {step === 'verify' && (
+                            <ArrowRight className="h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                          )}
                         </>
                       )}
                       <div className="absolute top-0 left-0 w-full h-full bg-white/20 transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                     </button>
 
-                    {/* Mode Switch */}
-                    <div className="text-center">
-                      <button
-                        type="button"
-                        onClick={switchMode}
-                        disabled={isLoading}
-                        className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 text-sm font-medium transition-colors duration-200 disabled:opacity-50 hover:underline"
-                      >
-                        {mode === 'signin' 
-                          ? 'ليس لديك حساب؟ إنشاء حساب جديد'
-                          : 'لديك حساب بالفعل؟ تسجيل الدخول'
-                        }
-                      </button>
-                    </div>
+                    {/* Mode Switch - مخفي في خطوة التحقق */}
+                    {step === 'form' && (
+                      <div className="text-center">
+                        <button
+                          type="button"
+                          onClick={switchMode}
+                          disabled={isLoading}
+                          className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 text-sm font-medium transition-colors duration-200 disabled:opacity-50 hover:underline"
+                        >
+                          {mode === 'signin' 
+                            ? 'ليس لديك حساب؟ إنشاء حساب جديد'
+                            : 'لديك حساب بالفعل؟ تسجيل الدخول'
+                          }
+                        </button>
+                      </div>
+                    )}
                   </form>
                 </div>
               </div>
