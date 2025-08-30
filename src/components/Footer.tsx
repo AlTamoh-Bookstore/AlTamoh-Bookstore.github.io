@@ -21,7 +21,7 @@ const Footer = () => {
   };
 
   const openWhatsApp = () => {
-    window.open('https://wa.me/905376791661?text=السلام عليكم، أرغب في الاستفسار عن إصدارات دار الطموح للنشر', '_blank');
+    window.open('https://wa.me/905376791661?text=السلام عليكم، أرغب في الاستفسار عن إصدارات مكتبة الطموح', '_blank');
   };
 
   const openTelegram = () => {
@@ -150,11 +150,11 @@ const Footer = () => {
                 <div className="bg-gradient-to-br from-orange-500 to-orange-600 w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
                   <BookOpen className="h-7 w-7 text-white" strokeWidth={2} />
                 </div>
-                <span className="text-3xl font-bold text-white">دار الطموح للنشر</span>
+                <span className="text-3xl font-bold text-white">مكتبة الطموح</span>
               </div>
               
               <p className="text-slate-300 leading-relaxed mb-8 max-w-md text-lg">
-                دار الطموح للنشر والتوزيع - نقدم لك أفضل الإصدارات الأدبية والثقافية العربية 
+                مكتبة الطموح - نقدم لك أفضل الإصدارات الأدبية والثقافية العربية 
                 المتميزة لتغذية عقلك وتنمية معارفك مع إصدارات حصرية ومتنوعة.
               </p>
 
@@ -289,10 +289,10 @@ const Footer = () => {
             {/* Copyright */}
             <div className="text-center lg:text-right">
               <p className="text-slate-400 text-sm mb-2">
-                جميع الحقوق محفوظة © 2025 دار الطموح للنشر والتوزيع
+                جميع الحقوق محفوظة © 2025 مكتبة الطموح والتوزيع
               </p>
               <p className="text-orange-400 font-medium text-sm">
-                دار الطموح للنشر – حيث تبدأ رحلتك الأدبية من أول صفحة
+              مكتبة الطموح – حيث تبدأ رحلتك الأدبية من أول صفحة
               </p>
             </div>
 
@@ -310,7 +310,7 @@ const Footer = () => {
         <div className="text-center pb-6">
           <div className="inline-flex items-center gap-2 text-slate-500">
             <div className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse" />
-            <span className="text-xs">شكراً لاختياركم دار الطموح للنشر والتوزيع</span>
+            <span className="text-xs">شكراً لاختياركم مكتبة الطموح والتوزيع</span>
             <div className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse" />
           </div>
         </div>
