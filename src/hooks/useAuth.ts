@@ -15,41 +15,15 @@ export const useAuth = () => {
   });
 
   useEffect(() => {
-    // معالجة الـ URL parameters عند تحميل الصفحة
-    const handleAuthCallback = async () => {
-      const hashParams = new URLSearchParams(window.location.hash.substring(1));
-      const urlParams = new URLSearchParams(window.location.search);
-      
-      // التحقق من وجود access_token في الـ hash أو query parameters
-      const accessToken = hashParams.get('access_token') || urlParams.get('access_token');
-      const refreshToken = hashParams.get('refresh_token') || urlParams.get('refresh_token');
-      
-      if (accessToken && refreshToken) {
-        try {
-          const { data, error } = await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken
-          });
-          
-          if (error) throw error;
-          
-          // مسح الـ URL parameters بعد المعالجة
-          window.history.replaceState({}, document.title, window.location.pathname);
-          
-          return;
-        } catch (error) {
-          console.error('خطأ في معالجة callback:', error);
-        }
-      }
-    };
-
-    // Get initial session
+    // Get initial session بدون معالجة URL parameters
     const getSession = async () => {
       try {
-        // معالجة callback أولاً
-        await handleAuthCallback();
+        const { data: { session }, error } = await supabase.auth.getSession();
         
-        const { data: { session } } = await supabase.auth.getSession();
+        if (error) {
+          console.error('خطأ في الحصول على الجلسة:', error);
+        }
+        
         setAuthState({
           user: session?.user ?? null,
           session: session ?? null,
@@ -69,12 +43,19 @@ export const useAuth = () => {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.email);
+        
         setAuthState({
           user: session?.user ?? null,
           session: session ?? null,
           loading: false,
         });
+
+        // تنظيف الـ URL من parameters غير المرغوب بها
+        if (window.location.search.includes('code=') || window.location.hash.includes('access_token=')) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
       }
     );
 
@@ -85,9 +66,49 @@ export const useAuth = () => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
+      
+      // تنظيف الحالة المحلية
+      setAuthState({
+        user: null,
+        session: null,
+        loading: false,
+      });
     } catch (error) {
       console.error('خطأ في تسجيل الخروج:', error);
       throw error;
+    }
+  };
+
+  // دالة مساعدة لإرسال OTP
+  const sendVerificationCode = async (email: string, type: 'signup' | 'signin' = 'signup') => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOtp({
+        email: email,
+        options: {
+          shouldCreateUser: type === 'signup'
+        }
+      });
+
+      return { data, error };
+    } catch (error) {
+      console.error('خطأ في إرسال كود التحقق:', error);
+      return { data: null, error };
+    }
+  };
+
+  // دالة مساعدة للتحقق من OTP
+  const verifyCode = async (email: string, token: string, type: 'signup' | 'magiclink' = 'signup') => {
+    try {
+      const { data, error } = await supabase.auth.verifyOtp({
+        email,
+        token,
+        type
+      });
+
+      return { data, error };
+    } catch (error) {
+      console.error('خطأ في التحقق من الكود:', error);
+      return { data: null, error };
     }
   };
 
@@ -96,5 +117,7 @@ export const useAuth = () => {
     session: authState.session,
     loading: authState.loading,
     signOut,
+    sendVerificationCode,
+    verifyCode,
   };
 };
