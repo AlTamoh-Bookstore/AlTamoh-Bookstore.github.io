@@ -296,18 +296,6 @@ const Footer = () => {
               </p>
             </div>
 
-            {/* Developer Credits */}
-            <div className="text-center lg:text-left">
-              <p className="text-slate-300 text-sm">
-                تمت البرمجة من قبل الشاعر والمبرمج 
-                <span className="text-orange-400 font-medium"> ميسرة سالم</span>
-              </p>
-              <p className="text-slate-300 text-sm">
-                للتواصل :  
-                <span className="text-orange-400 font-medium">+90 537 661 77 91</span>
-              </p>
-            </div>
-
             {/* Back to Top Button */}
             <button 
               onClick={scrollToTop}
