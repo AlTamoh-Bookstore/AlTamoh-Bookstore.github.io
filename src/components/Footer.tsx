@@ -65,10 +65,7 @@ const Footer = () => {
       "إصدارات دار الطموح": Star,
       "سياسة": Target,
       "تطوير الذات": Star,
-      "الأكثر مبيعاً": Trophy,
-      "الفلسفة وعلم النفس": Brain,
-      "التحقيق والجريمة": Shield,
-      "التنمية الذاتية": Target
+      "الأكثر مبيعاً": Trophy
     };
     return iconMap[category] || BookOpen;
   };
@@ -79,20 +76,12 @@ const Footer = () => {
     { name: 'الأكثر مبيعاً', icon: Trophy, color: 'text-yellow-400', special: true },
     { name: 'دين', icon: Book, color: 'text-slate-300', special: false },
     { name: 'تاريخ', icon: Compass, color: 'text-slate-300', special: false },
-    { name: 'علوم', icon: Lightbulb, color: 'text-slate-300', special: false },
     { name: 'تحقيق و جريمة', icon: Shield, color: 'text-slate-300', special: false },
     { name: 'فلسفة و علم نفس', icon: Brain, color: 'text-slate-300', special: false },
     { name: 'أدب', icon: BookOpen, color: 'text-slate-300', special: false },
-    { name: 'طب', icon: Plus, color: 'text-slate-300', special: false },
     { name: 'اقتصاد', icon: Trophy, color: 'text-slate-300', special: false },
-    { name: 'قانون', icon: Users, color: 'text-slate-300', special: false },
     { name: 'سياسة', icon: Target, color: 'text-slate-300', special: false },
-    { name: 'تطوير الذات', icon: Target, color: 'text-slate-300', special: false },
-    { name: 'الأدب العربي', icon: BookOpen, color: 'text-slate-300', special: false },
-    { name: 'الفلسفة وعلم النفس', icon: Brain, color: 'text-slate-300', special: false },
-    { name: 'التحقيق والجريمة', icon: Shield, color: 'text-slate-300', special: false },
-    { name: 'المقالات الأدبية', icon: BookOpen, color: 'text-slate-300', special: false },
-    { name: 'التنمية الذاتية', icon: Target, color: 'text-slate-300', special: false }
+    { name: 'تطوير الذات', icon: Target, color: 'text-slate-300', special: false }
   ];
 
   return (
