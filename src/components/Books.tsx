@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Tag, ShoppingCart, Search, Filter, Star, X, Percent, BookOpen, Bookmark, Award, Sparkles, Plus, Minus, MessageCircle, Send, Trash2, ChevronDown, ChevronUp, ArrowLeft, Grid3x3, List, Eye, Heart, Compass, Lightbulb, Users, Briefcase, Shield, Globe, Book, Trophy, Target, Brain, Palette, Feather } from 'lucide-react';
+import { Tag, ShoppingCart, Search, Filter, Star, X, Percent, BookOpen, Bookmark, Award, Sparkles, Plus, Minus, MessageCircle, Send, Trash2, ChevronDown, ChevronUp, ArrowLeft, Grid3x3, List, Eye, Heart, Compass, Lightbulb, Users, Briefcase, Shield, Globe, Book, Trophy, Target, Brain, Palette, Feather, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { addToFavorites, removeFromFavorites, isFavorite, getUserFavorites } from '../lib/favorites';
 import FavoritesList from './FavoritesList';
@@ -40,6 +40,11 @@ const Books = () => {
   const [isBookModalOpen, setIsBookModalOpen] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState<'TL' | 'USD'>('TL'); // Add currency selector
   
+  // Search and categories state
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [searchResults, setSearchResults] = useState<Book[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  
   // Pagination state
   const [visibleBooksCount, setVisibleBooksCount] = useState(0);
   const [isSmallDevice, setIsSmallDevice] = useState(false);
@@ -48,12 +53,14 @@ const Books = () => {
   const [user, setUser] = useState<User | null>(null);
   const [favoriteBooks, setFavoriteBooks] = useState<Set<string>>(new Set());
   const [loadingFavorites, setLoadingFavorites] = useState<Set<string>>(new Set());
+  const [keepCategoriesOpen, setKeepCategoriesOpen] = useState(false);
 
   // Refs for scroll control
   const sectionRef = useRef<HTMLElement>(null);
   const categoryGridRef = useRef<HTMLDivElement>(null);
   const booksGridRef = useRef<HTMLDivElement>(null);
-
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
   // Check if device is small
   useEffect(() => {
     const checkDeviceSize = () => {
@@ -82,6 +89,37 @@ const Books = () => {
   useEffect(() => {
     setShuffledBooks(shuffleArray([...books]));
   }, []);
+
+  // Search functionality with debouncing
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (searchTerm.trim()) {
+        performSearch(searchTerm);
+      } else {
+        setSearchResults([]);
+        setIsSearching(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchTerm, shuffledBooks]);
+
+  const performSearch = (query: string) => {
+    setIsSearching(true);
+    
+    const lowerQuery = query.toLowerCase().trim();
+    const results = shuffledBooks.filter(book => {
+      const titleMatch = book.title.toLowerCase().includes(lowerQuery);
+      const authorMatch = book.author?.toLowerCase().includes(lowerQuery) || false;
+      const categoryMatch = book.category.toLowerCase().includes(lowerQuery);
+      const descriptionMatch = book.description.toLowerCase().includes(lowerQuery);
+      
+      return titleMatch || authorMatch || categoryMatch || descriptionMatch;
+    });
+
+    setSearchResults(results);
+    setIsSearching(false);
+  };
 
   // Initialize from URL parameters on component mount
   useEffect(() => {
@@ -978,17 +1016,13 @@ const Books = () => {
     return iconMap[category] || BookOpen;
   };
 
-  // Enhanced filtering logic - fixed to properly handle search
-  const filteredBooks = shuffledBooks.filter(book => {
-    const matchesSearch = searchTerm === '' || 
-      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.author?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesCategory = !selectedCategory || book.category === selectedCategory;
-    
-    return matchesSearch && matchesCategory;
-  });
+  // Enhanced filtering logic
+  const filteredBooks = searchTerm && !showCategorySelection 
+    ? searchResults
+    : shuffledBooks.filter(book => {
+        const matchesCategory = !selectedCategory || book.category === selectedCategory;
+        return matchesCategory;
+      });
 
   const getBooksByCategory = (category: string) => {
     if (category === "المفضلة") {
@@ -1078,6 +1112,8 @@ const Books = () => {
     setSelectedCategory(category);
     setShowCategorySelection(false);
     setSearchTerm('');
+    setIsSearchFocused(false);
+    setSearchResults([]);
     // Reset visible books count when selecting a category
     const initialCount = isSmallDevice ? 6 : 12;
     setVisibleBooksCount(initialCount);
@@ -1095,6 +1131,8 @@ const Books = () => {
     setSearchTerm('');
     setSelectedBook(null);
     setVisibleBooksCount(0);
+    setIsSearchFocused(false);
+    setSearchResults([]);
     
     // Update history state
     updateHistoryState(null, true, '');
@@ -1128,35 +1166,152 @@ const Books = () => {
     window.open(`https://wa.me/905376791661?text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  // Fixed global search handler
-  const handleGlobalSearchChange = (newSearchTerm: string) => {
+  // Enhanced search handler
+  const handleSearchChange = (newSearchTerm: string) => {
     setSearchTerm(newSearchTerm);
     
-    // If we have a search term, show all books
-    if (newSearchTerm && showCategorySelection) {
-      setShowCategorySelection(false);
-      setSelectedCategory(null);
-      setVisibleBooksCount(isSmallDevice ? 6 : 12);
+    if (newSearchTerm.trim()) {
+      if (showCategorySelection) {
+        setShowCategorySelection(false);
+        setSelectedCategory(null);
+        setVisibleBooksCount(isSmallDevice ? 6 : 12);
+      }
+      updateHistoryState(null, false, newSearchTerm);
+    } else {
+      if (!selectedCategory) {
+        setShowCategorySelection(true);
+      }
+      updateHistoryState(selectedCategory, !selectedCategory, '');
     }
-    
-    // If search is cleared and we're not in a category, go back to category selection
-    if (!newSearchTerm && !selectedCategory) {
-      setShowCategorySelection(true);
-    }
-    
-    // Update URL with search parameter
-    updateHistoryState(selectedCategory, newSearchTerm ? false : !selectedCategory, newSearchTerm);
   };
 
-  // Category-specific search handler
-  const handleCategorySearchChange = (newSearchTerm: string) => {
-    setSearchTerm(newSearchTerm);
-    
-    // Update URL with search parameter
-    if (selectedCategory && !showCategorySelection) {
-      updateHistoryState(selectedCategory, false, newSearchTerm);
+  // Handle search focus
+  const handleSearchFocus = () => {
+    setIsSearchFocused(true);
+  };
+
+  const handleSearchBlur = () => {
+    // Simple timeout to hide categories, no scroll interference
+    setTimeout(() => {
+      if (!keepCategoriesOpen) {
+        setIsSearchFocused(false);
+      }
+    }, 200);
+  };
+
+  // Category scroll functions
+  const scrollCategoriesLeft = () => {
+    if (categoryScrollRef.current) {
+      categoryScrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
     }
   };
+
+  const scrollCategoriesRight = () => {
+    if (categoryScrollRef.current) {
+      categoryScrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
+
+  // Currency Toggle Component
+  const CurrencyToggle = () => (
+    <div className="relative">
+      <div className="w-14 sm:w-16 h-7 sm:h-8 bg-gradient-to-r dark:from-slate-700 dark:to-slate-600 from-gray-200 to-gray-300 rounded-full shadow-inner border dark:border-slate-500/30 border-gray-400/50 transition-colors duration-200">
+        
+        {/* Moving Toggle Circle */}
+        <div 
+          className={`absolute top-0.5 left-0.5 w-6 sm:w-7 h-6 sm:h-7 bg-gradient-to-br from-white to-gray-50 dark:from-slate-100 dark:to-slate-200 rounded-full shadow-lg transform transition-transform duration-200 ease-out flex items-center justify-center ${
+            selectedCurrency === 'USD' 
+              ? 'translate-x-7 sm:translate-x-8' 
+              : 'translate-x-0'
+          }`}
+        >
+          {/* Active Currency Symbol */}
+          <span className="text-orange-600 font-bold text-xs">
+            {selectedCurrency === 'TL' ? '₺' : '$'}
+          </span>
+        </div>
+        
+        {/* Background Currency Labels */}
+        <div className="absolute inset-0 flex items-center justify-between px-2 sm:px-2.5 pointer-events-none">
+          <span className={`text-xs font-bold transition-opacity duration-200 ${
+            selectedCurrency === 'TL' 
+              ? 'opacity-0' 
+              : 'opacity-60 text-slate-600 dark:text-slate-300'
+          }`}>
+          </span>
+          <span className={`text-xs font-bold transition-opacity duration-200 ${
+            selectedCurrency === 'USD' 
+              ? 'opacity-0' 
+              : 'opacity-60 text-slate-600 dark:text-slate-300'
+          }`}>
+          </span>
+        </div>
+      </div>
+      
+      {/* Single clickable overlay */}
+      <button
+        onClick={() => setSelectedCurrency(selectedCurrency === 'TL' ? 'USD' : 'TL')}
+        className="absolute inset-0 w-full h-full rounded-full cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200"
+        aria-label={`تغيير إلى ${selectedCurrency === 'TL' ? 'الدولار' : 'الليرة التركية'}`}
+      />
+    </div>
+  );
+
+  // Categories Scroll Bar Component
+  const CategoriesScrollBar = () => (
+    <div className={`relative mb-6 transition-all duration-300 ${
+      isSearchFocused || keepCategoriesOpen ? 'opacity-100 max-h-20' : 'opacity-0 max-h-0 overflow-hidden'
+    }`}>
+      <div className="flex items-center gap-1 sm:gap-3">
+        {/* Left scroll arrow - Better positioned outside */}
+        <button
+          onClick={scrollCategoriesLeft}
+          onMouseDown={(e) => e.preventDefault()}
+          onMouseEnter={() => setKeepCategoriesOpen(true)}
+          className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-orange-500/20 hover:bg-orange-500/30 rounded-lg transition-all duration-200 flex items-center justify-center"
+        >
+          <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4 text-orange-600" />
+        </button>
+  
+        {/* Categories container - No mouse interference */}
+        <div
+          ref={categoryScrollRef}
+          className="flex gap-3 overflow-x-auto scrollbar-hide px-2 py-2 flex-1"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          onMouseEnter={() => setKeepCategoriesOpen(true)}
+        >
+          {categories.map((category) => {
+            const IconComponent = getCategoryIcon(category);
+            return (
+              <button
+                key={category}
+                onClick={() => selectCategory(category)}
+                onMouseDown={(e) => e.preventDefault()}
+                className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+                  category === "المفضلة"
+                    ? "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white"
+                    : "bg-gradient-to-r from-orange-500/10 to-orange-600/10 hover:from-orange-500/20 hover:to-orange-600/20 dark:bg-slate-700/50 text-orange-600 dark:text-orange-400 hover:scale-105"
+                }`}
+              >
+                <IconComponent className="h-4 w-4" />
+                <span className="whitespace-nowrap text-sm">{category}</span>
+              </button>
+            );
+          })}
+        </div>
+  
+        {/* Right scroll arrow - Better positioned outside */}
+        <button
+          onClick={scrollCategoriesRight}
+          onMouseDown={(e) => e.preventDefault()}
+          onMouseEnter={() => setKeepCategoriesOpen(true)}
+          className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-orange-500/20 hover:bg-orange-500/30 rounded-lg transition-all duration-200 flex items-center justify-center"
+        >
+          <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 text-orange-600" />
+        </button>
+      </div>
+    </div>
+  );
 
   // If Favorites category is selected, show the FavoritesList component with go back functionality
   if (selectedCategory === "المفضلة" && !showCategorySelection) {
@@ -1282,7 +1437,9 @@ const Books = () => {
                             : 'bg-gray-200 hover:bg-red-100 text-gray-700 hover:text-red-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-red-900/20 dark:hover:text-red-400'
                         } ${isLoadingFavorite ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}`}
                       >
-                        <Heart className={`h-4 w-4 transition-all duration-300 ${isBookFavorite ? 'fill-current' : ''}`} />
+                        <Heart 
+                          className={`h-4 w-4 transition-all duration-300 ${isBookFavorite ? 'fill-current' : ''}`} 
+                        />
                         {isLoadingFavorite ? 'جاري التحديث...' : isBookFavorite ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}
                       </button>
                     </div>
@@ -1348,52 +1505,6 @@ const Books = () => {
       
       {/* Background Effects */}
       <div className="absolute bottom-5 sm:bottom-20 left-5 sm:left-20 w-32 h-32 sm:w-96 sm:h-96 bg-gradient-to-br dark:from-gray-300/10 dark:to-gray-500/10 from-blue-200/8 to-blue-400/8 rounded-full blur-3xl transition-all duration-500"></div>
-
-{/* Currency Selector - Fixed overflow issue */}
-<div className="absolute top-3 sm:top-6 right-3 sm:right-6 z-40">
-  <div className="relative">
-    {/* Toggle Track */}
-    <div className="w-14 sm:w-16 h-7 sm:h-8 bg-gradient-to-r dark:from-slate-700 dark:to-slate-600 from-gray-200 to-gray-300 rounded-full shadow-inner border dark:border-slate-500/30 border-gray-400/50 transition-colors duration-200">
-      
-      {/* Moving Toggle Circle */}
-      <div 
-        className={`absolute top-0.5 left-0.5 w-6 sm:w-7 h-6 sm:h-7 bg-gradient-to-br from-white to-gray-50 dark:from-slate-100 dark:to-slate-200 rounded-full shadow-lg transform transition-transform duration-200 ease-out flex items-center justify-center ${
-          selectedCurrency === 'USD' 
-            ? 'translate-x-7 sm:translate-x-8' 
-            : 'translate-x-0'
-        }`}
-      >
-        {/* Active Currency Symbol */}
-        <span className="text-orange-600 font-bold text-xs">
-          {selectedCurrency === 'TL' ? '₺' : '$'}
-        </span>
-      </div>
-      
-      {/* Background Currency Labels */}
-      <div className="absolute inset-0 flex items-center justify-between px-2 sm:px-2.5 pointer-events-none">
-        <span className={`text-xs font-bold transition-opacity duration-200 ${
-          selectedCurrency === 'TL' 
-            ? 'opacity-0' 
-            : 'opacity-60 text-slate-600 dark:text-slate-300'
-        }`}>
-        </span>
-        <span className={`text-xs font-bold transition-opacity duration-200 ${
-          selectedCurrency === 'USD' 
-            ? 'opacity-0' 
-            : 'opacity-60 text-slate-600 dark:text-slate-300'
-        }`}>
-        </span>
-      </div>
-    </div>
-    
-    {/* Single clickable overlay */}
-    <button
-      onClick={() => setSelectedCurrency(selectedCurrency === 'TL' ? 'USD' : 'TL')}
-      className="absolute inset-0 w-full h-full rounded-full cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200"
-      aria-label={`تغيير إلى ${selectedCurrency === 'TL' ? 'الدولار' : 'الليرة التركية'}`}
-    />
-  </div>
-</div>
 
       {/* Cart Button - Fixed positioning and proper cart icon */}
       <div className="fixed bottom-4 right-4 z-50">
@@ -1500,23 +1611,33 @@ const Books = () => {
             مجموعة متنوعة من الإصدارات الحصرية والمتميزة من دار الطموح للنشر والتوزيع
           </p>
 
-          {/* Global Search Bar - Only show on main page */}
-          {showCategorySelection && (
-            <div className="max-w-2xl mx-auto mt-8 sm:mt-12">
-              <div className="relative">
+          {/* Enhanced Search Bar with Currency Toggle */}
+          <div className="max-w-2xl mx-auto mt-8 sm:mt-12">
+            <div className="flex gap-3 items-center">
+              {/* Currency Toggle - Now on the left */}
+              <CurrencyToggle />
+              
+              {/* Search Input */}
+              <div className="relative flex-1">
                 <div className="absolute inset-y-0 right-0 pl-3 flex items-center pointer-events-none">
                   <Search className="h-4 w-4 sm:h-5 sm:w-5 dark:text-slate-400 text-[#6c7a89]" />
                 </div>
                 <input
+                  ref={searchInputRef}
                   type="text"
-                  placeholder="البحث في جميع الكتب والفئات..."
+                  placeholder={showCategorySelection ? "البحث في جميع الكتب والفئات..." : selectedCategory ? `البحث في ${selectedCategory}...` : "البحث في جميع الكتب..."}
                   value={searchTerm}
-                  onChange={(e) => handleGlobalSearchChange(e.target.value)}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  onFocus={handleSearchFocus}
+                  onBlur={handleSearchBlur}
                   className="w-full pr-10 sm:pr-12 pl-4 py-3 sm:py-4 dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm border dark:border-slate-700/30 border-orange-200/30 rounded-xl sm:rounded-2xl dark:text-white text-[#1d2d50] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/50 text-sm sm:text-base lg:text-lg shadow-lg"
                 />
               </div>
             </div>
-          )}
+
+            {/* Categories Scroll Bar - Shows when search is focused */}
+            <CategoriesScrollBar />
+          </div>
 
           {!showCategorySelection && (
             <button
@@ -1611,44 +1732,7 @@ const Books = () => {
             isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
             
-            <div className="mb-6 sm:mb-12">
-              <div className="max-w-2xl mx-auto">
-                <div className="relative mb-4 sm:mb-6">
-                  <div className="absolute inset-y-0 right-0 pl-3 flex items-center pointer-events-none">
-                    <Search className="h-4 w-4 sm:h-5 sm:w-5 dark:text-slate-400 text-[#6c7a89]" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder={selectedCategory ? `البحث في ${selectedCategory}...` : "البحث في جميع الكتب..."}
-                    value={searchTerm}
-                    onChange={(e) => handleCategorySearchChange(e.target.value)}
-                    className="w-full pr-10 sm:pr-12 pl-4 py-3 sm:py-4 dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm border dark:border-slate-700/30 border-orange-200/30 rounded-xl sm:rounded-2xl dark:text-white text-[#1d2d50] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/50 text-sm sm:text-base lg:text-lg shadow-lg"
-                  />
-                </div>
-
-                {!selectedCategory && (
-                  <div className="flex flex-wrap gap-2 sm:gap-3 justify-center">
-                    <button
-                      onClick={() => setSelectedCategory(null)}
-                      className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl font-medium transition-all duration-300 bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg text-xs sm:text-sm"
-                    >
-                      جميع الفئات
-                    </button>
-                    {categories.filter(cat => cat !== "المفضلة").slice(0, 6).map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => setSelectedCategory(category)}
-                        className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl font-medium transition-all duration-300 dark:bg-slate-700/50 bg-orange-100/60 dark:text-slate-300 text-[#6c7a89] hover:bg-orange-200/80 text-xs sm:text-sm"
-                      >
-                        {category.length > 10 ? category.substring(0, 10) + '...' : category}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {selectedCategory && selectedCategory !== "المفضلة" && (
+            {selectedCategory && (
               <div className="text-center mb-6 sm:mb-12">
                 <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r dark:from-slate-700/60 dark:to-slate-600/60 from-orange-50/80 to-orange-100/60 rounded-xl sm:rounded-2xl">
                   <Filter className="h-4 w-4 sm:h-5 sm:w-5 text-orange-500" />
@@ -1658,6 +1742,24 @@ const Books = () => {
                   <span className="text-xs sm:text-sm dark:text-slate-300 text-[#6c7a89] bg-orange-500/20 px-2 sm:px-3 py-1 rounded-lg">
                     {filteredBooks.length} كتاب
                   </span>
+                </div>
+              </div>
+            )}
+
+            {/* Search Results Info */}
+            {searchTerm && !selectedCategory && (
+              <div className="text-center mb-6 sm:mb-12">
+                <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r dark:from-slate-700/60 dark:to-slate-600/60 from-orange-50/80 to-orange-100/60 rounded-xl sm:rounded-2xl">
+                  <Search className="h-4 w-4 sm:h-5 sm:w-5 text-orange-500" />
+                  <span className="text-sm sm:text-base lg:text-lg font-semibold dark:text-white text-[#1d2d50]">
+                    نتائج البحث: "{searchTerm}"
+                  </span>
+                  <span className="text-xs sm:text-sm dark:text-slate-300 text-[#6c7a89] bg-orange-500/20 px-2 sm:px-3 py-1 rounded-lg">
+                    {filteredBooks.length} كتاب
+                  </span>
+                  {isSearching && (
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-orange-500"></div>
+                  )}
                 </div>
               </div>
             )}
@@ -1755,6 +1857,8 @@ const Books = () => {
                 <p className="dark:text-slate-400 text-[#6c7a89] text-sm sm:text-base">
                   {selectedCategory 
                     ? `تم عرض جميع الكتب في فئة ${selectedCategory}`
+                    : searchTerm 
+                    ? `تم عرض جميع نتائج البحث عن "${searchTerm}"`
                     : `تم عرض جميع الكتب من إصدارات دار الطموح`
                   }
                 </p>
@@ -1777,11 +1881,13 @@ const Books = () => {
                   onClick={() => {
                     setSearchTerm('');
                     setSelectedCategory(null);
-                    updateHistoryState(null, false, '');
+                    setShowCategorySelection(true);
+                    setSearchResults([]);
+                    updateHistoryState(null, true, '');
                   }}
                   className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg sm:rounded-xl font-semibold transition-all duration-300 shadow-lg hover:scale-105 text-sm sm:text-base"
                 >
-                  مسح الفلاتر والعودة لجميع الكتب
+                  مسح البحث والعودة للفئات
                 </button>
               </div>
             )}
@@ -1818,6 +1924,15 @@ const Books = () => {
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+          }
+          
+          .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
           }
           
           @keyframes float {
@@ -1859,6 +1974,37 @@ const Books = () => {
           
           html {
             scroll-behavior: smooth;
+          }
+
+          /* Smooth transitions for search states */
+          .search-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+
+          /* Enhanced focus styles */
+          input:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 3px rgba(255, 166, 0, 0.1);
+          }
+
+          /* Smooth category scroll */
+          .category-scroll {
+            scroll-behavior: smooth;
+            transition: transform 0.3s ease;
+          }
+
+          /* Loading animation */
+          @keyframes pulse-search {
+            0%, 100% {
+              opacity: 1;
+            }
+            50% {
+              opacity: .5;
+            }
+          }
+
+          .animate-pulse-search {
+            animation: pulse-search 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
           }
         `
       }} />
