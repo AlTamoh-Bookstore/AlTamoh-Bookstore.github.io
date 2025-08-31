@@ -61,17 +61,13 @@ const Footer = () => {
       "تحقيق و جريمة": Shield,
       "فلسفة و علم نفس": Brain,
       "أدب": BookOpen,
-      "طب": Plus,
       "اقتصاد": Trophy,
-      "قانون": Users,
       "إصدارات دار الطموح": Star,
       "سياسة": Target,
       "تطوير الذات": Star,
       "الأكثر مبيعاً": Trophy,
-      "الأدب العربي": BookOpen,
       "الفلسفة وعلم النفس": Brain,
       "التحقيق والجريمة": Shield,
-      "المقالات الأدبية": BookOpen,
       "التنمية الذاتية": Target
     };
     return iconMap[category] || BookOpen;
