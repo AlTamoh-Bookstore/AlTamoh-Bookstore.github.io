@@ -35,7 +35,6 @@ const Books = () => {
   const [expandedBooks, setExpandedBooks] = useState<Set<number>>(new Set());
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [globalSearchTerm, setGlobalSearchTerm] = useState(''); // Add global search
   const [showCategorySelection, setShowCategorySelection] = useState(true);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [isBookModalOpen, setIsBookModalOpen] = useState(false);
@@ -98,7 +97,10 @@ const Books = () => {
     if (searchFromUrl) {
       const searchValue = decodeURIComponent(searchFromUrl);
       setSearchTerm(searchValue);
-      setGlobalSearchTerm(searchValue);
+      if (!categoryFromUrl) {
+        setShowCategorySelection(false);
+        setSelectedCategory(null);
+      }
     }
   }, []);
 
@@ -112,14 +114,12 @@ const Books = () => {
         setSelectedCategory(state.category);
         setShowCategorySelection(state.showCategorySelection);
         setSearchTerm(state.searchTerm || '');
-        setGlobalSearchTerm(state.searchTerm || '');
         setVisibleBooksCount(state.visibleBooksCount || (isSmallDevice ? 6 : 12));
       } else {
         // No state, go back to category selection
         setShowCategorySelection(true);
         setSelectedCategory(null);
         setSearchTerm('');
-        setGlobalSearchTerm('');
         setVisibleBooksCount(0);
       }
       
@@ -170,7 +170,7 @@ const Books = () => {
       visibleBooksCount: isSmallDevice ? 6 : 12
     };
     
-    if (showCategories && !category) {
+    if (showCategories && !category && !search) {
       // Going back to main categories view
       window.history.pushState(null, '', window.location.pathname);
     } else {
@@ -297,6 +297,7 @@ const Books = () => {
   };
 
   const books: Book[] = [
+    // Add your books data here
       // إصدارات دار الطموح
   
       // الكتب الأكثر مبيعاً
@@ -966,7 +967,7 @@ const Books = () => {
       "تحقيق و جريمة": Shield,
       "فلسفة و علم نفس": Brain,
       "أدب": BookOpen,
-      "روايات": Feather, // Add novels icon
+      "روايات": Feather,
       "طب": Plus,
       "اقتصاد": Trophy,
       "قانون": Users,
@@ -977,13 +978,12 @@ const Books = () => {
     return iconMap[category] || BookOpen;
   };
 
-  // Enhanced filtering with global search
+  // Enhanced filtering logic - fixed to properly handle search
   const filteredBooks = shuffledBooks.filter(book => {
-    const searchTermToUse = globalSearchTerm || searchTerm;
-    const matchesSearch = searchTermToUse === '' || 
-      book.title.toLowerCase().includes(searchTermToUse.toLowerCase()) ||
-      book.author?.toLowerCase().includes(searchTermToUse.toLowerCase()) ||
-      book.description.toLowerCase().includes(searchTermToUse.toLowerCase());
+    const matchesSearch = searchTerm === '' || 
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.author?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.description.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesCategory = !selectedCategory || book.category === selectedCategory;
     
@@ -1078,7 +1078,6 @@ const Books = () => {
     setSelectedCategory(category);
     setShowCategorySelection(false);
     setSearchTerm('');
-    setGlobalSearchTerm('');
     // Reset visible books count when selecting a category
     const initialCount = isSmallDevice ? 6 : 12;
     setVisibleBooksCount(initialCount);
@@ -1094,7 +1093,6 @@ const Books = () => {
     setShowCategorySelection(true);
     setSelectedCategory(null);
     setSearchTerm('');
-    setGlobalSearchTerm('');
     setSelectedBook(null);
     setVisibleBooksCount(0);
     
@@ -1130,19 +1128,8 @@ const Books = () => {
     window.open(`https://wa.me/905376791661?text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  // Enhanced search handler with URL update
-  const handleSearchChange = (newSearchTerm: string) => {
-    setSearchTerm(newSearchTerm);
-    
-    // Update URL with search parameter
-    if (selectedCategory && !showCategorySelection) {
-      updateHistoryState(selectedCategory, false, newSearchTerm);
-    }
-  };
-
-  // Global search handler
+  // Fixed global search handler
   const handleGlobalSearchChange = (newSearchTerm: string) => {
-    setGlobalSearchTerm(newSearchTerm);
     setSearchTerm(newSearchTerm);
     
     // If we have a search term, show all books
@@ -1150,11 +1137,23 @@ const Books = () => {
       setShowCategorySelection(false);
       setSelectedCategory(null);
       setVisibleBooksCount(isSmallDevice ? 6 : 12);
-      updateHistoryState(null, false, newSearchTerm);
+    }
+    
+    // If search is cleared and we're not in a category, go back to category selection
+    if (!newSearchTerm && !selectedCategory) {
+      setShowCategorySelection(true);
     }
     
     // Update URL with search parameter
-    if (!showCategorySelection) {
+    updateHistoryState(selectedCategory, newSearchTerm ? false : !selectedCategory, newSearchTerm);
+  };
+
+  // Category-specific search handler
+  const handleCategorySearchChange = (newSearchTerm: string) => {
+    setSearchTerm(newSearchTerm);
+    
+    // Update URL with search parameter
+    if (selectedCategory && !showCategorySelection) {
       updateHistoryState(selectedCategory, false, newSearchTerm);
     }
   };
@@ -1491,7 +1490,7 @@ const Books = () => {
                 <input
                   type="text"
                   placeholder="البحث في جميع الكتب والفئات..."
-                  value={globalSearchTerm}
+                  value={searchTerm}
                   onChange={(e) => handleGlobalSearchChange(e.target.value)}
                   className="w-full pr-10 sm:pr-12 pl-4 py-3 sm:py-4 dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm border dark:border-slate-700/30 border-orange-200/30 rounded-xl sm:rounded-2xl dark:text-white text-[#1d2d50] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/50 text-sm sm:text-base lg:text-lg shadow-lg"
                 />
@@ -1602,7 +1601,7 @@ const Books = () => {
                     type="text"
                     placeholder={selectedCategory ? `البحث في ${selectedCategory}...` : "البحث في جميع الكتب..."}
                     value={searchTerm}
-                    onChange={(e) => handleSearchChange(e.target.value)}
+                    onChange={(e) => handleCategorySearchChange(e.target.value)}
                     className="w-full pr-10 sm:pr-12 pl-4 py-3 sm:py-4 dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm border dark:border-slate-700/30 border-orange-200/30 rounded-xl sm:rounded-2xl dark:text-white text-[#1d2d50] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/50 text-sm sm:text-base lg:text-lg shadow-lg"
                   />
                 </div>
@@ -1757,7 +1756,6 @@ const Books = () => {
                 <button
                   onClick={() => {
                     setSearchTerm('');
-                    setGlobalSearchTerm('');
                     setSelectedCategory(null);
                     updateHistoryState(null, false, '');
                   }}
