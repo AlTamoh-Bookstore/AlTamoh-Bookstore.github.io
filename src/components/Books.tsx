@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Tag, ShoppingCart, Search, Filter, Star, X, Percent, BookOpen, Bookmark, Award, Sparkles, Plus, Minus, MessageCircle, Send, Trash2, ChevronDown, ChevronUp, ArrowLeft, Grid3x3, List, Eye, Heart, Compass, Lightbulb, Users, Briefcase, Shield, Globe, Book, Trophy, Target, Brain, Palette } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { addToFavorites, removeFromFavorites, isFavorite, getUserFavorites } from '../lib/favorites';
@@ -46,6 +46,11 @@ const Books = () => {
   const [favoriteBooks, setFavoriteBooks] = useState<Set<string>>(new Set());
   const [loadingFavorites, setLoadingFavorites] = useState<Set<string>>(new Set());
 
+  // Refs for scroll control
+  const sectionRef = useRef<HTMLElement>(null);
+  const categoryGridRef = useRef<HTMLDivElement>(null);
+  const booksGridRef = useRef<HTMLDivElement>(null);
+
   // Check if device is small
   useEffect(() => {
     const checkDeviceSize = () => {
@@ -74,6 +79,96 @@ const Books = () => {
   useEffect(() => {
     setShuffledBooks(shuffleArray([...books]));
   }, []);
+
+  // Initialize from URL parameters on component mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryFromUrl = urlParams.get('category');
+    const searchFromUrl = urlParams.get('search');
+    
+    if (categoryFromUrl) {
+      setSelectedCategory(decodeURIComponent(categoryFromUrl));
+      setShowCategorySelection(false);
+    }
+    
+    if (searchFromUrl) {
+      setSearchTerm(decodeURIComponent(searchFromUrl));
+    }
+  }, []);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      const state = event.state;
+      
+      if (state) {
+        // Restore state from history
+        setSelectedCategory(state.category);
+        setShowCategorySelection(state.showCategorySelection);
+        setSearchTerm(state.searchTerm || '');
+        setVisibleBooksCount(state.visibleBooksCount || (isSmallDevice ? 6 : 12));
+      } else {
+        // No state, go back to category selection
+        setShowCategorySelection(true);
+        setSelectedCategory(null);
+        setSearchTerm('');
+        setVisibleBooksCount(0);
+      }
+      
+      // Scroll to top smoothly
+      scrollToTop();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [isSmallDevice]);
+
+  // Function to scroll to top smoothly
+  const scrollToTop = () => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    } else {
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth' 
+      });
+    }
+  };
+
+  // Function to update URL and history
+  const updateHistoryState = (category: string | null, showCategories: boolean, search: string = '') => {
+    const params = new URLSearchParams();
+    
+    if (category && !showCategories) {
+      params.set('category', encodeURIComponent(category));
+    }
+    
+    if (search) {
+      params.set('search', encodeURIComponent(search));
+    }
+    
+    const url = params.toString() ? `${window.location.pathname}?${params.toString()}` : window.location.pathname;
+    
+    const state = {
+      category,
+      showCategorySelection: showCategories,
+      searchTerm: search,
+      visibleBooksCount: isSmallDevice ? 6 : 12
+    };
+    
+    if (showCategories && !category) {
+      // Going back to main categories view
+      window.history.pushState(null, '', window.location.pathname);
+    } else {
+      window.history.pushState(state, '', url);
+    }
+  };
 
   // Check user authentication and load favorites
   useEffect(() => {
@@ -855,6 +950,12 @@ const Books = () => {
     // Reset visible books count when selecting a category
     const initialCount = isSmallDevice ? 6 : 12;
     setVisibleBooksCount(initialCount);
+    
+    // Update history state
+    updateHistoryState(category, false, '');
+    
+    // Scroll to top smoothly after a short delay to ensure state updates
+    setTimeout(scrollToTop, 100);
   };
 
   const goBackToCategories = () => {
@@ -863,6 +964,12 @@ const Books = () => {
     setSearchTerm('');
     setSelectedBook(null);
     setVisibleBooksCount(0);
+    
+    // Update history state
+    updateHistoryState(null, true, '');
+    
+    // Scroll to top smoothly
+    setTimeout(scrollToTop, 100);
   };
 
   const openBookDetails = (book: Book) => {
@@ -888,6 +995,16 @@ const Books = () => {
   const sendBookToWhatsApp = (book: Book) => {
     const message = generateBookOrderMessage(book);
     window.open(`https://wa.me/905376791661?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  // Enhanced search handler with URL update
+  const handleSearchChange = (newSearchTerm: string) => {
+    setSearchTerm(newSearchTerm);
+    
+    // Update URL with search parameter
+    if (selectedCategory && !showCategorySelection) {
+      updateHistoryState(selectedCategory, false, newSearchTerm);
+    }
   };
 
   // If Favorites category is selected, show the FavoritesList component with go back functionality
@@ -1072,19 +1189,13 @@ const Books = () => {
   };
 
   return (
-    <section id="books" className="relative py-8 sm:py-16 lg:py-20 min-h-screen overflow-hidden bg-gradient-to-b dark:from-slate-800 dark:via-slate-900 dark:to-gray-900 from-[#f4f7fb] via-[#f7f9fb] to-[#ffffff] transition-all duration-500">
+    <section 
+      ref={sectionRef}
+      id="books" 
+      className="relative py-8 sm:py-16 lg:py-20 min-h-screen overflow-hidden bg-gradient-to-b dark:from-slate-800 dark:via-slate-900 dark:to-gray-900 from-[#f4f7fb] via-[#f7f9fb] to-[#ffffff] transition-all duration-500"
+    >
       
       {/* Background Effects */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `linear-gradient(rgba(255, 166, 0, 0.27) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 166, 0, 0.29) 1px, transparent 1px)`,
-          backgroundSize: '30px 30px',
-          animation: 'float 20s ease-in-out infinite'
-        }}></div>
-      </div>
-
-      {/* Decorative Elements - Better mobile positioning */}
-      <div className="absolute top-5 sm:top-20 right-5 sm:right-20 w-24 h-24 sm:w-72 sm:h-72 bg-gradient-to-br dark:from-orange-400/30 dark:via-orange-500/30 dark:to-yellow-400/20 from-orange-400/20 via-orange-500/20 to-yellow-400/15 rounded-full blur-2xl animate-pulse transition-all duration-500"></div>
       <div className="absolute bottom-5 sm:bottom-20 left-5 sm:left-20 w-32 h-32 sm:w-96 sm:h-96 bg-gradient-to-br dark:from-gray-300/10 dark:to-gray-500/10 from-blue-200/8 to-blue-400/8 rounded-full blur-3xl transition-all duration-500"></div>
 
       {/* Cart Button - Fixed positioning and proper cart icon */}
@@ -1204,9 +1315,12 @@ const Books = () => {
         </div>
 
         {showCategorySelection && (
-          <div className={`transition-all duration-1000 ${
-            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}>
+          <div 
+            ref={categoryGridRef}
+            className={`transition-all duration-1000 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
             <div className="text-center mb-6 sm:mb-12">
               <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold dark:text-white text-[#1d2d50] mb-3 sm:mb-4">
                 اختر فئة من الكتب
@@ -1292,7 +1406,7 @@ const Books = () => {
                     type="text"
                     placeholder={selectedCategory ? `البحث في ${selectedCategory}...` : "البحث في جميع الكتب..."}
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => handleSearchChange(e.target.value)}
                     className="w-full pr-10 sm:pr-12 pl-4 py-3 sm:py-4 dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm border dark:border-slate-700/30 border-orange-200/30 rounded-xl sm:rounded-2xl dark:text-white text-[#1d2d50] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/50 text-sm sm:text-base lg:text-lg shadow-lg"
                   />
                 </div>
@@ -1333,7 +1447,10 @@ const Books = () => {
               </div>
             )}
 
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 justify-items-center">
+            <div 
+              ref={booksGridRef}
+              className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 justify-items-center"
+            >
               {displayedBooks.map((book) => {
                 const isBookFavorite = favoriteBooks.has(book.id.toString());
                 const isLoadingFavorite = loadingFavorites.has(book.id.toString());
@@ -1445,6 +1562,7 @@ const Books = () => {
                   onClick={() => {
                     setSearchTerm('');
                     setSelectedCategory(null);
+                    updateHistoryState(null, false, '');
                   }}
                   className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg sm:rounded-xl font-semibold transition-all duration-300 shadow-lg hover:scale-105 text-sm sm:text-base"
                 >
@@ -1523,6 +1641,10 @@ const Books = () => {
               padding-right: 0.75rem;
             }
           }
+          
+          html {
+            scroll-behavior: smooth;
+          }
         `
       }} />
     </section>
@@ -1530,6 +1652,3 @@ const Books = () => {
 };
 
 export default Books;
-
-
-
