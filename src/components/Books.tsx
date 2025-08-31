@@ -1349,31 +1349,51 @@ const Books = () => {
       {/* Background Effects */}
       <div className="absolute bottom-5 sm:bottom-20 left-5 sm:left-20 w-32 h-32 sm:w-96 sm:h-96 bg-gradient-to-br dark:from-gray-300/10 dark:to-gray-500/10 from-blue-200/8 to-blue-400/8 rounded-full blur-3xl transition-all duration-500"></div>
 
-      {/* Currency Selector - Fixed positioning */}
-      <div className="fixed top-4 right-4 z-50">
-        <div className="flex items-center gap-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-xl p-2 shadow-lg">
-          <button
-            onClick={() => setSelectedCurrency('TL')}
-            className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-300 ${
-              selectedCurrency === 'TL' 
-                ? 'bg-orange-500 text-white' 
-                : 'text-gray-600 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-slate-700'
-            }`}
-          >
-            ₺
-          </button>
-          <button
-            onClick={() => setSelectedCurrency('USD')}
-            className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-300 ${
-              selectedCurrency === 'USD' 
-                ? 'bg-orange-500 text-white' 
-                : 'text-gray-600 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-slate-700'
-            }`}
-          >
-            $
-          </button>
-        </div>
+{/* Currency Selector - Fixed overflow issue */}
+<div className="absolute top-3 sm:top-6 right-3 sm:right-6 z-40">
+  <div className="relative">
+    {/* Toggle Track */}
+    <div className="w-14 sm:w-16 h-7 sm:h-8 bg-gradient-to-r dark:from-slate-700 dark:to-slate-600 from-gray-200 to-gray-300 rounded-full shadow-inner border dark:border-slate-500/30 border-gray-400/50 transition-colors duration-200">
+      
+      {/* Moving Toggle Circle */}
+      <div 
+        className={`absolute top-0.5 left-0.5 w-6 sm:w-7 h-6 sm:h-7 bg-gradient-to-br from-white to-gray-50 dark:from-slate-100 dark:to-slate-200 rounded-full shadow-lg transform transition-transform duration-200 ease-out flex items-center justify-center ${
+          selectedCurrency === 'USD' 
+            ? 'translate-x-7 sm:translate-x-8' 
+            : 'translate-x-0'
+        }`}
+      >
+        {/* Active Currency Symbol */}
+        <span className="text-orange-600 font-bold text-xs">
+          {selectedCurrency === 'TL' ? '₺' : '$'}
+        </span>
       </div>
+      
+      {/* Background Currency Labels */}
+      <div className="absolute inset-0 flex items-center justify-between px-2 sm:px-2.5 pointer-events-none">
+        <span className={`text-xs font-bold transition-opacity duration-200 ${
+          selectedCurrency === 'TL' 
+            ? 'opacity-0' 
+            : 'opacity-60 text-slate-600 dark:text-slate-300'
+        }`}>
+        </span>
+        <span className={`text-xs font-bold transition-opacity duration-200 ${
+          selectedCurrency === 'USD' 
+            ? 'opacity-0' 
+            : 'opacity-60 text-slate-600 dark:text-slate-300'
+        }`}>
+        </span>
+      </div>
+    </div>
+    
+    {/* Single clickable overlay */}
+    <button
+      onClick={() => setSelectedCurrency(selectedCurrency === 'TL' ? 'USD' : 'TL')}
+      className="absolute inset-0 w-full h-full rounded-full cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200"
+      aria-label={`تغيير إلى ${selectedCurrency === 'TL' ? 'الدولار' : 'الليرة التركية'}`}
+    />
+  </div>
+</div>
 
       {/* Cart Button - Fixed positioning and proper cart icon */}
       <div className="fixed bottom-4 right-4 z-50">
