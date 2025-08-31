@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Tag, ShoppingCart, Search, Filter, Star, X, Percent, BookOpen, Bookmark, Award, Sparkles, Plus, Minus, MessageCircle, Send, Trash2, ChevronDown, ChevronUp, ArrowLeft, Grid3x3, List, Eye, Heart, Compass, Lightbulb, Users, Briefcase, Shield, Globe, Book, Trophy, Target, Brain, Palette } from 'lucide-react';
+import { Tag, ShoppingCart, Search, Filter, Star, X, Percent, BookOpen, Bookmark, Award, Sparkles, Plus, Minus, MessageCircle, Send, Trash2, ChevronDown, ChevronUp, ArrowLeft, Grid3x3, List, Eye, Heart, Compass, Lightbulb, Users, Briefcase, Shield, Globe, Book, Trophy, Target, Brain, Palette, Feather } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { addToFavorites, removeFromFavorites, isFavorite, getUserFavorites } from '../lib/favorites';
 import FavoritesList from './FavoritesList';
@@ -10,7 +10,9 @@ interface Book {
   category: string;
   description: string;
   price: number;
+  priceUSD?: number; // Add USD price
   originalPrice?: number;
+  originalPriceUSD?: number; // Add USD original price
   image: string;
   author?: string;
   discount?: number;
@@ -33,9 +35,11 @@ const Books = () => {
   const [expandedBooks, setExpandedBooks] = useState<Set<number>>(new Set());
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [globalSearchTerm, setGlobalSearchTerm] = useState(''); // Add global search
   const [showCategorySelection, setShowCategorySelection] = useState(true);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [isBookModalOpen, setIsBookModalOpen] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState<'TL' | 'USD'>('TL'); // Add currency selector
   
   // Pagination state
   const [visibleBooksCount, setVisibleBooksCount] = useState(0);
@@ -92,7 +96,9 @@ const Books = () => {
     }
     
     if (searchFromUrl) {
-      setSearchTerm(decodeURIComponent(searchFromUrl));
+      const searchValue = decodeURIComponent(searchFromUrl);
+      setSearchTerm(searchValue);
+      setGlobalSearchTerm(searchValue);
     }
   }, []);
 
@@ -106,12 +112,14 @@ const Books = () => {
         setSelectedCategory(state.category);
         setShowCategorySelection(state.showCategorySelection);
         setSearchTerm(state.searchTerm || '');
+        setGlobalSearchTerm(state.searchTerm || '');
         setVisibleBooksCount(state.visibleBooksCount || (isSmallDevice ? 6 : 12));
       } else {
         // No state, go back to category selection
         setShowCategorySelection(true);
         setSelectedCategory(null);
         setSearchTerm('');
+        setGlobalSearchTerm('');
         setVisibleBooksCount(0);
       }
       
@@ -275,12 +283,23 @@ const Books = () => {
     }
   };
 
+  // Helper function to get price in selected currency
+  const getPrice = (book: Book) => {
+    if (selectedCurrency === 'USD' && book.priceUSD) {
+      return book.priceUSD;
+    }
+    return book.price;
+  };
+
+  // Helper function to get currency symbol
+  const getCurrencySymbol = () => {
+    return selectedCurrency === 'USD' ? '$' : '₺';
+  };
+
   const books: Book[] = [
-    // Your books array here
       // إصدارات دار الطموح
   
       // الكتب الأكثر مبيعاً
-
   
       // الدين
       {
@@ -289,6 +308,7 @@ const Books = () => {
         category: "دين",
         description: "القرآن الكريم",
         price: 450,
+        priceUSD: 120,
         image: "/Altamooh-book-store/book-images/Din/Dinbook1.png",
       },
       {
@@ -297,6 +317,7 @@ const Books = () => {
         category: "دين",
         description: "أصح كتب الحديث بعد القرآن الكريم، جمع فيه الإمام البخاري الأحاديث الصحيحة",
         price: 520,
+        priceUSD: 139,
         image: "/Altamooh-book-store/book-images/Din/Dinbook2.jpg",
         author: "الإمام البخاري"
       },
@@ -306,6 +327,7 @@ const Books = () => {
         category: "دين",
         description: "ثاني أصح كتاب في الحديث",
         price: 520,
+        priceUSD: 139,
         image: "/Altamooh-book-store/book-images/Din/Dinbook3.jpg",
         author: "الإمام البخاري"
       },
@@ -315,6 +337,7 @@ const Books = () => {
         category: "دين",
         description: "مجموعة من الأحاديث النبوية الشريفة في مختلف أبواب الدين والأخلاق",
         price: 320,
+        priceUSD: 85,
         image: "/Altamooh-book-store/book-images/Din/Dinbook4.jpg",
         author: "الإمام النووي"
       },
@@ -324,6 +347,7 @@ const Books = () => {
         category: "دين",
         description: "موسوعة في العلوم الإسلامية تجمع بين الفقه والتصوف والأخلاق",
         price: 680,
+        priceUSD: 181,
         image: "/Altamooh-book-store/book-images/Din/Dinbook5.jpg",
         author: "الإمام الغزالي"
       },
@@ -333,6 +357,7 @@ const Books = () => {
         category: "دين",
         description: "كتاب شامل في السيرة النبوية والفقه والأخلاق الإسلامية",
         price: 450,
+        priceUSD: 120,
         image: "/Altamooh-book-store/book-images/Din/Dinbook6.jpg",
         author: "ابن قيم الجوزية"
       },
@@ -342,8 +367,61 @@ const Books = () => {
         category: "دين",
         description: "سيرة الرسول صلى الله عليه وسلم مكتوبة بأسلوب معاصر وشامل",
         price: 380,
+        priceUSD: 101,
         image: "/Altamooh-book-store/book-images/Din/Dinbook7.jpeg",
         author: "صفي الرحمن المباركفوري"
+      },
+
+      // الروايات
+      {
+        id: 1,
+        title: "عزرائيل",
+        category: "روايات",
+        description: "A great novel...",
+        price: 950,
+        priceUSD: 25,
+        image: "/Altamooh-book-store/book-images/Novels/Nbook1.jpg",
+        author: "يوسف زيدان"
+      },
+      {
+        id: 2,
+        title: "ثلاثية غرناطة",
+        category: "روايات",
+        description: "A great novel...",
+        price: 1400,
+        priceUSD: 46,
+        image: "/Altamooh-book-store/book-images/Novels/Nbook2.jpg",
+        author: "رضوى عاشور"
+      },
+      {
+        id: 3,
+        title: "حديث الصباح والمساء",
+        category: "روايات",
+        description: "A great novel...",
+        price: 900,
+        priceUSD: 22.5,
+        image: "/Altamooh-book-store/book-images/Novels/Nbook3.jpg",
+        author: "نجيب محفوظ"
+      },
+      {
+        id: 4,
+        title: "شيفرة دافنشي",
+        category: "روايات",
+        description: "A great novel...",
+        price: 1210,
+        priceUSD: 30.25,
+        image: "/Altamooh-book-store/book-images/Novels/Nbook4.jpeg",
+        author: "دان براون"
+      },
+      {
+        id: 5,
+        title: "الخيميائي",
+        category: "روايات",
+        description: "A great novel...",
+        price: 500,
+        priceUSD: 12.6,
+        image: "/Altamooh-book-store/book-images/Novels/Nbook5.jpg",
+        author: "باولو كوليو"
       },
   
       // التاريخ
@@ -353,6 +431,7 @@ const Books = () => {
         category: "تاريخ",
         description: "موسوعة تاريخية شاملة من بداية الخلق حتى نهاية الزمان",
         price: 850,
+        priceUSD: 227,
         image: "/Altamooh-book-store/book-images/History/Hbook1.jpg",
         author: "ابن كثير",
       },
@@ -362,6 +441,7 @@ const Books = () => {
         category: "تاريخ",
         description: "تاريخ الرسل والملوك، من أهم المراجع التاريخية الإسلامية",
         price: 720,
+        priceUSD: 192,
         image: "/Altamooh-book-store/book-images/History/Hbook2.jpg",
         author: "الطبري",
       },
@@ -371,6 +451,7 @@ const Books = () => {
         category: "تاريخ",
         description: "موسوعة تاريخية شاملة تغطي تاريخ العالم الإسلامي",
         price: 680,
+        priceUSD: 181,
         image: "/Altamooh-book-store/book-images/History/Hbook3.jpg",
         author: "ابن الأثير",
       },
@@ -380,6 +461,7 @@ const Books = () => {
         category: "تاريخ",
         description: "سيرة الرسول صلى الله عليه وسلم مفصلة ومدققة",
         price: 420,
+        priceUSD: 112,
         image: "/Altamooh-book-store/book-images/History/Hbook4.jpg",
         author: "ابن هشام",
       },
@@ -389,6 +471,7 @@ const Books = () => {
         category: "تاريخ",
         description: "تاريخ الحرب الشهيرة بين أثينا وإسبرطة في اليونان القديمة",
         price: 380,
+        priceUSD: 101,
         image: "/Altamooh-book-store/book-images/History/Hbook5.png",
         author: "ثوكيديدس",
       },
@@ -398,6 +481,7 @@ const Books = () => {
         category: "تاريخ",
         description: "موسوعة شاملة لتاريخ الحضارات الإنسانية عبر العصور",
         price: 950,
+        priceUSD: 253,
         image: "/Altamooh-book-store/book-images/History/Hbook6.jpeg",
         author: "ول ديورانت",
       },
@@ -409,6 +493,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "أول مغامرات شيرلوك هولمز مع الدكتور واتسون في حل الجرائم الغامضة",
         price: 320,
+        priceUSD: 85,
         image: "/Altamooh-book-store/book-images/Crime/Cbook1.jpg",
         author: "آرثر كونان دويل",
       },
@@ -418,6 +503,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "من أشهر قصص شيرلوك هولمز، قصة مليئة بالغموض والإثارة",
         price: 340,
+        priceUSD: 91,
         image: "/Altamooh-book-store/book-images/Crime/Cbook2.png",
         author: "آرثر كونان دويل",
       },
@@ -427,6 +513,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "رواية بوليسية كلاسيكية من أعمال أجاثا كريستي الشهيرة",
         price: 360,
+        priceUSD: 96,
         image: "/Altamooh-book-store/book-images/Crime/Cbook3.png",
         author: "أجاثا كريستي",
       },
@@ -436,6 +523,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "رواية إثارة وتشويق من روائع أجاثا كريستي",
         price: 350,
+        priceUSD: 93,
         image: "/Altamooh-book-store/book-images/Crime/Cbook4.jpg",
         author: "أجاثا كريستي",
       },
@@ -445,6 +533,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "قصة جريمة معقدة تكشف أسرار عائلة غامضة",
         price: 330,
+        priceUSD: 88,
         image: "/Altamooh-book-store/book-images/Crime/Cbook5.jpg",
         author: "أجاثا كريستي",
       },
@@ -454,6 +543,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "كتاب علمي يشرح استخدام البصمات في التحقيقات الجنائية",
         price: 280,
+        priceUSD: 75,
         image: "/Altamooh-book-store/book-images/Crime/Cbook6.jpg",
         author: "د. عالم التحقيق",
       },
@@ -463,6 +553,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "رواية بوليسية مثيرة تدور أحداثها حول جرائم غامضة",
         price: 310,
+        priceUSD: 83,
         image: "/Altamooh-book-store/book-images/Crime/Cbook7.jpg",
         author: "كاتب مجهول",
       },
@@ -472,6 +563,7 @@ const Books = () => {
         category: "تحقيق و جريمة",
         description: "قصة حقيقية مروعة عن جريمة قتل هزت أمريكا",
         price: 380,
+        priceUSD: 101,
         image: "/Altamooh-book-store/book-images/Crime/Cbook8.jpg",
         author: "ترومان كابوتي",
       },
@@ -483,6 +575,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "عمل رائد في علم النفس التحليلي يكشف أسرار اللاوعي",
         price: 420,
+        priceUSD: 112,
         image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook1.jpeg",
         author: "سيجموند فرويد",
       },
@@ -492,6 +585,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "كتاب فلسفي عميق حول معنى الحياة والوجود الإنساني",
         price: 350,
+        priceUSD: 93,
         image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook2.jpg",
         author: "فيكتور فرانكل",
       },
@@ -501,6 +595,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "دليل عملي لتطوير الشخصية وتحقيق النجاح في الحياة",
         price: 380,
+        priceUSD: 101,
         image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook3.jpg",
         author: "ستيفن كوفي",
       },
@@ -510,6 +605,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "كتاب رائد في علم النفس المعرفي وآليات اتخاذ القرارات",
         price: 450,
+        priceUSD: 120,
         image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook4.jpg",
         author: "دانييل كانمان",
       },
@@ -519,6 +615,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "دراسة رائدة في علم النفس الاجتماعي وسلوك الحشود",
         price: 320,
+        priceUSD: 85,
         image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook5.jpg",
         author: "غوستاف لوبون",
       },
@@ -528,6 +625,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "من أعظم الأعمال الفلسفية في التاريخ حول العدالة والحكم",
         price: 480,
+        priceUSD: 128,
         image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook6.jpg",
         author: "أفلاطون",
       },
@@ -537,6 +635,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "تأملات فلسفية عميقة في الحياة والوجود والأخلاق",
         price: 360,
+        priceUSD: 96,
         image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook7.jpeg",
         author: "ماركوس أوريليوس",
       },
@@ -546,6 +645,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "عمل فلسفي معقد يتناول قضايا الوجود والإنسان الأعلى",
         price: 520,
+        priceUSD: 139,
         image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook8.jpg",
         author: "فريدريش نيتشه",
       },
@@ -555,6 +655,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "عمل فلسفي أساسي حول حدود المعرفة الإنسانية",
         price: 650,
+        priceUSD: 173,
         image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook9.png",
         author: "إيمانويل كانت",
       },
@@ -564,6 +665,7 @@ const Books = () => {
         category: "فلسفة و علم نفس",
         description: "عمل رائد في علم الاجتماع والتاريخ والفلسفة السياسية",
         price: 580,
+        priceUSD: 155,
         image: "/Altamooh-book-store/book-images/Philosophy & Psychology/Ppbook10.jpg",
         author: "ابن خلدون",
       },
@@ -575,6 +677,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية نفسية عميقة تتناول صراع الخير والشر في النفس البشرية",
         price: 420,
+        priceUSD: 112,
         image: "/Altamooh-book-store/book-images/Literature/Lbook1.jpg",
         author: "فيودور دوستويفسكي",
       },
@@ -584,6 +687,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية فلسفية عظيمة تستكشف طبيعة الإنسان والأخلاق",
         price: 450,
+        priceUSD: 120,
         image: "/Altamooh-book-store/book-images/Literature/Lbook2.jpg",
         author: "فيودور دوستويفسكي",
       },
@@ -593,6 +697,7 @@ const Books = () => {
         category: "أدب",
         description: "آخر روايات دوستويفسكي وأعمقها فلسفياً ونفسياً",
         price: 520,
+        priceUSD: 139,
         image: "/Altamooh-book-store/book-images/Literature/Lbook3.jpg",
         author: "فيودور دوستويفسكي",
       },
@@ -602,6 +707,7 @@ const Books = () => {
         category: "أدب",
         description: "ملحمة أدبية عظيمة تصور روسيا في عهد نابليون",
         price: 680,
+        priceUSD: 181,
         image: "/Altamooh-book-store/book-images/Literature/Lbook4.jpg",
         author: "ليو تولستوي",
       },
@@ -611,6 +717,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية عاطفية عميقة تصور المجتمع الروسي في القرن التاسع عشر",
         price: 480,
+        priceUSD: 128,
         image: "/Altamooh-book-store/book-images/Literature/Lbook5.jpg",
         author: "ليو تولستوي",
       },
@@ -620,6 +727,7 @@ const Books = () => {
         category: "أدب",
         description: "ملحمة أدبية اجتماعية تصور معاناة الطبقات الفقيرة في فرنسا",
         price: 650,
+        priceUSD: 173,
         image: "/Altamooh-book-store/book-images/Literature/Lbook6.jpg",
         author: "فيكتور هوغو",
       },
@@ -629,6 +737,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية رومانسية تراجيدية تدور حول كاتدرائية نوتردام",
         price: 420,
+        priceUSD: 112,
         image: "/Altamooh-book-store/book-images/Literature/Lbook7.jpg",
         author: "فيكتور هوغو",
       },
@@ -638,6 +747,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية الواقعية السحرية الأشهر في الأدب اللاتيني",
         price: 480,
+        priceUSD: 128,
         image: "/Altamooh-book-store/book-images/Literature/Lbook8.jpg",
         author: "غابرييل غارسيا ماركيز",
       },
@@ -647,6 +757,7 @@ const Books = () => {
         category: "أدب",
         description: "سيرة ذاتية لعميد الأدب العربي طه حسين",
         price: 350,
+        priceUSD: 93,
         image: "/Altamooh-book-store/book-images/Literature/Lbook9.jpeg",
         author: "طه حسين",
       },
@@ -656,6 +767,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية واقعية تحليلية تصور المجتمع البرجوازي الفرنسي",
         price: 380,
+        priceUSD: 101,
         image: "/Altamooh-book-store/book-images/Literature/Lbook10.jpeg",
         author: "غوستاف فلوبير",
       },
@@ -665,6 +777,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية وجودية تستكشف معنى الحياة واللامعنى",
         price: 320,
+        priceUSD: 85,
         image: "/Altamooh-book-store/book-images/Literature/Lbook11.jpeg",
         author: "ألبير كامو",
       },
@@ -674,6 +787,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية واقعية نقدية من أعمال نوبل الأدب نجيب محفوظ",
         price: 280,
+        priceUSD: 75,
         image: "/Altamooh-book-store/book-images/Literature/Lbook12.jpg",
         author: "نجيب محفوظ"
       },
@@ -683,6 +797,7 @@ const Books = () => {
         category: "أدب",
         description: "الجزء الأول من الثلاثية الشهيرة لنجيب محفوظ",
         price: 350,
+        priceUSD: 93,
         image: "/Altamooh-book-store/book-images/Literature/Lbook13.jpg",
         author: "نجيب محفوظ"
       },
@@ -692,6 +807,7 @@ const Books = () => {
         category: "أدب",
         description: "الجزء الثاني من ثلاثية نجيب محفوظ الشهيرة",
         price: 350,
+        priceUSD: 93,
         image: "/Altamooh-book-store/book-images/Literature/Lbook14.jpg",
         author: "نجيب محفوظ"
       },
@@ -701,6 +817,7 @@ const Books = () => {
         category: "أدب",
         description: "الجزء الثالث والأخير من ثلاثية نجيب محفوظ",
         price: 350,
+        priceUSD: 93,
         image: "/Altamooh-book-store/book-images/Literature/Lbook15.jpg",
         author: "نجيب محفوظ"
       },
@@ -710,6 +827,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية سودانية مهمة تتناول قضايا الهوية والاستعمار",
         price: 320,
+        priceUSD: 85,
         image: "/Altamooh-book-store/book-images/Literature/Lbook16.jpg",
         author: "الطيب صالح"
       },
@@ -719,6 +837,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية مغربية تصور الحياة في الأحياء الشعبية",
         price: 300,
+        priceUSD: 80,
         image: "/Altamooh-book-store/book-images/Literature/Lbook17.jpg",
         author: "محمد شكري"
       },
@@ -728,6 +847,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية فلسطينية تصور معاناة اللاجئين الفلسطينيين",
         price: 280,
+        priceUSD: 75,
         image: "/Altamooh-book-store/book-images/Literature/Lbook18.jpg",
         author: "غسان كنفاني"
       },
@@ -737,6 +857,7 @@ const Books = () => {
         category: "أدب",
         description: "رواية فلسطينية مؤثرة عن النكبة وتأثيرها على الأسر",
         price: 290,
+        priceUSD: 77,
         image: "/Altamooh-book-store/book-images/Literature/Lbook19.jpg",
         author: "غسان كنفاني"
       },
@@ -748,6 +869,7 @@ const Books = () => {
         category: "اقتصاد",
         description: "كتاب كلاسيكي في الاقتصاد يؤسس لنظريات الاقتصاد الحديث",
         price: 450,
+        priceUSD: 120,
         image: "/Altamooh-book-store/book-images/Economy/Ebook1.jpeg",
         author: "آدم سميث"
       },
@@ -757,6 +879,7 @@ const Books = () => {
         category: "اقتصاد",
         description: "تحليل نقدي للنظام الرأسمالي وآليات الإنتاج والتوزيع",
         price: 520,
+        priceUSD: 139,
         image: "/Altamooh-book-store/book-images/Economy/Ebook2.jpg",
         author: "كارل ماركس"
       },
@@ -766,6 +889,7 @@ const Books = () => {
         category: "اقتصاد",
         description: "دراسة للجوانب الأخلاقية في النظام الاقتصادي الرأسمالي",
         price: 380,
+        priceUSD: 101,
         image: "/Altamooh-book-store/book-images/Economy/Ebook3.jpg",
         author: "د. اقتصادي أخلاقي"
       },
@@ -775,6 +899,7 @@ const Books = () => {
         category: "اقتصاد",
         description: "شرح مبسط للمفاهيم الاقتصادية المعقدة للقارئ العام",
         price: 320,
+        priceUSD: 85,
         image: "/Altamooh-book-store/book-images/Economy/Ebook4.jpg",
         author: "تشارلز ويلان"
       },
@@ -786,6 +911,7 @@ const Books = () => {
         category: "سياسة",
         description: "كتاب كلاسيكي في الفكر السياسي حول فن الحكم والسلطة",
         price: 350,
+        priceUSD: 93,
         image: "/Altamooh-book-store/book-images/Policy/Pbook1.jpg",
         author: "نيكولو مكيافيلي"
       },
@@ -797,6 +923,7 @@ const Books = () => {
         category: "تطوير الذات",
         description: "كتاب رائد في تطوير المهارات العاطفية والاجتماعية للنجاح في الحياة",
         price: 350,
+        priceUSD: 93,
         image: "/Altamooh-book-store/book-images/Self-dev/Sdbook1.jpg",
         author: "دانييل جولمان"
       },
@@ -806,9 +933,10 @@ const Books = () => {
         category: "تطوير الذات",
         description: "منهج عملي للتركيز على ما يهم حقاً في الحياة",
         price: 320,
+        priceUSD: 85,
         image: "/Altamooh-book-store/book-images/Self-dev/Sdbook2.jpeg",
         author: "مارك مانسون"
-      }
+      },
   ];
 
   const shuffleArray = (array: Book[]) => {
@@ -838,6 +966,7 @@ const Books = () => {
       "تحقيق و جريمة": Shield,
       "فلسفة و علم نفس": Brain,
       "أدب": BookOpen,
+      "روايات": Feather, // Add novels icon
       "طب": Plus,
       "اقتصاد": Trophy,
       "قانون": Users,
@@ -848,11 +977,13 @@ const Books = () => {
     return iconMap[category] || BookOpen;
   };
 
+  // Enhanced filtering with global search
   const filteredBooks = shuffledBooks.filter(book => {
-    const matchesSearch = searchTerm === '' || 
-      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.author?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const searchTermToUse = globalSearchTerm || searchTerm;
+    const matchesSearch = searchTermToUse === '' || 
+      book.title.toLowerCase().includes(searchTermToUse.toLowerCase()) ||
+      book.author?.toLowerCase().includes(searchTermToUse.toLowerCase()) ||
+      book.description.toLowerCase().includes(searchTermToUse.toLowerCase());
     
     const matchesCategory = !selectedCategory || book.category === selectedCategory;
     
@@ -913,7 +1044,7 @@ const Books = () => {
   };
 
   const getTotalPrice = () => {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return cart.reduce((total, item) => total + (getPrice(item) * item.quantity), 0);
   };
 
   const getTotalItems = () => {
@@ -926,12 +1057,12 @@ const Books = () => {
     cart.forEach((item, index) => {
       message += `${index + 1}. ${item.title}\n`;
       message += `   - المؤلف: ${item.author || 'غير محدد'}\n`;
-      message += `   - السعر: ${item.price} ₺\n`;
+      message += `   - السعر: ${getPrice(item)} ${getCurrencySymbol()}\n`;
       message += `   - الكمية: ${item.quantity}\n`;
-      message += `   - المجموع: ${item.price * item.quantity} ₺\n\n`;
+      message += `   - المجموع: ${getPrice(item) * item.quantity} ${getCurrencySymbol()}\n\n`;
     });
     
-    message += `إجمالي الطلب: ${getTotalPrice()} ₺\n`;
+    message += `إجمالي الطلب: ${getTotalPrice()} ${getCurrencySymbol()}\n`;
     message += `عدد الكتب: ${getTotalItems()} كتاب\n\n`;
     message += "أرجو تأكيد الطلب وإعلامي بتفاصيل التوصيل والدفع.";
     
@@ -947,6 +1078,7 @@ const Books = () => {
     setSelectedCategory(category);
     setShowCategorySelection(false);
     setSearchTerm('');
+    setGlobalSearchTerm('');
     // Reset visible books count when selecting a category
     const initialCount = isSmallDevice ? 6 : 12;
     setVisibleBooksCount(initialCount);
@@ -962,6 +1094,7 @@ const Books = () => {
     setShowCategorySelection(true);
     setSelectedCategory(null);
     setSearchTerm('');
+    setGlobalSearchTerm('');
     setSelectedBook(null);
     setVisibleBooksCount(0);
     
@@ -987,7 +1120,7 @@ const Books = () => {
     message += `الكتاب: ${book.title}\n`;
     message += `المؤلف: ${book.author || 'غير محدد'}\n`;
     message += `الفئة: ${book.category}\n`;
-    message += `السعر: ${book.price} ₺\n\n`;
+    message += `السعر: ${getPrice(book)} ${getCurrencySymbol()}\n\n`;
     message += "أرجو تأكيد الطلب وإعلامي بتفاصيل التوصيل والدفع.";
     return message;
   };
@@ -1003,6 +1136,25 @@ const Books = () => {
     
     // Update URL with search parameter
     if (selectedCategory && !showCategorySelection) {
+      updateHistoryState(selectedCategory, false, newSearchTerm);
+    }
+  };
+
+  // Global search handler
+  const handleGlobalSearchChange = (newSearchTerm: string) => {
+    setGlobalSearchTerm(newSearchTerm);
+    setSearchTerm(newSearchTerm);
+    
+    // If we have a search term, show all books
+    if (newSearchTerm && showCategorySelection) {
+      setShowCategorySelection(false);
+      setSelectedCategory(null);
+      setVisibleBooksCount(isSmallDevice ? 6 : 12);
+      updateHistoryState(null, false, newSearchTerm);
+    }
+    
+    // Update URL with search parameter
+    if (!showCategorySelection) {
       updateHistoryState(selectedCategory, false, newSearchTerm);
     }
   };
@@ -1051,8 +1203,8 @@ const Books = () => {
                 <span className="text-sm font-medium">رجوع</span>
               </button>
               <div className="flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl shadow-lg">
-                <span className="text-base font-bold">{book.price}</span>
-                <span className="text-xs">₺</span>
+                <span className="text-base font-bold">{getPrice(book)}</span>
+                <span className="text-xs">{getCurrencySymbol()}</span>
               </div>
             </div>
 
@@ -1070,8 +1222,8 @@ const Books = () => {
                     {/* Price Badge - Only visible on larger screens */}
                     <div className="hidden sm:block absolute -top-3 -right-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-2xl font-bold text-lg lg:text-xl shadow-2xl border-4 border-white dark:border-slate-800">
                       <div className="flex items-center gap-2">
-                        <span>{book.price}</span>
-                        <span className="text-sm lg:text-lg">₺</span>
+                        <span>{getPrice(book)}</span>
+                        <span className="text-sm lg:text-lg">{getCurrencySymbol()}</span>
                       </div>
                     </div>
                     
@@ -1198,6 +1350,32 @@ const Books = () => {
       {/* Background Effects */}
       <div className="absolute bottom-5 sm:bottom-20 left-5 sm:left-20 w-32 h-32 sm:w-96 sm:h-96 bg-gradient-to-br dark:from-gray-300/10 dark:to-gray-500/10 from-blue-200/8 to-blue-400/8 rounded-full blur-3xl transition-all duration-500"></div>
 
+      {/* Currency Selector - Fixed positioning */}
+      <div className="fixed top-4 right-4 z-50">
+        <div className="flex items-center gap-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-xl p-2 shadow-lg">
+          <button
+            onClick={() => setSelectedCurrency('TL')}
+            className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-300 ${
+              selectedCurrency === 'TL' 
+                ? 'bg-orange-500 text-white' 
+                : 'text-gray-600 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-slate-700'
+            }`}
+          >
+            ₺
+          </button>
+          <button
+            onClick={() => setSelectedCurrency('USD')}
+            className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-300 ${
+              selectedCurrency === 'USD' 
+                ? 'bg-orange-500 text-white' 
+                : 'text-gray-600 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-slate-700'
+            }`}
+          >
+            $
+          </button>
+        </div>
+      </div>
+
       {/* Cart Button - Fixed positioning and proper cart icon */}
       <div className="fixed bottom-4 right-4 z-50">
         <button
@@ -1241,7 +1419,7 @@ const Books = () => {
                     <img src={item.image} alt={item.title} className="w-12 h-16 object-cover rounded-lg flex-shrink-0"/>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold dark:text-white text-[#1d2d50] text-sm line-clamp-2">{item.title}</h4>
-                      <p className="text-orange-600 font-bold text-sm">{item.price} ₺</p>
+                      <p className="text-orange-600 font-bold text-sm">{getPrice(item)} {getCurrencySymbol()}</p>
                       <div className="flex items-center gap-2 mt-2">
                         <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-1 hover:bg-gray-200 dark:hover:bg-slate-600 rounded">
                           <Minus className="h-4 w-4" />
@@ -1265,7 +1443,7 @@ const Books = () => {
             <div className="border-t dark:border-slate-700/50 border-orange-200/30 p-4 space-y-4">
               <div className="flex justify-between text-lg font-bold">
                 <span className="dark:text-white text-[#1d2d50]">المجموع:</span>
-                <span className="text-orange-600">{getTotalPrice()} ₺</span>
+                <span className="text-orange-600">{getTotalPrice()} {getCurrencySymbol()}</span>
               </div>
               <div className="space-y-3">
                 <button onClick={sendToWhatsApp} className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold text-base flex items-center justify-center gap-2">
@@ -1302,6 +1480,24 @@ const Books = () => {
           <p className="text-base sm:text-lg lg:text-xl dark:text-slate-300 text-[#6c7a89] max-w-2xl mx-auto leading-relaxed px-2">
             مجموعة متنوعة من الإصدارات الحصرية والمتميزة من دار الطموح للنشر والتوزيع
           </p>
+
+          {/* Global Search Bar - Only show on main page */}
+          {showCategorySelection && (
+            <div className="max-w-2xl mx-auto mt-8 sm:mt-12">
+              <div className="relative">
+                <div className="absolute inset-y-0 right-0 pl-3 flex items-center pointer-events-none">
+                  <Search className="h-4 w-4 sm:h-5 sm:w-5 dark:text-slate-400 text-[#6c7a89]" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="البحث في جميع الكتب والفئات..."
+                  value={globalSearchTerm}
+                  onChange={(e) => handleGlobalSearchChange(e.target.value)}
+                  className="w-full pr-10 sm:pr-12 pl-4 py-3 sm:py-4 dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm border dark:border-slate-700/30 border-orange-200/30 rounded-xl sm:rounded-2xl dark:text-white text-[#1d2d50] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/50 text-sm sm:text-base lg:text-lg shadow-lg"
+                />
+              </div>
+            </div>
+          )}
 
           {!showCategorySelection && (
             <button
@@ -1470,7 +1666,7 @@ const Books = () => {
 
                         {/* Price Badge */}
                         <div className="absolute top-1 sm:top-3 lg:top-4 left-1 sm:left-3 lg:left-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-1.5 sm:px-3 py-0.5 sm:py-1.5 rounded text-xs sm:text-sm font-bold shadow-lg">
-                          {book.price} ₺
+                          {getPrice(book)} {getCurrencySymbol()}
                         </div>
 
                         {/* Favorite Button - Only show if user is logged in */}
@@ -1561,6 +1757,7 @@ const Books = () => {
                 <button
                   onClick={() => {
                     setSearchTerm('');
+                    setGlobalSearchTerm('');
                     setSelectedCategory(null);
                     updateHistoryState(null, false, '');
                   }}
