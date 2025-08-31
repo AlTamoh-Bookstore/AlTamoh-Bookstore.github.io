@@ -87,27 +87,38 @@ const Hero = () => {
             </button>
           </div>
 
-          {/* Enhanced Stats with animations - Always horizontal layout */}
-          <div className={`flex justify-center items-center space-x-8 sm:space-x-16 space-x-reverse mt-12 sm:mt-20 transition-all duration-1000 delay-800 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            {[
-              { number: '5000+', label: 'كتاب متاح', delay: '0s' },
-              { number: '10+', label: 'تصنيف', delay: '0.2s' },
-              { number: '24/7', label: 'خدمة العملاء', delay: '0.4s' }
-            ].map((stat, index) => (
-              <React.Fragment key={index}>
-                <div className="text-center group cursor-pointer" style={{animationDelay: stat.delay}}>
-                  <div className="text-xl sm:text-4xl font-bold dark:text-white text-[#1d2d50] mb-1 sm:mb-2 group-hover:text-orange-400 transition-colors duration-300 group-hover:scale-110 transform">
-                    {stat.number}
-                  </div>
-                  <div className="dark:text-slate-400 text-[#6c7a89] text-xs sm:text-sm font-medium dark:group-hover:text-slate-300 group-hover:text-[#1d2d50] transition-colors duration-500">
-                    {stat.label}
-                  </div>
-                </div>
-                {index < 2 && (
-                  <div className="w-px h-12 sm:h-16 bg-gradient-to-b from-transparent via-slate-600 to-transparent"></div>
-                )}
-              </React.Fragment>
-            ))}
+          {/* Fixed Stats - Centered in one row */}
+          <div className={`flex justify-center items-center gap-8 sm:gap-16 mt-12 sm:mt-20 transition-all duration-1000 delay-800 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="text-center group cursor-pointer" style={{animationDelay: '0s'}}>
+              <div className="text-2xl sm:text-4xl font-bold dark:text-white text-[#1d2d50] mb-1 sm:mb-2 group-hover:text-orange-400 transition-colors duration-300 group-hover:scale-110 transform">
+                5000+
+              </div>
+              <div className="dark:text-slate-400 text-[#6c7a89] text-xs sm:text-sm font-medium dark:group-hover:text-slate-300 group-hover:text-[#1d2d50] transition-colors duration-500 whitespace-nowrap">
+                كتاب متاح
+              </div>
+            </div>
+
+            <div className="w-px h-12 sm:h-16 bg-gradient-to-b from-transparent via-slate-600 to-transparent"></div>
+
+            <div className="text-center group cursor-pointer" style={{animationDelay: '0.2s'}}>
+              <div className="text-2xl sm:text-4xl font-bold dark:text-white text-[#1d2d50] mb-1 sm:mb-2 group-hover:text-orange-400 transition-colors duration-300 group-hover:scale-110 transform">
+                10+
+              </div>
+              <div className="dark:text-slate-400 text-[#6c7a89] text-xs sm:text-sm font-medium dark:group-hover:text-slate-300 group-hover:text-[#1d2d50] transition-colors duration-500">
+                تصنيف
+              </div>
+            </div>
+
+            <div className="w-px h-12 sm:h-16 bg-gradient-to-b from-transparent via-slate-600 to-transparent"></div>
+
+            <div className="text-center group cursor-pointer" style={{animationDelay: '0.4s'}}>
+              <div className="text-2xl sm:text-4xl font-bold dark:text-white text-[#1d2d50] mb-1 sm:mb-2 group-hover:text-orange-400 transition-colors duration-300 group-hover:scale-110 transform">
+                24/7
+              </div>
+              <div className="dark:text-slate-400 text-[#6c7a89] text-xs sm:text-sm font-medium dark:group-hover:text-slate-300 group-hover:text-[#1d2d50] transition-colors duration-500 whitespace-nowrap">
+                خدمة العملاء
+              </div>
+            </div>
           </div>
         </div>
       </div>
