@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/Altamooh-book-store/',
+  base: '/altamoh.bookstore/',
   plugins: [react()],
   build: {
     outDir: 'dist',
@@ -17,3 +17,4 @@ export default defineConfig({
     }
   }
 });
+
