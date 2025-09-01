@@ -5,8 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter basename="/Altamooh-book-store">
+    <BrowserRouter basename="/altamoh.bookstore">
       <App />
     </BrowserRouter>
   </React.StrictMode>,
 );
+
