@@ -336,10 +336,101 @@ const Books = () => {
 
   const books: Book[] = [
     // Add your books data here
+
       // إصدارات دار الطموح
-  
+      {
+        id: 3,
+        title: "TEST",
+        category: "إصدارات دار الطموح",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+      {
+        id: 6,
+        title: "TEST",
+        category: "إصدارات دار الطموح",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+      {
+        id: 8,
+        title: "TEST",
+        category: "إصدارات دار الطموح",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+      {
+        id: 7,
+        title: "TEST",
+        category: "إصدارات دار الطموح",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+
       // الكتب الأكثر مبيعاً
-  
+      {
+        id: 3,
+        title: "TEST",
+        category: "الكتب الأكثر مبيعاً",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+      {
+        id: 8,
+        title: "TEST",
+        category: "الكتب الأكثر مبيعاً",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+      {
+        id: 12,
+        title: "TEST",
+        category: "الكتب الأكثر مبيعاً",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+      {
+        id: 36,
+        title: "TEST",
+        category: "الكتب الأكثر مبيعاً",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+      {
+        id: 74,
+        title: "TEST",
+        category: "الكتب الأكثر مبيعاً",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+      {
+        id: 34,
+        title: "TEST",
+        category: "الكتب الأكثر مبيعاً",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+
       // الدين
       {
         id: 3,
@@ -462,7 +553,18 @@ const Books = () => {
         image: "/altamoh.bookstore/book-images/Novels/Nbook5.jpg",
         author: "باولو كوليو"
       },
-  
+      
+      // التربية
+      {
+        id: 12,
+        title: "TEST",
+        category: "التربية",
+        description: "TEST",
+        price: 1000,
+        priceUSD: 1000,
+        image: "/altamoh.bookstore/assets/test.jpg",
+      },
+
       // التاريخ
       {
         id: 201,
@@ -999,6 +1101,7 @@ const Books = () => {
   const getCategoryIcon = (category: string) => {
     const iconMap: { [key: string]: any } = {
       "المفضلة": Heart,
+      "الأكثر مبيعاً": Trophy,
       "دين": Book,
       "تاريخ": Compass,
       "علوم": Lightbulb,
@@ -1011,7 +1114,8 @@ const Books = () => {
       "قانون": Users,
       "إصدارات دار الطموح": Award,
       "سياسة": Target,
-      "تطوير الذات": Star
+      "تطوير الذات": Star,
+      "التربية": Users
     };
     return iconMap[category] || BookOpen;
   };
