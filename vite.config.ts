@@ -13,7 +13,8 @@ export default defineConfig({
   // إضافة هذا للتأكد من معالجة المسارات بشكل صحيح
   experimental: {
     renderBuiltUrl(filename: string) {
-      return '/altamoh.bookstore/' + filename
+      return '/Altamooh-book-store/' + filename
     }
   }
 });
+
