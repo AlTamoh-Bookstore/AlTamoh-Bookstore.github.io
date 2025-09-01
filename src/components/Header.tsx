@@ -13,7 +13,18 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isScrollingDown, setIsScrollingDown] = React.useState(false);
   const [lastScrollY, setLastScrollY] = React.useState(0);
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
+  const [isDarkMode, setIsDarkMode] = React.useState(() => {
+    // استخدام localStorage بطريقة آمنة
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('darkMode');
+        return saved ? JSON.parse(saved) : false;
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  });
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -35,12 +46,22 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
   }, [lastScrollY]);
 
   React.useEffect(() => {
+    // تطبيق الوضع المظلم
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       document.body.style.backgroundColor = '#0f172a';
     } else {
       document.documentElement.classList.remove('dark');
       document.body.style.backgroundColor = '#ffffff';
+    }
+    
+    // حفظ التفضيل في localStorage
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+      } catch (error) {
+        console.warn('Could not save theme preference:', error);
+      }
     }
   }, [isDarkMode]);
 
@@ -52,11 +73,15 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
     setActiveSection(sectionId);
     setMobileMenuOpen(false);
     const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const openWhatsApp = () => {
-    window.open('https://wa.me/905376791661?text=السلام عليكم، أرغب في الاستفسار عن الكتب المتاحة', '_blank');
+    const message = encodeURIComponent('السلام عليكم، أرغب في الاستفسار عن الكتب المتاحة');
+    const url = `https://wa.me/905376791661?text=${message}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   const navItems = [
@@ -66,6 +91,13 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
     { id: 'about', label: 'من نحن', icon: <Users className="h-4 w-4" /> },
     { id: 'contact', label: 'تواصل معنا', icon: <Mail className="h-4 w-4" /> }
   ];
+
+  const getUserDisplayName = (user: any) => {
+    return user?.user_metadata?.name || 
+           user?.user_metadata?.full_name || 
+           user?.email?.split('@')[0] || 
+           'صديق';
+  };
 
   return (
     <header 
@@ -91,6 +123,10 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
                 src="/altamoh.bookstore/assets/logo14.png" 
                 alt="مكتبة الطموح" 
                 className="h-full w-full object-cover rounded-lg"
+                onError={(e) => {
+                  // Fallback للصورة في حالة عدم العثور عليها
+                  (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iI0Y5N0MxNiIvPgo8cGF0aCBkPSJNMTIgMTBIMjhWMTJIMTJWMTBaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTZIMjRWMThIMTJWMTZaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMjJIMjBWMjRIMTJWMjJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMjhIMTZWMzBIMTJWMjhaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4=';
+                }}
               />
             </div>
             <div>
@@ -131,47 +167,76 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4 space-x-reverse">
             
-            {/* User Info or Login Button */}
-            {user ? (
-              <div className="flex items-center space-x-3 space-x-reverse">
-                <div className="hidden md:block text-right">
-                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
-                    مرحباً {user.user_metadata?.name || user.user_metadata?.full_name || 'صديق'}
-                  </p>
+            {/* Desktop Auth/User Info */}
+            <div className="hidden lg:block">
+              {user ? (
+                <div className="flex items-center space-x-3 space-x-reverse">
+                  <div className="text-right">
+                    <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
+                      مرحباً {getUserDisplayName(user)}
+                    </p>
+                  </div>
+                  <button 
+                    onClick={onLogout}
+                    className={`group relative overflow-hidden bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-red-500/25 hover:scale-105 active:scale-95 ${
+                      isScrolled ? 'px-2.5 py-1.5 text-xs' : 'px-3 py-2 text-xs lg:px-5 lg:py-2.5 lg:text-sm'
+                    }`}
+                  >
+                    <div className="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
+                    <div className="relative flex items-center space-x-2 space-x-reverse">
+                      <LogOut className="h-3 w-3 lg:h-3.5 lg:w-3.5 group-hover:rotate-12 transition-transform duration-300" />
+                      <span>تسجيل الخروج</span>
+                    </div>
+                  </button>
                 </div>
+              ) : (
                 <button 
-                  onClick={onLogout}
-                  className={`group relative overflow-hidden bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-red-500/25 hover:scale-105 active:scale-95 ${
+                  onClick={onNavigateToLogin}
+                  className={`group relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-500/25 hover:scale-105 active:scale-95 ${
                     isScrolled ? 'px-2.5 py-1.5 text-xs' : 'px-3 py-2 text-xs lg:px-5 lg:py-2.5 lg:text-sm'
                   }`}
                 >
                   <div className="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
                   <div className="relative flex items-center space-x-2 space-x-reverse">
-                    <LogOut className="h-3 w-3 lg:h-3.5 lg:w-3.5 group-hover:rotate-12 transition-transform duration-300" />
-                    <span>تسجيل الخروج</span>
+                    <LogIn className="h-3 w-3 lg:h-3.5 lg:w-3.5 group-hover:rotate-12 transition-transform duration-300" />
+                    <span>تسجيل الدخول</span>
                   </div>
                 </button>
-              </div>
-            ) : (
-              <button 
-                onClick={onNavigateToLogin}
-                className={`group relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-500/25 hover:scale-105 active:scale-95 ${
-                  isScrolled ? 'px-2.5 py-1.5 text-xs' : 'px-3 py-2 text-xs lg:px-5 lg:py-2.5 lg:text-sm'
-                }`}
-              >
-                <div className="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
-                <div className="relative flex items-center space-x-2 space-x-reverse">
-                  <LogIn className="h-3 w-3 lg:h-3.5 lg:w-3.5 group-hover:rotate-12 transition-transform duration-300" />
-                  <span>تسجيل الدخول</span>
+              )}
+            </div>
+
+            {/* Mobile Auth/User Display */}
+            <div className="lg:hidden">
+              {user ? (
+                <div className="text-right">
+                  <p className={`font-medium text-slate-800 dark:text-slate-200 transition-all duration-300 ${
+                    isScrolled ? 'text-xs' : 'text-sm'
+                  }`}>
+                    مرحباً {getUserDisplayName(user)}
+                  </p>
                 </div>
-              </button>
-            )}
+              ) : (
+                <button 
+                  onClick={onNavigateToLogin}
+                  className={`group relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-500/25 hover:scale-105 active:scale-95 ${
+                    isScrolled ? 'px-2.5 py-1.5 text-xs' : 'px-3 py-2 text-xs'
+                  }`}
+                >
+                  <div className="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
+                  <div className="relative flex items-center space-x-2 space-x-reverse">
+                    <LogIn className="h-3 w-3 group-hover:rotate-12 transition-transform duration-300" />
+                    <span>تسجيل الدخول</span>
+                  </div>
+                </button>
+              )}
+            </div>
 
             {/* Theme Toggle - Desktop only */}
             <button
               onClick={toggleTheme}
               className="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-500 transition-all duration-300 hover:scale-110 hidden sm:flex"
               title={isDarkMode ? 'التبديل إلى الوضع المضيء' : 'التبديل إلى الوضع المظلم'}
+              aria-label={isDarkMode ? 'تفعيل الوضع المضيء' : 'تفعيل الوضع المظلم'}
             >
               {isDarkMode ? (
                 <Sun className="h-4 w-4 transition-transform duration-300 hover:rotate-90" />
@@ -186,6 +251,8 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
               className={`hidden md:flex group relative overflow-hidden bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-green-500/25 hover:scale-105 active:scale-95 ${
                 isScrolled ? 'px-2.5 py-1.5 text-xs' : 'px-3 py-2 text-xs lg:px-5 lg:py-2.5 lg:text-sm'
               }`}
+              title="تواصل معنا عبر واتساب"
+              aria-label="فتح محادثة واتساب"
             >
               <div className="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
               <div className="relative flex items-center space-x-2 space-x-reverse">
@@ -198,6 +265,8 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
             <button 
               className="lg:hidden p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-all duration-200"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
+              aria-expanded={mobileMenuOpen}
             >
               <ChevronDown className={`h-5 w-5 transition-transform duration-300 ${mobileMenuOpen ? 'rotate-180' : ''}`} />
             </button>
@@ -240,21 +309,22 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
               
               {/* Mobile Auth Button */}
               {user ? (
-                <div className="space-y-2">
-                  <div className="px-4 py-2 text-sm text-slate-600 dark:text-slate-400">
-                    مرحباً يا {user.user_metadata?.name || user.user_metadata?.full_name || 'صديق'}
-                  </div>
-                  <button 
-                    onClick={onLogout}
-                    className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-2.5 py-2 rounded-xl flex items-center justify-center space-x-1.5 space-x-reverse font-medium transition-all duration-300 shadow-lg text-xs w-full"
-                  >
-                    <LogOut className="h-3 w-3" />
-                    <span>تسجيل الخروج</span>
-                  </button>
-                </div>
+                <button 
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onLogout();
+                  }}
+                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-2.5 py-2 rounded-xl flex items-center justify-center space-x-1.5 space-x-reverse font-medium transition-all duration-300 shadow-lg text-xs w-full"
+                >
+                  <LogOut className="h-3 w-3" />
+                  <span>تسجيل الخروج</span>
+                </button>
               ) : (
                 <button 
-                  onClick={onNavigateToLogin}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onNavigateToLogin();
+                  }}
                   className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-2.5 py-2 rounded-xl flex items-center justify-center space-x-1.5 space-x-reverse font-medium transition-all duration-300 shadow-lg text-xs"
                 >
                   <LogIn className="h-3 w-3" />
@@ -264,7 +334,10 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
               
               {/* Mobile WhatsApp Button */}
               <button 
-                onClick={openWhatsApp}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openWhatsApp();
+                }}
                 className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-2.5 py-2 rounded-xl flex items-center justify-center space-x-1.5 space-x-reverse font-medium transition-all duration-300 shadow-lg text-xs"
               >
                 <Phone className="h-3 w-3" />
@@ -277,6 +350,5 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
     </header>
   );
 };
-
 
 export default Header;
