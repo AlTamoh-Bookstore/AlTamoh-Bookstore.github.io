@@ -88,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
               isScrolled ? 'w-7 h-7' : 'w-9 h-9'
             }`}>
               <img 
-                src="/Altamooh-book-store/assets/logo14.png" 
+                src="/altamoh.bookstore/assets/logo14.png" 
                 alt="مكتبة الطموح" 
                 className="h-full w-full object-cover rounded-lg"
               />
@@ -136,7 +136,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
               <div className="flex items-center space-x-3 space-x-reverse">
                 <div className="hidden md:block text-right">
                   <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
-                    مرحبا {user.user_metadata?.name || user.user_metadata?.full_name || 'صديق'}
+                    مرحباً {user.user_metadata?.name || user.user_metadata?.full_name || 'صديق'}
                   </p>
                 </div>
                 <button 
@@ -167,7 +167,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
               </button>
             )}
 
-            {/* Theme Toggle */}
+            {/* Theme Toggle - Desktop only */}
             <button
               onClick={toggleTheme}
               className="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-500 transition-all duration-300 hover:scale-110 hidden sm:flex"
@@ -222,12 +222,27 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
                   <span className="font-medium">{item.label}</span>
                 </button>
               ))}
+
+              {/* Mobile Dark Mode Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="flex items-center space-x-3 space-x-reverse px-4 py-3 rounded-xl transition-all duration-200 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+              >
+                {isDarkMode ? (
+                  <Sun className="h-4 w-4 transition-transform duration-300" />
+                ) : (
+                  <Moon className="h-4 w-4 transition-transform duration-300" />
+                )}
+                <span className="font-medium">
+                  {isDarkMode ? 'الوضع المضيء' : 'الوضع المظلم'}
+                </span>
+              </button>
               
               {/* Mobile Auth Button */}
               {user ? (
                 <div className="space-y-2">
                   <div className="px-4 py-2 text-sm text-slate-600 dark:text-slate-400">
-                    مرحبا يا {user.user_metadata?.name || user.user_metadata?.full_name || 'صديق'}
+                    مرحباً يا {user.user_metadata?.name || user.user_metadata?.full_name || 'صديق'}
                   </div>
                   <button 
                     onClick={onLogout}
