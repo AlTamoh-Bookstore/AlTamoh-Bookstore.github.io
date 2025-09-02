@@ -586,7 +586,7 @@ const Books = () => {
           "/altamoh.bookstore/book-images/Novels/war&peace1.jpg",
           "/altamoh.bookstore/book-images/Novels/war&peace2.jpg",
           "/altamoh.bookstore/book-images/Novels/war&peace3.jpg",
-          "/altamoh.bookstore/book-images/Novels/war&peace4.jpg",
+          "/altamoh.bookstore/book-images/Novels/war&peace4.jpg"
       ],
       author: "ليف تولستوي"
       },
@@ -606,7 +606,7 @@ const Books = () => {
           "/altamoh.bookstore/book-images/Novels/witcher1.jpg",
           "/altamoh.bookstore/book-images/Novels/witcher2.jpg",
           "/altamoh.bookstore/book-images/Novels/witcher3.jpg",
-          "/altamoh.bookstore/book-images/Novels/witcher4.jpg"
+          "/altamoh.bookstore/book-images/Novels/withcer4.jpg"
       ],
       author: "أندجي سابكوفسكي"
       },
@@ -2117,32 +2117,34 @@ const Books = () => {
                           <ChevronRight className="h-4 w-4 lg:h-6 lg:w-6" />
                         </button>
                         
-                        {/* Image Counter */}
-                        <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
-                          {currentImageIndex + 1} / {bookImages.length}
-                        </div>
-                      </>
-                    )}
+                    {/* Image Counter */}
+                    <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+                                  {currentImageIndex + 1} / {bookImages.length}
+                                </div>
+                              </>
+                            )}
 
-                    {/* Image Dots Indicator - Only show if there are multiple images */}
-                    {hasMultipleImages && (
-                      <div className="flex justify-center mt-4 gap-2">
-                        {bookImages.map((_, index) => (
-                          <button
-                            key={index}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setCurrentImageIndex(index);
-                            }}
-                            className={`w-2 h-2 lg:w-3 lg:h-3 rounded-full transition-all duration-300 ${
-                              currentImageIndex === index 
-                                ? 'bg-orange-500 scale-125' 
-                                : 'bg-gray-300 hover:bg-gray-400'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    )}
+                            {/* Image Dots Indicator - Only show if there are multiple images */}
+                            {hasMultipleImages && (
+                              <div className="flex justify-center mt-6 sm:mt-8 md:mt-12 gap-2">
+                                {bookImages.map((_, index) => (
+                                  <span
+                                    key={index}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setCurrentImageIndex(index);
+                                    }}
+                                    className={`cursor-pointer text-lg font-bold transition-all duration-300 ${
+                                      currentImageIndex === index
+                                        ? 'text-orange-500'
+                                        : 'text-gray-400'
+                                    }`}
+                                  >
+                                    •
+                                  </span>
+                                ))}
+                              </div>
+                            )}
                     {/* Price Badge - Only visible on larger screens */}
                     <div className="hidden sm:block absolute -top-3 -right-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-2xl font-bold text-lg lg:text-xl shadow-2xl border-4 border-white dark:border-slate-800">
                       <div className="flex items-center gap-2">
