@@ -65,7 +65,8 @@ const Footer = () => {
       "إصدارات دار الطموح": Star,
       "سياسة": Target,
       "تطوير الذات": Star,
-      "الأكثر مبيعاً": Trophy
+      "الأكثر مبيعاً": Trophy,
+      "التربية": Users
     };
     return iconMap[category] || BookOpen;
   };
@@ -81,7 +82,8 @@ const Footer = () => {
     { name: 'أدب', icon: BookOpen, color: 'text-slate-300', special: false },
     { name: 'اقتصاد', icon: Trophy, color: 'text-slate-300', special: false },
     { name: 'سياسة', icon: Target, color: 'text-slate-300', special: false },
-    { name: 'تطوير الذات', icon: Target, color: 'text-slate-300', special: false }
+    { name: 'تطوير الذات', icon: Target, color: 'text-slate-300', special: false },
+    { name: 'التربية', icon: Users, color: 'text-slate-300', special: false }
   ];
 
   return (
