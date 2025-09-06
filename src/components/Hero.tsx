@@ -23,7 +23,7 @@ const Hero = () => {
             <div className="flex items-center justify-center space-x-1 space-x-reverse animate-pulse">
               <span className="text-yellow-300 text-sm">🎉</span>
               <p className="font-bold text-xs sm:text-base">
-                خصومات <span className="text-yellow-300 text-sm sm:text-lg font-extrabold">25%</span> بمناسبة افتتاح الموقع
+                خصومات <span className="text-yellow-300 text-sm sm:text-lg font-extrabold">عملاقة على كل الكتب</span> بمناسبة افتتاح الموقع
               </p>
               <span className="text-yellow-300 text-sm">🎉</span>
             </div>
