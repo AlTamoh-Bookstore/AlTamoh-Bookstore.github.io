@@ -252,10 +252,10 @@ const Footer = () => {
               <div className="mt-6 p-3 bg-gradient-to-r from-orange-500/10 to-orange-600/10 rounded-lg border border-orange-500/20">
                 <div className="flex items-center gap-2 text-orange-400 text-sm font-medium mb-1">
                   <Star className="h-3.5 w-3.5 animate-spin" style={{animationDuration: '3s'}} />
-                  <span>إصدارات متميزة</span>
+                  <span>مكتبة شاملة</span>
                 </div>
                 <p className="text-xs text-slate-400">
-                  تصفح مجموعة إصداراتنا الحصرية والمتنوعة في {categories.length} فئة مختلفة
+                  تصفح مكتبتنا الواسعة في {categories.length} فئة مختلفة
                 </p>
               </div>
             </div>
@@ -276,7 +276,7 @@ const Footer = () => {
             {/* Copyright */}
             <div className="text-center lg:text-right">
               <p className="text-slate-400 text-sm mb-2">
-                جميع الحقوق محفوظة © 2025 مكتبة الطموح والتوزيع
+                جميع الحقوق محفوظة © 2025 مكتبة الطموح
               </p>
               <p className="text-orange-400 font-medium text-sm">
               مكتبة الطموح – حيث تبدأ رحلتك الأدبية من أول صفحة
@@ -297,7 +297,7 @@ const Footer = () => {
         <div className="text-center pb-6">
           <div className="inline-flex items-center gap-2 text-slate-500">
             <div className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse" />
-            <span className="text-xs">شكراً لاختياركم مكتبة الطموح والتوزيع</span>
+            <span className="text-xs">شكراً لاختياركم مكتبة الطموح</span>
             <div className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse" />
           </div>
         </div>
