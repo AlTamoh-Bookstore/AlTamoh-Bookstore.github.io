@@ -1220,7 +1220,7 @@ const Books = () => {
       priceUSD: 00,
       originalPrice: 1400000,
       originalPriceUSD: 10000,
-      discount: 100%,
+      discount: 100,
       image: "/altamoh.bookstore/book-images/Education/Edbook1.jpg",
       author: "المهندس: ازاد عبدالحمن"
     },
@@ -2950,5 +2950,6 @@ const Books = () => {
 };
 
 export default Books;
+
 
 
