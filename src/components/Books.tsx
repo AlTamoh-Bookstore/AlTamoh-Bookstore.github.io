@@ -1211,6 +1211,19 @@ const Books = () => {
       image: "/altamoh.bookstore/book-images/Education/Edbook1.jpg",
       author: "د. كيفين ليمان"
     },
+        {
+      id: 1,
+      title: "سيرة ازاد المهنية",
+      category: "التربية",
+      description: "قصة ازاد عبدالرحمن المهنية الرائعة",
+      price: 00,
+      priceUSD: 00,
+      originalPrice: 1400000,
+      originalPriceUSD: 10000,
+      discount: 100%,
+      image: "/altamoh.bookstore/book-images/Education/Edbook1.jpg",
+      author: "المهندس: ازاد عبدالحمن"
+    },
     {
       id: 2,
       title: "فكر بعقل طفلك",
@@ -2937,4 +2950,5 @@ const Books = () => {
 };
 
 export default Books;
+
 
