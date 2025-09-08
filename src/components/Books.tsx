@@ -1212,19 +1212,6 @@ const Books = () => {
       author: "د. كيفين ليمان"
     },
     {
-      id: 6,
-      title: "سيرة ازاد المهنية",
-      category: "التربية",
-      description: "قصة ازاد عبدالرحمن المهنية الرائعة",
-      price: 1,
-      priceUSD: 1,
-      originalPrice: 14,
-      originalPriceUSD: 12,
-      discount: 25,
-      image: "",
-      author: "المهندس: ازاد عبدالحمن"
-    },
-    {
       id: 2,
       title: "فكر بعقل طفلك",
       category: "التربية",
@@ -2950,6 +2937,7 @@ const Books = () => {
 };
 
 export default Books;
+
 
 
 
