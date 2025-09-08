@@ -1216,11 +1216,11 @@ const Books = () => {
       title: "سيرة ازاد المهنية",
       category: "التربية",
       description: "قصة ازاد عبدالرحمن المهنية الرائعة",
-      price: 00,
-      priceUSD: 00,
-      originalPrice: 1400000,
-      originalPriceUSD: 10000,
-      discount: 100,
+      price: 1,
+      priceUSD: 1,
+      originalPrice: 14,
+      originalPriceUSD: 12,
+      discount: 25,
       image: "",
       author: "المهندس: ازاد عبدالحمن"
     },
@@ -2950,6 +2950,7 @@ const Books = () => {
 };
 
 export default Books;
+
 
 
 
