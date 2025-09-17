@@ -64,6 +64,8 @@ const Books = () => {
   const booksGridRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const categoryScrollRef = useRef<HTMLDivElement>(null);
+  const bestSellersScrollRef = useRef<HTMLDivElement>(null);
+  
   // Check if device is small
   useEffect(() => {
     const checkDeviceSize = () => {
@@ -341,11 +343,166 @@ const Books = () => {
     return selectedCurrency === 'USD' ? '$' : '₺';
   };
 
-  const books: Book[] = [
+  const books: Book[] = [ 
       // إصدارات دار الطموح
 
       // الكتب الأكثر مبيعاً
-
+      {
+        id: 1,
+        title: "نبوءات الجائعين",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 132,
+        priceUSD: 3.2,
+        originalPrice: 165,
+        originalPriceUSD: 4,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook1.jpg",
+        author: "أيمن العتوم"
+        },
+        {
+        id: 2,
+        title: "قلبي عليك حبيبتي",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 132,
+        priceUSD: 3.2,
+        originalPrice: 165,
+        originalPriceUSD: 4,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook2.jpg",
+        author: "أيمن العتوم"
+        },
+        {
+        id: 3,
+        title: "طيور القدس",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 132,
+        priceUSD: 3.2,
+        originalPrice: 165,
+        originalPriceUSD: 4,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook3.jpg",
+        author: "أيمن العتوم"
+        },
+        {
+        id: 4,
+        title: "خذني الى المسجد الأقصى",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 132,
+        priceUSD: 3.2,
+        originalPrice: 165,
+        originalPriceUSD: 4,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook4.jpg",
+        author: "أيمن العتوم"
+        },
+        {
+        id: 5,
+        title: "الزنابق",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 132,
+        priceUSD: 3.2,
+        originalPrice: 165,
+        originalPriceUSD: 4,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook5.jpg",
+        author: "أيمن العتوم"
+        },
+        {
+        id: 6,
+        title: "وتلك الأيام",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 395,
+        priceUSD: 9.6,
+        originalPrice: 494,
+        originalPriceUSD: 12,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook6.jpg",
+        author: "أدهم الشرقاوي"
+        },
+        {
+        id: 7,
+        title: "خمسون قانونا للحب",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 428,
+        priceUSD: 10.4,
+        originalPrice: 535,
+        originalPriceUSD: 13,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook7.jpg",
+        author: "أدهم الشرقاوي"
+        },
+        {
+        id: 8,
+        title: "رسائل من النبي",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 461,
+        priceUSD: 11.2,
+        originalPrice: 576.25,
+        originalPriceUSD: 14,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook8.jpg",
+        author: "أدهم الشرقاوي"
+        },
+        {
+        id: 9,
+        title: "رسائل من الصحابة",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 461,
+        priceUSD: 11.2,
+        originalPrice: 576.25,
+        originalPriceUSD: 14,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook9.jpg",
+        author: "أدهم الشرقاوي"
+        },
+        {
+        id: 10,
+        title: "رسائل من القرآن",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 428,
+        priceUSD: 10.4,
+        originalPrice: 535,
+        originalPriceUSD: 13,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook10.jpg",
+        author: "أدهم الشرقاوي"
+        },
+        {
+        id: 11,
+        title: "على خظى الرسول",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 395,
+        priceUSD: 9.6,
+        originalPrice: 494,
+        originalPriceUSD: 12,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook11.jpg",
+        author: ""
+        },
+        {
+        id: 12,
+        title: "مع النبي",
+        category: "الأكثر مبيعاً",
+        description: "..",
+        price: 395,
+        priceUSD: 9.6,
+        originalPrice: 494,
+        originalPriceUSD: 12,
+        discount: 20,
+        image: "/altamoh.bookstore/book-images/Literature/Lbook12.jpg",
+        author: ""
+        },
       // الدين
       {
         id: 1,
@@ -1755,7 +1912,7 @@ const Books = () => {
     },
     {
       id: 98,
-      title: "ويتشر",
+      title: "ألف ليلة وليلة",
       category: "روايات",
       description: "عمل أدبي تراثي يضم مئات القصص الشعبية والأسطورية، تدور في إطار حكايات شهرزاد للملك شهريار. يجمع بين المغامرات مثل رحلات السندباد، والأساطير مثل علاء الدين والمصباح السحري، وقصص الحب والخيانة والملوك والجن. يعد من أبرز روائع الأدب العالمي وأحد أكثر الكتب تأثيرًا في المخيلة الإنسانية",
       price: 1605,
@@ -1769,6 +1926,799 @@ const Books = () => {
           "/altamoh.bookstore/book-images/Novels/alflila3.jpg"
       ],
       author: "أندجي سابكوفسكي"
+      },
+      {
+        id: 99,
+        title: "نمر الليل",
+        category: "روايات",
+        description: "رواية مليئة بالإثارة والتشويق في عالم الجريمة والظلام.",
+        price: 376,
+        priceUSD: 9.10,
+        originalPrice: 537,
+        originalPriceUSD: 13,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook94.jpg",
+        author: "يانغسي شو"
+      },
+      {
+        id: 100,
+        title: "فوق جطر الجمهورية",
+        category: "روايات",
+        description: "قصة إنسانية تجمع بين الحلم والواقع على جسر الجمهورية.",
+        price: 347,
+        priceUSD: 8.40,
+        originalPrice: 496,
+        originalPriceUSD: 12,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook95.jpg",
+        author: "شهد الراوي"
+      },
+      {
+        id: 101,
+        title: "المثيرون للاهتمام",
+        category: "روايات",
+        description: "رواية تتناول حياة مجموعة من الشخصيات المثيرة للاهتمام.",
+        price: 521,
+        priceUSD: 12.60,
+        originalPrice: 744,
+        originalPriceUSD: 18,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook96.jpg",
+        author: "ميغ ووليتزر"
+      },
+      {
+        id: 102,
+        title: "من قتل والدي",
+        category: "روايات",
+        description: "رحلة بحث محفوفة بالمخاطر للكشف عن حقيقة مقتل الأب.",
+        price: 173,
+        priceUSD: 4.20,
+        originalPrice: 248,
+        originalPriceUSD: 6,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook97.jpg",
+        author: "ادوارد لوي"
+      },
+      {
+        id: 103,
+        title: "جاك وساق الفاصوليا",
+        category: "روايات",
+        description: "قصة خيالية كلاسيكية عن جاك ومغامرته مع ساق الفاصوليا السحرية.",
+        price: 173,
+        priceUSD: 4.20,
+        originalPrice: 248,
+        originalPriceUSD: 6,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook98.jpg",
+        author: "ترجمة هادي عبد الرزاق الخزرجي"
+      },
+      {
+        id: 104,
+        title: "قبل أدم",
+        category: "روايات",
+        description: "رواية تستكشف عوالم ما قبل الخليقة والإنسان.",
+        price: 231,
+        priceUSD: 5.60,
+        originalPrice: 330,
+        originalPriceUSD: 8,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook99.jpg",
+        author: "جاك لندن"
+      },
+      {
+        id: 105,
+        title: "عين الجمل",
+        category: "روايات",
+        description: "قصة تراثية عميقة تحمل معاني إنسانية وقيمًا اجتماعية.",
+        price: 173,
+        priceUSD: 4.20,
+        originalPrice: 248,
+        originalPriceUSD: 6,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook100.jpg",
+        author: "جنكيز أيتماتوف"
+      },
+      {
+        id: 106,
+        title: "استيلا تسمع أصواتًا في الخزانة",
+        category: "روايات",
+        description: "قصة غامضة عن فتاة تسمع أصواتًا غريبة تأتي من الخزانة.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook101.jpg",
+        author: "ترجمة طلعت شاهين"
+      },
+      {
+        id: 107,
+        title: "النوم في حقل الكرز",
+        category: "روايات",
+        description: "رواية شعرية عن الحلم والهروب إلى عالم الطبيعة.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook102.jpg",
+        author: "ازهر جرجيس"
+      },
+      {
+        id: 108,
+        title: "حجر السعادة",
+        category: "روايات",
+        description: "قصة عن البحث عن السعادة عبر حجر سحري يجلب الحظ.",
+        price: 347,
+        priceUSD: 8.40,
+        originalPrice: 496,
+        originalPriceUSD: 12,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook103.jpg",
+        author: "ازهر جرجيس"
+      },
+      {
+        id: 109,
+        title: "اخف من الحلم",
+        category: "روايات",
+        description: "رواية عن العلاقات الإنسانية والخيالات التي تكون أخف من الحلم.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook104.jpg",
+        author: "جمانة ممتاز"
+      },
+      {
+        id: 110,
+        title: "الابله الرائع",
+        category: "روايات",
+        description: "قصة عن شخصية بسيطة تحمل في طياتها حكمة غير متوقعة.",
+        price: 347,
+        priceUSD: 8.40,
+        originalPrice: 496,
+        originalPriceUSD: 12,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook105.jpg",
+        author: "شوساكو"
+      },
+      {
+        id: 111,
+        title: "سدهارتا",
+        category: "روايات",
+        description: "رواية فلسفية عن رحلة البحث عن الذات والمعنى الروحي.",
+        price: 202,
+        priceUSD: 4.90,
+        originalPrice: 289,
+        originalPriceUSD: 7,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook106.jpg",
+        author: "هيرمان هسة"
+      },
+      {
+        id: 112,
+        title: "الريح في أشجار الصفصاف",
+        category: "روايات",
+        description: "مغامرات حيوانات في عالم طبيعي ساحر ومليء بالمفاجآت.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook107.jpg",
+        author: "كينيث غراهام"
+      },
+      {
+        id: 113,
+        title: "عين زجاجية",
+        category: "روايات",
+        description: "قصة غامضة تدور حول عين زجاجية تحمل أسرارًا خطيرة.",
+        price: 202,
+        priceUSD: 4.90,
+        originalPrice: 289,
+        originalPriceUSD: 7,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook108.jpg",
+        author: "ميرين اغور ميابي"
+      },
+      {
+        id: 114,
+        title: "لسان بورخيس",
+        category: "روايات",
+        description: "رواية تستلهم عالم الكاتب بورخيس بأسلوب سردي متميز.",
+        price: 231,
+        priceUSD: 5.60,
+        originalPrice: 330,
+        originalPriceUSD: 8,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook109.jpg",
+        author: "محمد العمراني"
+      },
+      {
+        id: 115,
+        title: "أميرة صغيرة",
+        category: "روايات",
+        description: "قصة كلاسيكية عن فتاة غنية تفقد كل شيء ولكنها تحافظ على كبريائها.",
+        price: 376,
+        priceUSD: 9.10,
+        originalPrice: 537,
+        originalPriceUSD: 13,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook110.jpg",
+        author: "فرانسيس برينت"
+      },
+      {
+        id: 116,
+        title: "الدب ويني بووه",
+        category: "روايات",
+        description: "مغامرات الدب المحبوب ويني بووه وأصدقائه في الغابة.",
+        price: 260,
+        priceUSD: 6.30,
+        originalPrice: 372,
+        originalPriceUSD: 9,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook111.jpg",
+        author: "أ.أ.ميلن"
+      },
+      {
+        id: 117,
+        title: "نهاية المطاف",
+        category: "روايات",
+        description: "رحلة عاطفية تنتهي عند نقطة مصيرية تغير حياة الشخصيات.",
+        price: 347,
+        priceUSD: 8.40,
+        originalPrice: 496,
+        originalPriceUSD: 12,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook112.jpg",
+        author: "آن غريفين"
+      },
+      {
+        id: 118,
+        title: "رحلات غلفر",
+        category: "روايات",
+        description: "رواية خيالية عن رحلات غلفر إلى بلاد العمالقة والأقزام.",
+        price: 376,
+        priceUSD: 9.10,
+        originalPrice: 537,
+        originalPriceUSD: 13,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook113.jpg",
+        author: "جوناثان سويفت"
+      },
+      {
+        id: 119,
+        title: "مخطوطة ابن بطوطة السرية",
+        category: "روايات",
+        description: "مغامرة للكشف عن مخطوطة سرية للرحالة الشهير ابن بطوطة.",
+        price: 405,
+        priceUSD: 9.80,
+        originalPrice: 578,
+        originalPriceUSD: 14,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook114.jpg",
+        author: "جاسم سلمان"
+      },
+      {
+        id: 120,
+        title: "ذو الناب الأبيض",
+        category: "روايات",
+        description: "قصة كلاسيكية عن ذئب هجين يتعلم البقاء في البرية.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook115.jpg",
+        author: "جاك لندن"
+      },
+      {
+        id: 121,
+        title: "الشرطي الثالث",
+        category: "روايات",
+        description: "قصة بوليسية غامضة مع وجود شرطي ثالث يحمل مفاجآت غير متوقعة.",
+        price: 318,
+        priceUSD: 7.70,
+        originalPrice: 454,
+        originalPriceUSD: 11,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook116.jpg",
+        author: "فلان اوبراين"
+      },
+      {
+        id: 122,
+        title: "غريزة الطير",
+        category: "روايات",
+        description: "رواية عن الحرية والهجرة مستوحاة من غريزة الطيور.",
+        price: 347,
+        priceUSD: 8.40,
+        originalPrice: 496,
+        originalPriceUSD: 12,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook117.jpg",
+        author: "عبد الزهرة زكي"
+      },
+      {
+        id: 123,
+        title: "الأمير احتجاب",
+        category: "روايات",
+        description: "قصة عن أمير يعيش في عزلة واحتجاب عن العالم الخارجي.",
+        price: 260,
+        priceUSD: 6.30,
+        originalPrice: 372,
+        originalPriceUSD: 9,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook118.jpg",
+        author: "هوشنك كلشيري"
+      },
+      {
+        id: 124,
+        title: "رجل وحيد",
+        category: "روايات",
+        description: "قصة عن عزلة الإنسان وصراعه مع وحدته في العالم الحديث.",
+        price: 231,
+        priceUSD: 5.60,
+        originalPrice: 330,
+        originalPriceUSD: 8,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook119.jpg",
+        author: "وليد صالح الخليفة"
+      },
+      {
+        id: 125,
+        title: "صوفيا بتروفنا",
+        category: "روايات",
+        description: "قصة إنسانية مؤثرة عن أم تحاول إنقاذ ابنها في ظل ظروف صعبة.",
+        price: 231,
+        priceUSD: 5.60,
+        originalPrice: 330,
+        originalPriceUSD: 8,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook120.jpg",
+        author: "ليديا تشوكوفسكايا"
+      },
+      {
+        id: 126,
+        title: "دراما في الصيد",
+        category: "روايات",
+        description: "قصة قصيرة عن رحلة صيد تتحول إلى دراما إنسانية غير متوقعة.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook121.jpg",
+        author: "انطون تشيخوف"
+      },
+      {
+        id: 127,
+        title: "فوق بلاد السواد",
+        category: "روايات",
+        description: "رواية تستكشف الحياة فوق أراضي مملكة السواد الأسطورية.",
+        price: 202,
+        priceUSD: 4.90,
+        originalPrice: 289,
+        originalPriceUSD: 7,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook122.jpg",
+        author: "ازهر جرجيس"
+      },
+      {
+        id: 128,
+        title: "كبرت مع الأشباح",
+        category: "روايات",
+        description: "مذكرات طفولة غير عادية مليئة بحكايات الأشباح والأسرار.",
+        price: 202,
+        priceUSD: 4.90,
+        originalPrice: 289,
+        originalPriceUSD: 7,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook123.jpg",
+        author: "برنس تشولي"
+      },
+      {
+        id: 129,
+        title: "أنت لي 1/2",
+        category: "روايات",
+        description: "قصة حب عاطفية عن اكتمال النصفين في علاقة واحدة.",
+        price: 867,
+        priceUSD: 21.00,
+        originalPrice: 1239,
+        originalPriceUSD: 30,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook124.webp",
+        author: "د. منى المرشود"
+      },
+      {
+        id: 130,
+        title: "دروب السرتاو",
+        category: "روايات",
+        description: "ملحمة أدبية عن رحلة عبر دروب منطقة السرتاو البرازيلية.",
+        price: 626,
+        priceUSD: 15.05,
+        originalPrice: 888,
+        originalPriceUSD: 21.5,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook125.jpg",
+        author: "جواو غيمارايس روزا"
+      },
+      {
+        id: 131,
+        title: "بينية",
+        category: "روايات",
+        description: "قصة عن فتاة تدعى بينية وحياتها في عالم سحري.",
+        price: 202,
+        priceUSD: 4.90,
+        originalPrice: 289,
+        originalPriceUSD: 7,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook126.webp",
+        author: "آديلايدا غارثيا موراليس"
+      },
+      {
+        id: 132,
+        title: "البيوض القاتلة",
+        category: "روايات",
+        description: "رواية خيال علمي عن بيوض غامضة تحمل تهديدًا قاتلًا للبشرية.",
+        price: 231,
+        priceUSD: 5.60,
+        originalPrice: 330,
+        originalPriceUSD: 8,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook127.jpg",
+        author: "ميخائيل بولغاكوف"
+      },
+      {
+        id: 133,
+        title: "مغامرات توم سوير",
+        category: "روايات",
+        description: "مغامرات طفل شقي ومليء بالخيال في بلدة صغيرة على نهر المسيسيبي.",
+        price: 347,
+        priceUSD: 8.40,
+        originalPrice: 496,
+        originalPriceUSD: 12,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook128.jpg",
+        author: "مارك توين"
+      },
+      {
+        id: 134,
+        title: "أكاذيب الليل",
+        category: "روايات",
+        description: "قصة غامضة حيث تختلط الحقيقة بالأكاذيب في ظلام الليل.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook129.jpg",
+        author: "جزوالدو بوفالينو"
+      },
+      {
+        id: 135,
+        title: "أوديب || السر الهائل",
+        category: "روايات",
+        description: "إعادة سردية لأسطورة أوديب مع كشف سر هائل يغير مصيره.",
+        price: 173,
+        priceUSD: 4.20,
+        originalPrice: 248,
+        originalPriceUSD: 6,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook130.jpg",
+        author: "فولتير"
+      },
+      {
+        id: 136,
+        title: "رغبة",
+        category: "روايات",
+        description: "رواية عن القوة المدمرة والخلاقة للرغبة الإنسانية.",
+        price: 231,
+        priceUSD: 5.60,
+        originalPrice: 330,
+        originalPriceUSD: 8,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook131.jpg",
+        author: "فيليب سولرس"
+      },
+      {
+        id: 137,
+        title: "الخادمة الشهيرة",
+        category: "روايات",
+        description: "قصة عن خادمة تصبح شخصية شهيرة وتغير مجرى الأحداث.",
+        price: 202,
+        priceUSD: 4.90,
+        originalPrice: 289,
+        originalPriceUSD: 7,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook132.jpg",
+        author: "ثربانتس"
+      },
+      {
+        id: 138,
+        title: "كأس الدنيا",
+        category: "روايات",
+        description: "رواية استعارية عن كأس يمنح حامليه تجربة فريدة من حكمة الدنيا.",
+        price: 231,
+        priceUSD: 5.60,
+        originalPrice: 330,
+        originalPriceUSD: 8,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook133.jpg",
+        author: "ميخائيل برشفين"
+      },
+      {
+        id: 139,
+        title: "حياة ومغامرات روبنسون كروزو",
+        category: "روايات",
+        description: "الرواية الكلاسيكية عن الناجي الوحيد على جزيرة مهجورة.",
+        price: 477,
+        priceUSD: 11.55,
+        originalPrice: 682,
+        originalPriceUSD: 16.5,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook134.jpg",
+        author: "دانيال ديفو"
+      },
+      {
+        id: 140,
+        title: "الجدار",
+        category: "روايات",
+        description: "قصة ديستوبية عن مجتمع يعيش خلف جدار عظيم يفصله عن العالم.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook135.jpg",
+        author: "جون لانكستر"
+      },
+      {
+        id: 141,
+        title: "نزيلة قصر وايلدفيل",
+        category: "روايات",
+        description: "قصة غامضة عن امرأة شابة تقيم في قصر وايلدفيل المليء بالأسرار.",
+        price: 405,
+        priceUSD: 9.80,
+        originalPrice: 578,
+        originalPriceUSD: 14,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook136.jpg",
+        author: "آن برونته"
+      },
+      {
+        id: 142,
+        title: "عالم جديد وشجاع",
+        category: "روايات",
+        description: "رواية ديستوبية كلاسيكية عن مستقبل مجتمع خاضع للسيطرة التكنولوجية.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook137.jpg",
+        author: "الدوس هكسلي"
+      },
+      {
+        id: 143,
+        title: "الرجل الزجاجي",
+        category: "روايات",
+        description: "قصة عن رجل شفاف يمكن للجميع رؤية ما بداخله من مشاعر وأفكار.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook138.jpg",
+        author: "ثربانتس"
+      },
+      {
+        id: 144,
+        title: "جزيرة الكنز",
+        category: "روايات",
+        description: "مغامرة بحرية مثيرة للبحث عن كنز مدفون على جزيرة نائية.",
+        price: 376,
+        priceUSD: 9.10,
+        originalPrice: 537,
+        originalPriceUSD: 13,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook139.jpg",
+        author: "روبرت ستيفنسون"
+      },
+      {
+        id: 145,
+        title: "في بلاد الرافدين جنة عدن",
+        category: "روايات",
+        description: "رحلة إلى أرض الرافدين، مهد الحضارات، بحثًا عن جنة عدن المفقودة.",
+        price: 202,
+        priceUSD: 4.90,
+        originalPrice: 289,
+        originalPriceUSD: 7,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook140.jpg",
+        author: "مارتن سواين"
+      },
+      {
+        id: 146,
+        title: "شرقيّ عدن 1/2",
+        category: "روايات",
+        description: "ملحمة عائلية تدور حول صراع الخير والشر في وادي ساليناس بكاليفورنيا.",
+        price: 867,
+        priceUSD: 21.00,
+        originalPrice: 1239,
+        originalPriceUSD: 30,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook141.jpg",
+        author: "جون شتاينبك"
+      },
+      {
+        id: 147,
+        title: "صورة يوسف",
+        category: "روايات",
+        description: "قصة عن يوسف وصورة تثير ذكريات الماضي وتكشف أسرار الحاضر.",
+        price: 318,
+        priceUSD: 7.70,
+        originalPrice: 454,
+        originalPriceUSD: 11,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook142.jpg",
+        author: "نجم والي"
+      },
+      {
+        id: 148,
+        title: "ليل ينسى ودائعه",
+        category: "روايات",
+        description: "رواية عن ذاكرة الليل والأشياء التي ينساها مع بزوغ الفجر.",
+        price: 202,
+        priceUSD: 4.90,
+        originalPrice: 289,
+        originalPriceUSD: 7,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook143.jpg",
+        author: "جوخة الحارثي"
+      },
+      {
+        id: 149,
+        title: "فتاة تائهة في القرن العشرين",
+        category: "روايات",
+        description: "قصة عن فتاة تحاول العثور على مكانها في عالم سريع التغير.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook144.jpg",
+        author: "غونزالوم"
+      },
+      {
+        id: 150,
+        title: "كل رجال الملك",
+        category: "روايات",
+        description: "رواية سياسية عن صعود وسقوط سياسي فاسد في الجنوب الأمريكي.",
+        price: 463,
+        priceUSD: 11.20,
+        originalPrice: 661,
+        originalPriceUSD: 16,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook145.jpg",
+        author: "روبرت بين وارن"
+      },
+      {
+        id: 151,
+        title: "ادم بعد عدن",
+        category: "روايات",
+        description: "قصة فلسفية عن حياة آدم البشرية بعد خروجه من جنة عدن.",
+        price: 347,
+        priceUSD: 8.40,
+        originalPrice: 496,
+        originalPriceUSD: 12,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook146.jpg",
+        author: "فولتير"
+      },
+      {
+        id: 152,
+        title: "الثعبان والزنبقة",
+        category: "روايات",
+        description: "قصة استعارية عن الصراع الأبدي بين الشر (الثعبان) والجمال (الزنبقة).",
+        price: 173,
+        priceUSD: 4.20,
+        originalPrice: 248,
+        originalPriceUSD: 6,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook147.jpg",
+        author: "نيكوس كازنتزاكيس"
+      },
+      {
+        id: 153,
+        title: "حياتي خلف القضبان",
+        category: "روايات",
+        description: "مذكرات صادقة عن تجربة السجن والبقاء على قيد الحياة خلف القضبان.",
+        price: 405,
+        priceUSD: 9.80,
+        originalPrice: 578,
+        originalPriceUSD: 14,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook148.jpg",
+        author: "دونالد لاوري"
+      },
+      {
+        id: 154,
+        title: "ارث بيريت",
+        category: "روايات",
+        description: "قصة غامضة عن إرث عائلة بيريت الذي يحمل ثروة ولعنة في نفس الوقت.",
+        price: 260,
+        priceUSD: 6.30,
+        originalPrice: 372,
+        originalPriceUSD: 9,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook149.jpg",
+        author: "فاتن المر"
+      },
+      {
+        id: 155,
+        title: "رينكونيته و كورتارديو",
+        category: "روايات",
+        description: "قصة عن صديقين من عالم المشردين والمهمشين في المجتمع.",
+        price: 202,
+        priceUSD: 4.90,
+        originalPrice: 289,
+        originalPriceUSD: 7,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook150.jpg",
+        author: "ثربانتس"
+      },
+      {
+        id: 156,
+        title: "الخيمة الحمراء",
+        category: "روايات",
+        description: "قصة عن التقاء النساء في الخيمة الحمراء ومشاركة أسرار حياتهن.",
+        price: 318,
+        priceUSD: 7.70,
+        originalPrice: 454,
+        originalPriceUSD: 11,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook151.jpg",
+        author: "انيتا ديامنت"
+      },
+      {
+        id: 157,
+        title: "جزيرة المرجان",
+        category: "روايات",
+        description: "مغامرة للبقاء على قيد الحياة على جزيرة مرجانية استوائية.",
+        price: 289,
+        priceUSD: 7.00,
+        originalPrice: 413,
+        originalPriceUSD: 10,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook152.jpg",
+        author: "روبرت م.بالانتاين"
+      },
+      {
+        id: 158,
+        title: "الحياة الخالدة لهنريتا لاكس",
+        category: "روايات",
+        description: "قصة حقيقية عن المرأة التي خلاياها غيرت الطب مع تجاهل هويتها.",
+        price: 578,
+        priceUSD: 14.00,
+        originalPrice: 826,
+        originalPriceUSD: 20,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook153.png",
+        author: "ريبيكا سكلوت"
+      },
+      {
+        id: 159,
+        title: "نصري",
+        category: "روايات",
+        description: "قصة عن النصر الشخصي على الصعوبات والتحديات الكبيرة.",
+        price: 521,
+        priceUSD: 12.60,
+        originalPrice: 744,
+        originalPriceUSD: 18,
+        discount: 30,
+        image: "/altamoh.bookstore/book-images/Novels/Nbook154.jpg",
+        author: "ماريو بجين لوثينا"
       },
 
     // =========================================================================================== //
@@ -1889,6 +2839,188 @@ const Books = () => {
           "/altamoh.bookstore/book-images/History/islami2.jpg"
       ],
       author: "ابن كثير"
+    },
+    {
+      id: 4,
+      title: "حقيقة السبي البابلي",
+      category: "تاريخ",
+      description: "كتاب يبحث في الأحداث التاريخية المحيطة بالسبي البابلي لليهود.",
+      price: 260,
+      priceUSD: 6.30,
+      originalPrice: 372,
+      originalPriceUSD: 9,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook2.jpg",
+      author: "فاضل الربيعي"
+    },
+    {
+      id: 5,
+      title: "جبريل والنبي",
+      category: "تاريخ",
+      description: "دراسة تاريخية حول العلاقة بين الوحي والنبوة في التاريخ الإسلامي.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook3.jpg",
+      author: "فاضل الربيعي"
+    },
+    {
+      id: 6,
+      title: "عرب العراق والجزيرة",
+      category: "تاريخ",
+      description: "بحث تاريخي عن أصول وانتشار القبائل العربية في العراق والجزيرة العربية.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook4.jpg",
+      author: "غيرتورد لوثيان بل واخرون"
+    },
+    {
+      id: 7,
+      title: "حضارة بابل وآشور",
+      category: "تاريخ",
+      description: "استعراض شامل لإنجازات وتراث حضارتي بابل وآشور القديمتين.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook5.jpg",
+      author: "غوستاف لوبون"
+    },
+    {
+      id: 8,
+      title: "حضارات حطمتها الآلهة",
+      category: "تاريخ",
+      description: "تحليل لانهيار حضارات قديمة من خلال الأساطير والمعتقدات الدينية.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook6.jpg",
+      author: "خزعل الماجدي"
+    },
+    {
+      id: 9,
+      title: "حضارة العرب",
+      category: "تاريخ",
+      description: "إرث الحضارة العربية وإسهاماتها في العلوم والفنون والثقافة العالمية.",
+      price: 376,
+      priceUSD: 9.10,
+      originalPrice: 537,
+      originalPriceUSD: 13,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook7.jpg",
+      author: "غوستاف لوبون"
+    },
+    {
+      id: 10,
+      title: "جبل الزيتون",
+      category: "تاريخ",
+      description: "تاريخ وأهمية جبل الزيتون في القدس عبر العصور المختلفة.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 7,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook8.jpg",
+      author: "فالح رفق اطاي"
+    },
+    {
+      id: 11,
+      title: "في مهب العراق",
+      category: "تاريخ",
+      description: "تحليل للأحداث والتحولات السياسية الكبرى التي مر بها العراق الحديث.",
+      price: 521,
+      priceUSD: 12.60,
+      originalPrice: 744,
+      originalPriceUSD: 18,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook9.jpg",
+      author: "علي عبد الأمير عجام"
+    },
+    {
+      id: 12,
+      title: "تاريخ القدس القديم",
+      category: "تاريخ",
+      description: "رحلة عبر التاريخ القديم لمدينة القدس منذ أقدم العصور.",
+      price: 463,
+      priceUSD: 11.20,
+      originalPrice: 661,
+      originalPriceUSD: 16,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook10.jpeg",
+      author: "خزعل الماجدي"
+    },
+    {
+      id: 13,
+      title: "شقيقات قريش",
+      category: "تاريخ",
+      description: "دراسة تاريخية عن دور النساء في قبيلة قريش وفي صدر الإسلام.",
+      price: 434,
+      priceUSD: 10.50,
+      originalPrice: 620,
+      originalPriceUSD: 15,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook11.webp",
+      author: "فاضل الربيعي"
+    },
+    {
+      id: 14,
+      title: "من مأرب إلى مكة",
+      category: "تاريخ",
+      description: "تتبع للهجرات والتحركات السكانية من مملكة سبأ في مأرب نحو مكة.",
+      price: 521,
+      priceUSD: 12.60,
+      originalPrice: 744,
+      originalPriceUSD: 18,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook12.jpg",
+      author: "فريق من الباحثين"
+    },
+    {
+      id: 15,
+      title: "من بابل الى بغداد",
+      category: "تاريخ",
+      description: "رحلة عبر التاريخ تربط بين أمجاد بابل القديمة وتاريخ بغداد الحديث.",
+      price: 434,
+      priceUSD: 10.50,
+      originalPrice: 620,
+      originalPriceUSD: 15,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook13.jpg",
+      author: "سعيد الغانمي"
+    },
+    {
+      id: 16,
+      title: "صدى السنين الحاكي",
+      category: "تاريخ",
+      description: "توثيق لتاريخ منطقة ظفار العمانية وأحداثها عبر السنين.",
+      price: 434,
+      priceUSD: 10.50,
+      originalPrice: 620,
+      originalPriceUSD: 15,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook14.jpg",
+      author: "صالح الشحري"
+    },
+    {
+      id: 17,
+      title: "تقرير من الداخل",
+      category: "تاريخ",
+      description: "شهادة وتحليل من داخل أحداث تاريخية معاصرة وشخصية.",
+      price: 376,
+      priceUSD: 9.10,
+      originalPrice: 537,
+      originalPriceUSD: 13,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/History/Hbook15.jpg",
+      author: "بول أوستر"
     },
 
     // =========================================================================================== //
@@ -2041,6 +3173,487 @@ const Books = () => {
     discount: 25,
     image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook11.jpg",
     author: "د. يوسف الحسني",
+    },
+    {
+      id: 12,
+      title: "فن الإغواء",
+      category: "فلسفة و علم نفس",
+      description: "تحليل لاستراتيجيات الإغواء والتأثير على الآخرين عبر التاريخ.",
+      price: 578,
+      priceUSD: 14.00,
+      originalPrice: 826,
+      originalPriceUSD: 20,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook12.jpg",
+      author: "روبرت غرين"
+    },
+    {
+      id: 13,
+      title: "عند حدود العقل",
+      category: "فلسفة و علم نفس",
+      description: "تأملات فلسفية حول قدرات العقل البشري وحدود إدراكه.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook13.jpg",
+      author: "جان امري"
+    },
+    {
+      id: 14,
+      title: "مقال عن المنهج",
+      category: "فلسفة و علم نفس",
+      description: "أساسيات المنهج الفلسفي والعلمي كما وضعها الفيلسوف ديكارت.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook14.jpg",
+      author: "ديكارت"
+    },
+    {
+      id: 15,
+      title: "من العدم الى الولادة",
+      category: "فلسفة و علم نفس",
+      description: "دراسة فلسفية ونفسية لأصل الوجود والوعي الإنساني.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook15.jpg",
+      author: "دابليو آي هاريس"
+    },
+    {
+      id: 16,
+      title: "فلسفة التاريخ",
+      category: "فلسفة و علم نفس",
+      description: "تحليل فلسفي لمسيرة التاريخ البشري وقوانين تطوره.",
+      price: 260,
+      priceUSD: 6.30,
+      originalPrice: 372,
+      originalPriceUSD: 9,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook16.jpg",
+      author: "غوستاف لوبون"
+    },
+    {
+      id: 17,
+      title: "الدماغ الخلَّاق",
+      category: "فلسفة و علم نفس",
+      description: "استكشاف للعمليات العصبية والنفسية وراء الإبداع البشري.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook17.jpg",
+      author: "نانسي اندرياسن"
+    },
+    {
+      id: 18,
+      title: "ارتيابات الوقت الراهن",
+      category: "فلسفة و علم نفس",
+      description: "قراءة نقدية للتحولات الاجتماعية والفكرية في العصر الحديث.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 7,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook18.jpg",
+      author: "غوستاف لوبон"
+    },
+    {
+      id: 19,
+      title: "سلامة الروح وراحة الجسد",
+      category: "فلسفة و علم نفس",
+      description: "تأملات في تحقيق التوازن والسلام الداخلي بين الجسد والروح.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 7,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook19.jpg",
+      author: "المهاتما غاندي"
+    },
+    {
+      id: 20,
+      title: "فِتِغِنشتاين والمعنى في الحياة",
+      category: "فلسفة و علم نفس",
+      description: "دراسة لفلسفة فتغنشتاين وتطبيقاتها على بحث الإنسان عن المعنى.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook20.jpeg",
+      author: "رضا حسيني"
+    },
+    {
+      id: 21,
+      title: "مقدمات",
+      category: "فلسفة و علم نفس",
+      description: "مقدمات فلسفية أساسية لفهم الوجود والإيمان والمعاناة الإنسانية.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 7,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook21.jpg",
+      author: "سورن كيرككورد"
+    },
+    {
+      id: 22,
+      title: "موجز تاريخ الدماغ والروح",
+      category: "فلسفة و علم نفس",
+      description: "رحلة عبر تطور المفاهيم حول العلاقة بين العقل المادي والروح.",
+      price: 289,
+      priceUSD: 7.00,
+      originalPrice: 413,
+      originalPriceUSD: 10,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook22.jpg",
+      author: "ماتياس ايكولد"
+    },
+    {
+      id: 23,
+      title: "طرق التفكير",
+      category: "فلسفة و علم نفس",
+      description: "تحليل لأنماط العقلية الثابتة versus النامية وتأثيرها على النجاح.",
+      price: 405,
+      priceUSD: 9.80,
+      originalPrice: 578,
+      originalPriceUSD: 14,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook23.webp",
+      author: "كارول أس دويك"
+    },
+    {
+      id: 24,
+      title: "أحفاد سقراط",
+      category: "فلسفة و علم نفس",
+      description: "تأملات في استمرارية التراث السقراطي وتأثيره على الفكر الحديث.",
+      price: 289,
+      priceUSD: 7.00,
+      originalPrice: 413,
+      originalPriceUSD: 10,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook24.jpg",
+      author: "علي حسين"
+    },
+    {
+      id: 25,
+      title: "الحاضر والمستقبل",
+      category: "فلسفة و علم نفس",
+      description: "تحليل نفسي للعلاقة بين إدراك الزمن والتخطيط للمستقبل.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 7,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook25.jpg",
+      author: "كارل غوستاف"
+    },
+    {
+      id: 26,
+      title: "التكرار",
+      category: "فلسفة و علم نفس",
+      description: "دراسة فلسفية لمفهوم التكرار وأهميته في التجربة الإنسانية والذاكرة.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook26.jpg",
+      author: "سورن كيرككورد"
+    },
+    {
+      id: 27,
+      title: "ما الأمة",
+      category: "فلسفة و علم نفس",
+      description: "بحث في الأسس الفلسفية والسيكولوجية لتشكيل الهوية الوطنية والأمة.",
+      price: 434,
+      priceUSD: 10.50,
+      originalPrice: 620,
+      originalPriceUSD: 15,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook27.jpg",
+      author: "د. نادر كاظم"
+    },
+    {
+      id: 28,
+      title: "الديني والتحليل والنفسي",
+      category: "فلسفة و علم نفس",
+      description: "تقاطعات بين المعتقد الديني ومنهج التحليل النفسي في فهم الذات.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook28.jpg",
+      author: "فيليب جوليان"
+    },
+    {
+      id: 29,
+      title: "اللغة والإنسان",
+      category: "فلسفة و علم نفس",
+      description: "استكشاف للعلاقة الجوهرية بين تطور اللغة وتشكيل الوعي الإنساني.",
+      price: 289,
+      priceUSD: 7.00,
+      originalPrice: 413,
+      originalPriceUSD: 10,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook29.jpg",
+      author: "ماكس بيكارد"
+    },
+    {
+      id: 30,
+      title: "ثناء على الجيل الجديد",
+      category: "فلسفة و علم نفس",
+      description: "نظرة تفاؤلية وتحليلية لخصائص وإمكانيات الأجيال المعاصرة.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook30.jpg",
+      author: "د. عبدالجبار الرفاعي"
+    },
+    {
+      id: 31,
+      title: "إدوارد سعيد 'المثقف الراديكالي'",
+      category: "فلسفة و علم نفس",
+      description: "دراسة لفكر إدوارد سعيد ودور المثقف النقدي في مواجهة السلطة.",
+      price: 173,
+      priceUSD: 4.20,
+      originalPrice: 248,
+      originalPriceUSD: 6,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook31.jpg",
+      author: "د. رسول محمد روسل"
+    },
+    {
+      id: 32,
+      title: "حول الشعر والفلسفة",
+      category: "فلسفة و علم نفس",
+      description: "حوار بين الشعر كتعبير جمالي والفلسفة كبحث عقلي عن الحقيقة.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 7,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook32.jpg",
+      author: "جون ستيوارت مل"
+    },
+    {
+      id: 33,
+      title: "القوانين النفسية لتطور الشعوب",
+      category: "فلسفة و علم نفس",
+      description: "تحليل للعوامل النفسية الجماعية التي تحكم تقدم أو تدهور الأمم.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook33.jpg",
+      author: "غوستاف لوبون"
+    },
+    {
+      id: 34,
+      title: "دروس سيكولوجية من الحرب الأوربية (1915)",
+      category: "فلسفة و علم نفس",
+      description: "تحليل نفسي لسلوكيات الأفراد والجماعات أثناء الصراعات الكبرى.",
+      price: 405,
+      priceUSD: 9.80,
+      originalPrice: 578,
+      originalPriceUSD: 14,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook34.jpg",
+      author: "غوستاف لوبون"
+    },
+    {
+      id: 35,
+      title: "الوعي والعدم",
+      category: "فلسفة و علم نفس",
+      description: "تأملات في طبيعة الوعي البشري وعلاقته بمفهوم العدم والوجود.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook35.jpg",
+      author: "منذر جلوب"
+    },
+    {
+      id: 36,
+      title: "أخلاقيات عالمنا الواقعي",
+      category: "فلسفة و علم نفس",
+      description: "نظرة عملية للفلسفة الأخلاقية وتطبيقاتها على مشاكل العالم المعاصر.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook36.jpg",
+      author: "بيتسر سينغر"
+    },
+    {
+      id: 37,
+      title: "محادثة مع بورمان",
+      category: "فلسفة و علم نفس",
+      description: "حوار فلسفي يشرح أفكار ديكارت الأساسية حول الوجود والمعرفة.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 7,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook37.jpg",
+      author: "رينه ديكارت"
+    },
+    {
+      id: 38,
+      title: "إشكالات الفلسفة السياسية",
+      category: "فلسفة و علم نفس",
+      description: "مناقشة للإشكاليات الأساسية في الفلسفة السياسية كالسلطة والعدالة.",
+      price: 289,
+      priceUSD: 7.00,
+      originalPrice: 413,
+      originalPriceUSD: 10,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook38.jpg",
+      author: "ديفيد د.رفائيل"
+    },
+    {
+      id: 39,
+      title: "تحول الشعوب الذهني",
+      category: "فلسفة و علم نفس",
+      description: "دراسة للتحولات في العقليات الجماعية والوعي الجمعي عبر التاريخ.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook39.jpg",
+      author: "غوستاف لوبون"
+    },
+    {
+      id: 40,
+      title: "فاغنر في بايرويت",
+      category: "فلسفة و علم نفس",
+      description: "نقد وتحليل لفن ريشارد فاغنر وتأثيره على الثقافة من منظور نيتشه.",
+      price: 173,
+      priceUSD: 4.20,
+      originalPrice: 248,
+      originalPriceUSD: 6,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook40.jpg",
+      author: "نيتشه"
+    },
+    {
+      id: 41,
+      title: "ديفيد شتراوس",
+      category: "فلسفة و علم نفس",
+      description: "نقد نيتشه اللاذع للفكر اللاهوتي والتاريخي لديفيد شتراوس.",
+      price: 173,
+      priceUSD: 4.20,
+      originalPrice: 248,
+      originalPriceUSD: 6,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook41.jpg",
+      author: "نيتشه"
+    },
+    {
+      id: 42,
+      title: "شوبنهاور مربيًا",
+      category: "فلسفة و علم نفس",
+      description: "تأملات نيتشه حول فلسفة شوبنهاور وتأثيرها التربوي على الفرد.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 7,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook42.jpg",
+      author: "نيتشه"
+    },
+    {
+      id: 43,
+      title: "مراحل على طريق الحياة",
+      category: "فلسفة و علم نفس",
+      description: "تحليل للرحلة الوجودية للإنسان عبر مراحل الحياة المختلفة.",
+      price: 405,
+      priceUSD: 9.80,
+      originalPrice: 578,
+      originalPriceUSD: 14,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook43.jpg",
+      author: "سون كيرككورد"
+    },
+    {
+      id: 44,
+      title: "لماذا الحرب ؟",
+      category: "فلسفة و علم نفس",
+      description: "تحليل نفسي للدوافع الغريزية واللاواعية الكامنة وراء نشوب الحروب.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 7,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook44.jpg",
+      author: "سيغموند فرويد"
+    },
+    {
+      id: 45,
+      title: "الرواد النفسيون",
+      category: "فلسفة و علم نفس",
+      description: "لمحة عن حياة وأفكار الرواد المؤسسين لعلم النفس الحديث.",
+      price: 434,
+      priceUSD: 10.50,
+      originalPrice: 620,
+      originalPriceUSD: 15,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook45.webp",
+      author: "مايك جاي"
+    },
+    {
+      id: 46,
+      title: "اعترافات قاتل اقتصادي",
+      category: "فلسفة و علم نفس",
+      description: "كشف الآليات النفسية والاقتصادية لاستغلال الدول النامية.",
+      price: 521,
+      priceUSD: 12.60,
+      originalPrice: 744,
+      originalPriceUSD: 18,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook46.jpg",
+      author: "جون بيركنز"
+    },
+    {
+      id: 47,
+      title: "انفعالات النفس",
+      category: "فلسفة و علم نفس",
+      description: "دراسة فلسفية للانفعالات البشرية وتأثيرها على العقل والقرارات.",
+      price: 289,
+      priceUSD: 7.00,
+      originalPrice: 413,
+      originalPriceUSD: 10,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook47.jpg",
+      author: "رينه ديكارت"
+    },
+    {
+      id: 48,
+      title: "في اليقين",
+      category: "فلسفة و علم نفس",
+      description: "بحث في أسس المعرفة اليقينية وحدودها من منظور فتغنشتاين المتأخر.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 7,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook48.jpg",
+      author: "لودفيغ فتغنشتاين"
     },
     
 
@@ -2559,16 +4172,454 @@ const Books = () => {
       image: "/altamoh.bookstore/book-images/Literature/Lbook41.jpeg",
       author: "رغدان بن حسن"
     },
-
-    // =========================================================================================== //
-
-    // الاقتصاد
+    {
+      id: 40,
+      title: "ظل الظل",
+      category: "الأدب",
+      description: "نصوص أدبية تستكشف طبقات الظل والمعنى في التجربة الإنسانية.",
+      price: 173,
+      priceUSD: 4.20,
+      originalPrice: 248,
+      originalPriceUSD: 6,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook42.jpg",
+      author: "حسن عبدالله"
+    },
+    {
+      id: 41,
+      title: "القرية التي كنا فيها",
+      category: "الأدب",
+      description: "ذكريات وحكايات عن القرية التي نشأ فيها الكاتب وتأثيرها على حياته.",
+      price: 289,
+      priceUSD: 7.00,
+      originalPrice: 413,
+      originalPriceUSD: 10,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook43.jpg",
+      author: "محمد ياسين صالح"
+    },
+    {
+      id: 42,
+      title: "حرب أهلية",
+      category: "الأدب",
+      description: "رواية أو مجموعة قصصية تعكس تداعيات الحرب على النسيج الاجتماعي.",
+      price: 173,
+      priceUSD: 4.20,
+      originalPrice: 248,
+      originalPriceUSD: 6,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook44.jpg",
+      author: "خوسي سانشيس سنيسترا"
+    },
+    {
+      id: 43,
+      title: "المرأة الدينية و المرأة النسوية",
+      category: "الأدب",
+      description: "مقارنة أدبية وفكرية بين نموذجي المرأة في الخطاب الديني والنسوي.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook45.jpg",
+      author: "موج يوسف"
+    },
+    {
+      id: 44,
+      title: "مجرد وقت وسيمضي",
+      category: "الأدب",
+      description: "تأملات في طبيعة الزمن ومروره وتأثيره على المشاعر والعلاقات.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook46.jpg",
+      author: "شاكر الناصري"
+    },
+    {
+      id: 45,
+      title: "الهايكوات الكاملة",
+      category: "الأدب",
+      description: "مجموعة كاملة من قصائد الهايكو للشاعر جان كيرواك.",
+      price: 376,
+      priceUSD: 9.10,
+      originalPrice: 537,
+      originalPriceUSD: 13,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook47.webp",
+      author: "جان كيرواك"
+    },
+    {
+      id: 46,
+      title: "الاغتراب الجميل",
+      category: "الأدب",
+      description: "استكشاف لجمالية الاغتراب والغربة في الأدب والحياة.",
+      price: 405,
+      priceUSD: 9.80,
+      originalPrice: 578,
+      originalPriceUSD: 14,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook48.jpg",
+      author: "علي عبدالامير عجام"
+    },
+    {
+      id: 47,
+      title: "ثالث عيوني",
+      category: "الأدب",
+      description: "نصوص شعرية أو سردية تنظر إلى العالم بعين ثالثة مفعمة بالإبداع.",
+      price: 173,
+      priceUSD: 4.20,
+      originalPrice: 248,
+      originalPriceUSD: 6,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook49.jpg",
+      author: "علي مهدi"
+    },
+    {
+      id: 48,
+      title: "رسائل جووج أورويل",
+      category: "الأدب",
+      description: "مجموعة من الرسائل الشخصية التي تكشف عن فكر جورج أورويل وخباياه.",
+      price: 477,
+      priceUSD: 11.55,
+      originalPrice: 682,
+      originalPriceUSD: 16.5,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook50.jpg",
+      author: "جورج أورويل"
+    },
+    {
+      id: 49,
+      title: "أيام القراءة",
+      category: "الأدب",
+      description: "ذكريات وتأملات الكاتب مارسيل بروست حول تجربته مع القراءة.",
+      price: 173,
+      priceUSD: 4.20,
+      originalPrice: 248,
+      originalPriceUSD: 6,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook51.jpg",
+      author: "مارسيل بروست"
+    },
+    {
+      id: 50,
+      title: "ليل يديها",
+      category: "الأدب",
+      description: "نصوص أدبية تلامس مشاعر الحب واللوعة والاشتياق.",
+      price: 289,
+      priceUSD: 7.00,
+      originalPrice: 413,
+      originalPriceUSD: 10,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook52.jpg",
+      author: "زاهيي وهبي"
+    },
+    {
+      id: 51,
+      title: "تحديق",
+      category: "الأدب",
+      description: "قصائد أو نصوص تتأمل العالم بتحديق عميق يكشف التفاصيل الخفية.",
+      price: 173,
+      priceUSD: 4.20,
+      originalPrice: 248,
+      originalPriceUSD: 6,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook53.jpg",
+      author: "محمد الخالدي"
+    },
+    {
+      id: 52,
+      title: "شجرة ديانا",
+      category: "الأدب",
+      description: "عمل أدبي يستلهم الأسطورة والطبيعة في بناء عالمه الشعري.",
+      price: 144,
+      priceUSD: 3.50,
+      originalPrice: 207,
+      originalPriceUSD: 5,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook54.jpg",
+      author: "اليخاندؤا بيثانيك"
+    },
+    {
+      id: 53,
+      title: "من الأعماق",
+      category: "الأدب",
+      description: "رسالة وجدانية عميقة كتبها أوسكار وايلد خلال سجنه.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook55.jpg",
+      author: "اوسكار وايلd"
+    },
+    {
+      id: 54,
+      title: "نقشوا على الحجر",
+      category: "الأدب",
+      description: "نصوص أدبية تخلد الذاكرة والهوية كما لو كانت منقوشة على الحجر.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook56.jpg",
+      author: "سعيد الغامدي"
+    },
+    {
+      id: 55,
+      title: "تباريح القراءة",
+      category: "الأدب",
+      description: "تأملات في متعة القراءة وأثرها على الروح والعقل.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook57.jpg",
+      author: "نعيم محمد الفارسي"
+    },
+    {
+      id: 56,
+      title: "رسائل فتغنشتاين",
+      category: "الأدب",
+      description: "مراسلات الفيلسوف لودفيغ فتغنشتاين التي تكشف عن جوانب من شخصيته وفكره.",
+      price: 231,
+      priceUSD: 5.60,
+      originalPrice: 330,
+      originalPriceUSD: 8,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook58.jpg",
+      author: "لودفيغ فتغنشتاين"
+    },
+    {
+      id: 57,
+      title: "الرسائل الفارسية",
+      category: "الأدب",
+      description: "رواية رسائلية ساخرة تنتقد المجتمع الأوروبي في القرن الثامن عشر.",
+      price: 434,
+      priceUSD: 10.50,
+      originalPrice: 620,
+      originalPriceUSD: 15,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook59.jpg",
+      author: "شارل لوي دي سيكوندا"
+    },
+    {
+      id: 58,
+      title: "سرفانتس",
+      category: "الأدب",
+      description: "دراسة أدبية عن حياة وأعمال الأديب الإسباني ميغيل دي سرفانتس.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook60.jpg",
+      author: "نجيب ابو ملهم"
+    },
+    {
+      id: 59,
+      title: "في الطابق الرابع",
+      category: "الأدب",
+      description: "قصة أو رواية تدور أحداثها في طابق رابع يحمل أسرارًا خاصة.",
+      price: 289,
+      priceUSD: 7.00,
+      originalPrice: 413,
+      originalPriceUSD: 10,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook61.jpg",
+      author: "نوفل الجنابي"
+    },
+    {
+      id: 60,
+      title: "رسائل مارسيل بروست",
+      category: "الأدب",
+      description: "مجموعة من الرسائل التي كتبها مارسيل بروست تكشف عن عالمه الخاص.",
+      price: 434,
+      priceUSD: 10.50,
+      originalPrice: 620,
+      originalPriceUSD: 15,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook62.jpg",
+      author: "مارسيل بروست"
+    },
+    {
+      id: 61,
+      title: "الرسائل الأخيرة لياكويرو اورتس",
+      category: "الأدب",
+      description: "مجموعة الرسائل الأخيرة التي تعكس أفكار الكاتب في أواخر حياته.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook63.jpg",
+      author: "أوغو فوسكولو"
+    },
+    {
+      id: 62,
+      title: "كيف يتكون الذوق الأدبي",
+      category: "الأدب",
+      description: "تحليل لعوامل تشكيل الذوق الأدبي وتطوره عند الفرد والقارئ.",
+      price: 260,
+      priceUSD: 6.30,
+      originalPrice: 372,
+      originalPriceUSD: 9,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook64.jpg",
+      author: "أرنولد بينيت"
+    },
+    {
+      id: 63,
+      title: "رسائل نابليون إلى جوزفين",
+      category: "الأدب",
+      description: "رسائل حب وغرام كتبها نابليون بونابرت إلى زوجته جوزفين.",
+      price: 347,
+      priceUSD: 8.40,
+      originalPrice: 496,
+      originalPriceUSD: 12,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook65.jpg",
+      author: "تمت الترجمة من قبل 'زهرة مروة'"
+    },
+    {
+      id: 64,
+      title: "الرجل في الرداء الأحمر",
+      category: "الأدب",
+      description: "رواية أو سيرة أدبية تستكشف حياة شخصية غامضة ترتدي الرداء الأحمر.",
+      price: 405,
+      priceUSD: 9.80,
+      originalPrice: 578,
+      originalPriceUSD: 14,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook66.jpg",
+      author: "جوليان بارنز"
+    },
+    {
+      id: 65,
+      title: "رسائل ميّ",
+      category: "الأدب",
+      description: "مجموعة الرسائل التي كتبتها الأديبة مي زيادة، تعكس عاطفتها وفكرها.",
+      price: 173,
+      priceUSD: 4.20,
+      originalPrice: 248,
+      originalPriceUSD: 6,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook67.jpg",
+      author: "مي زيادة"
+    },
+    {
+      id: 66,
+      title: "القراءة صنعة العظماء",
+      category: "الأدب",
+      description: "كتاب يبرز دور القراءة في بناء شخصيات العظماء وتشكيل وعيهم.",
+      price: 405,
+      priceUSD: 9.80,
+      originalPrice: 578,
+      originalPriceUSD: 14,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook68.jpg",
+      author: "نعيم محمد الفarسي"
+    },
+    {
+      id: 67,
+      title: "جلجامش واختلاس لغز الزمن",
+      category: "الأدب",
+      description: "قراءة معاصرة لملحمة جلجامش وعلاقتها بإشكالية الزمن والخلود.",
+      price: 405,
+      priceUSD: 9.80,
+      originalPrice: 578,
+      originalPriceUSD: 14,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook69.jpg",
+      author: "سعيد الغانمي"
+    },
+    {
+      id: 68,
+      title: "خيال لا ينقطع",
+      category: "الأدب",
+      description: "مجموعة نصوص تؤكد على قوة الخيال الأدبي واستمراريته في خلق العوالم.",
+      price: 463,
+      priceUSD: 11.20,
+      originalPrice: 661,
+      originalPriceUSD: 16,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook70.jpg",
+      author: "سعيد الغانمي"
+    },
+    {
+      id: 69,
+      title: "بدلًا من الأبيض",
+      category: "الأدب",
+      description: "تكتسب مثل هذه الاقتباسات أهمية ليست هينة من نواح عديدة، فهي أولاً توفّر لبعض القراء، بوصفها اقتباسات، موادَ تفيدهم في كتابات أو بحوث يقومون بها، قد يصعب عليهم الوصول إليها أو البحث عنها، بل ربما لم تخطر في بالهم؛ وهي ثانياً قد تفتح لمثل هكذا كتّاب أو لغيرهم أبواب مصادر لم يصلوا إليها أو لم يعرفوها أو أبواب موضوعات للكتابة عنها دراساتٍ أو بحوثاً؛ وهي ثالثاً قد تضع يد من يقوم بدراسة الأديب صاحب الاقتباسات - الذي هو هنا ميسلون هادي- على طبيعة تفكير هذا الأديب والموضوعات التي يفكر فيها أو تهمه، وقد يجد الباحث أصداءً لها في كتابة الأديب مما يساعد على فتح بعض مغاليق نصه؛ وهي أخيراً تشكّل هدايا لمثل هكذا كتّاب وباحثين بل للقراء عموماً، كونها مختارة بذائقة غير عادية هي ذائقة كاتب معروف، سواء كان ميسلون هادي أو غيرها. لذا ليس غريباً ان نجد الكثير من الأدباء على مر الحِقب الزمنية ينشرون مثل هذه المختارات في كتب خاصة.",
+      price: 124,
+      priceUSD: 7,
+      originalPrice: 413,
+      originalPriceUSD: 10,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook71.jpg",
+      author: "ميلسون هادي"
+    },
+    {
+      id: 70,
+      title: "ديوان الجواهري 1/6",
+      category: "الأدب",
+      description: "تكتسب مثل هذه الاقتباسات أهمية ليست هينة من نواح عديدة، فهي أولاً توفّر لبعض القراء، بوصفها اقتباسات، موادَ تفيدهم في كتابات أو بحوث يقومون بها، قد يصعب عليهم الوصول إليها أو البحث عنها، بل ربما لم تخطر في بالهم؛ وهي ثانياً قد تفتح لمثل هكذا كتّاب أو لغيرهم أبواب مصادر لم يصلوا إليها أو لم يعرفوها أو أبواب موضوعات للكتابة عنها دراساتٍ أو بحوثاً؛ وهي ثالثاً قد تضع يد من يقوم بدراسة الأديب صاحب الاقتباسات - الذي هو هنا ميسلون هادي- على طبيعة تفكير هذا الأديب والموضوعات التي يفكر فيها أو تهمه، وقد يجد الباحث أصداءً لها في كتابة الأديب مما يساعد على فتح بعض مغاليق نصه؛ وهي أخيراً تشكّل هدايا لمثل هكذا كتّاب وباحثين بل للقراء عموماً، كونها مختارة بذائقة غير عادية هي ذائقة كاتب معروف، سواء كان ميسلون هادي أو غيرها. لذا ليس غريباً ان نجد الكثير من الأدباء على مر الحِقب الزمنية ينشرون مثل هذه المختارات في كتب خاصة.",
+      price: 2313,
+      priceUSD: 56,
+      originalPrice: 3305,
+      originalPriceUSD: 80,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook72.webp",
+      author: "الجواهري"
+    },
+    {
+      id: 71,
+      title: "ذكراياتي 1/2",
+      category: "الأدب",
+      description: "تكتسب مثل هذه الاقتباسات أهمية ليست هينة من نواح عديدة، فهي أولاً توفّر لبعض القراء، بوصفها اقتباسات، موادَ تفيدهم في كتابات أو بحوث يقومون بها، قد يصعب عليهم الوصول إليها أو البحث عنها، بل ربما لم تخطر في بالهم؛ وهي ثانياً قد تفتح لمثل هكذا كتّاب أو لغيرهم أبواب مصادر لم يصلوا إليها أو لم يعرفوها أو أبواب موضوعات للكتابة عنها دراساتٍ أو بحوثاً؛ وهي ثالثاً قد تضع يد من يقوم بدراسة الأديب صاحب الاقتباسات - الذي هو هنا ميسلون هادي- على طبيعة تفكير هذا الأديب والموضوعات التي يفكر فيها أو تهمه، وقد يجد الباحث أصداءً لها في كتابة الأديب مما يساعد على فتح بعض مغاليق نصه؛ وهي أخيراً تشكّل هدايا لمثل هكذا كتّاب وباحثين بل للقراء عموماً، كونها مختارة بذائقة غير عادية هي ذائقة كاتب معروف، سواء كان ميسلون هادي أو غيرها. لذا ليس غريباً ان نجد الكثير من الأدباء على مر الحِقب الزمنية ينشرون مثل هذه المختارات في كتب خاصة.",
+      price: 1300,
+      priceUSD: 31.5,
+      originalPrice: 1860,
+      originalPriceUSD: 45,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook73.webp",
+      author: "الجواهري"
+    },
+    {
+      id: 72,
+      title: "الحياة مع الأب",
+      category: "الأدب",
+      description: "ذكريات شخصية تكشف عن جانب إنساني حميم من حياة الكاتب الكبير ليو تولستوي.",
+      price: 376,
+      priceUSD: 9.10,
+      originalPrice: 537,
+      originalPriceUSD: 13,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook74.jpg",
+      author: "الكسندرا تولستايا"
+    },
+    {
+      id: 73,
+      title: "سيغموند فرويد ، السيرة الذاتية",
+      category: "الأدب",
+      description: "سيرة ذاتية يروي فيها فرويد قصة حياته وتطور أفكاره في التحليل النفسي.",
+      price: 202,
+      priceUSD: 4.90,
+      originalPrice: 289,
+      originalPriceUSD: 6,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Literature/Lbook75.jpg",
+      author: "سيغموند فرويد"
+    },
 
     // =========================================================================================== //
 
     // السياسة
     {
-    id: 701,
+    id: 1,
     title: "فن الحرب",
     category: "سياسة",
     description: "..",
@@ -2700,16 +4751,41 @@ const Books = () => {
       discount: 20,
       image: "/altamoh.bookstore/book-images/Self-dev/Sdbook9.jpg",
       author: "ماثيو ووكر"
+    },
+    {
+      id: 10,
+      title: "أفكار يومية",
+      category: "تطوير الذات",
+      description: "تأملات يومية ملهمة لتعزيز النمو الشخصي والوعي الذاتي.",
+      price: 317,
+      priceUSD: 7.70,
+      originalPrice: 454,
+      originalPriceUSD: 11,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook10.jpg",
+      author: "أومرآم ميخائيل ايفانهوف"
+    },
+    {
+      id: 11,
+      title: "من الصورة إلى الصورة",
+      category: "تطوير الذات",
+      description: "دليل عملي لفهم تحول الذات وتطوير الصورة الشخصية والإدراك الذاتي.",
+      price: 289,
+      priceUSD: 7.00,
+      originalPrice: 413,
+      originalPriceUSD: 10,
+      discount: 30,
+      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook11.jpg",
+      author: "أصغر فرهادي"
     }
-
-  ];
+   ];
   const displayBooks = books;
 
   const allCategories = [...new Set(books.map(book => book.category))];
-  const priorityCategories = ["الأكثر مبيعاً", "إصدارات دار الطموح"];
-  const otherCategories = allCategories.filter(cat => !priorityCategories.includes(cat));
+  const priorityCategories = ["إصدارات دار الطموح"];
+  const otherCategories = allCategories.filter(cat => !priorityCategories.includes(cat) && cat !== "الأكثر مبيعاً");
   
-  // Add Favorites category only if user is logged in
+  // Add Favorites category only if user is logged in (removed "الأكثر مبيعاً" from here)
   const categories = user 
     ? ["المفضلة", ...priorityCategories.filter(cat => allCategories.includes(cat)), ...otherCategories]
     : [...priorityCategories.filter(cat => allCategories.includes(cat)), ...otherCategories];
@@ -2750,6 +4826,9 @@ const Books = () => {
     }
     return books.filter(book => book.category === category);
   };
+
+  // Get best sellers books
+  const bestSellersBooks = books.filter(book => book.category === "الأكثر مبيعاً");
 
   const displayedBooks = showCategorySelection ? [] : filteredBooks.slice(0, visibleBooksCount);
   const hasMoreBooks = !showCategorySelection && filteredBooks.length > visibleBooksCount;
@@ -2933,6 +5012,21 @@ const Books = () => {
     }
   };
 
+  // Best sellers scroll functions
+  const scrollBestSellersLeft = () => {
+    if (bestSellersScrollRef.current) {
+      const scrollAmount = isSmallDevice ? 280 : 320; // Adjust based on card width + gap
+      bestSellersScrollRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const scrollBestSellersRight = () => {
+    if (bestSellersScrollRef.current) {
+      const scrollAmount = isSmallDevice ? 280 : 320; // Adjust based on card width + gap
+      bestSellersScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
   // Currency Toggle Component
   const CurrencyToggle = () => (
     <div className="relative">
@@ -3033,6 +5127,161 @@ const Books = () => {
       </div>
     </div>
   );
+
+  // Best Sellers Ribbon Component
+  const BestSellersRibbon = () => {
+    if (bestSellersBooks.length === 0) return null;
+
+    return (
+      <div className={`mb-8 sm:mb-16 transition-all duration-1000 ${
+        isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}>
+        {/* Section Header */}
+        <div className="flex items-center justify-between mb-6 sm:mb-8">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+              <Trophy className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold dark:text-white text-[#1d2d50]">
+                الأكثر مبيعاً
+              </h3>
+              <p className="text-xs sm:text-sm dark:text-slate-400 text-[#6c7a89]">
+                أشهر الكتب وأكثرها طلباً
+              </p>
+            </div>
+          </div>
+          
+          {/* Navigation Arrows */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={scrollBestSellersLeft}
+              className="w-8 h-8 sm:w-10 sm:h-10 bg-orange-500/20 hover:bg-orange-500/30 rounded-lg transition-all duration-200 flex items-center justify-center group"
+            >
+              <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 text-orange-600 group-hover:text-orange-700" />
+            </button>
+            <button
+              onClick={scrollBestSellersRight}
+              className="w-8 h-8 sm:w-10 sm:h-10 bg-orange-500/20 hover:bg-orange-500/30 rounded-lg transition-all duration-200 flex items-center justify-center group"
+            >
+              <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-orange-600 group-hover:text-orange-700" />
+            </button>
+          </div>
+        </div>
+
+        {/* Books Carousel */}
+        <div className="relative">
+          <div
+            ref={bestSellersScrollRef}
+            className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide px-1 sm:px-2"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {bestSellersBooks.map((book) => {
+              const isBookFavorite = favoriteBooks.has(book.id.toString());
+              const isLoadingFavorite = loadingFavorites.has(book.id.toString());
+
+              return (
+                <div key={book.id} className="flex-shrink-0 w-64 sm:w-72 lg:w-80 group cursor-pointer"
+                     onClick={() => openBookDetails(book)}>
+                  <div className="relative dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-105">
+                    
+                    {/* Bestseller Badge */}
+                    <div className="absolute top-3 left-3 z-10 bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
+                      <Trophy className="h-3 w-3" />
+                      الأكثر مبيعاً
+                    </div>
+
+                    <div className="relative h-48 sm:h-56 lg:h-64 dark:bg-slate-700/20 bg-orange-50/30 p-3 sm:p-4 flex items-center justify-center">
+                      <img 
+                        src={book.image} 
+                        alt={book.title}
+                        className="h-40 sm:h-48 lg:h-56 w-28 sm:w-32 lg:w-36 object-contain rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-105"
+                      />
+
+                      {/* Price Badge */}
+                      <div className="absolute bottom-3 right-3">
+                        {book.discount ? (
+                          <div className="flex flex-col items-center gap-1">
+                            <div className="bg-gray-500/80 text-white px-2 py-0.5 rounded text-xs line-through">
+                              {getOriginalPrice(book)} {getCurrencySymbol()}
+                            </div>
+                            <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-3 py-1 rounded text-sm font-bold shadow-lg">
+                              {getPrice(book)} {getCurrencySymbol()}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-3 py-1 rounded text-sm font-bold shadow-lg">
+                            {getPrice(book)} {getCurrencySymbol()}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Favorite Button - Only show if user is logged in */}
+                      {user && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleToggleFavorite(book);
+                          }}
+                          disabled={isLoadingFavorite}
+                          className={`absolute top-3 right-3 w-8 h-8 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center ${
+                            isBookFavorite 
+                              ? 'bg-red-500 hover:bg-red-600 text-white' 
+                              : 'bg-white/90 hover:bg-white text-gray-600 hover:text-red-500'
+                          } ${isLoadingFavorite ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'}`}
+                        >
+                          <Heart 
+                            className={`h-4 w-4 transition-all duration-300 ${
+                              isBookFavorite ? 'fill-current' : ''
+                            }`} 
+                          />
+                        </button>
+                      )}
+                    </div>
+                    
+                    <div className="p-4 space-y-3">
+                      <h4 className="text-base sm:text-lg font-bold dark:text-white text-[#1d2d50] line-clamp-2 leading-relaxed">
+                        {book.title}
+                      </h4>
+                      
+                      {book.author && (
+                        <p className="dark:text-slate-400 text-[#6c7a89] text-sm font-medium line-clamp-1">
+                          بقلم: {book.author}
+                        </p>
+                      )}
+
+                      {/* Quick Actions */}
+                      <div className="flex gap-2 pt-2">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            addToCart(book);
+                          }}
+                          className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-2 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-1"
+                        >
+                          <Plus className="h-3 w-3" />
+                          أضف للسلة
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            sendBookToWhatsApp(book);
+                          }}
+                          className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg transition-all duration-300"
+                        >
+                          <MessageCircle className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   // If Favorites category is selected, show the FavoritesList component with go back functionality
   if (selectedCategory === "المفضلة" && !showCategorySelection) {
@@ -3456,6 +5705,9 @@ const Books = () => {
             </button>
           )}
         </div>
+
+        {/* Best Sellers Ribbon - Show on main page */}
+        {showCategorySelection && <BestSellersRibbon />}
 
         {showCategorySelection && (
           <div 
