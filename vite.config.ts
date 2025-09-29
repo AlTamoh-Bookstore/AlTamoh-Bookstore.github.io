@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/altamoh.bookstore/',
+  base: '/AlTamoh-Bookstore.github.io/',
   plugins: [react()],
   build: {
     outDir: 'dist',
@@ -13,7 +13,8 @@ export default defineConfig({
   // إضافة هذا للتأكد من معالجة المسارات بشكل صحيح
   experimental: {
     renderBuiltUrl(filename: string) {
-      return '/altamoh.bookstore/' + filename
+      return '/AlTamoh-Bookstore.github.io/' + filename
     }
   }
 });
+
