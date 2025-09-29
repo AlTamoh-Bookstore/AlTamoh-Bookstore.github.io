@@ -9,5 +9,11 @@ export default defineConfig({
     assetsDir: 'assets'
   },
   publicDir: 'public',
-  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg']
+  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg'],
+  // إضافة هذا للتأكد من معالجة المسارات بشكل صحيح
+  experimental: {
+    renderBuiltUrl(filename: string) {
+      return '/' + filename
+    }
+  }
 });
