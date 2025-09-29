@@ -5,9 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter basename="/altamoh.bookstore">
+    <BrowserRouter basename="/AlTamoh-Bookstore.github.io">
       <App />
     </BrowserRouter>
   </React.StrictMode>,
 );
+
 
