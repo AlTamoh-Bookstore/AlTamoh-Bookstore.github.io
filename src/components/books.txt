@@ -1,7 +1,128 @@
   const books: Book[] = [ 
       // إصدارات دار الطموح
-
+      {
+        id: 1,
+        title: "دليل استخدام الإنسان",
+        category: "إصدارات دار الطموح",
+        description: "كتاب فكري يقدم رؤية فلسفية وعملية لفهم الذات الإنسانية وتحسين أدائها في الحياة.",
+        price: 439,
+        priceUSD: 10.50,
+        originalPrice: 439,
+        originalPriceUSD: 10.50,
+        image: "/book-images/Altomoh/Tbook1.jpg",
+        author: "إيهاب القواسمة"
+      },
+      {
+        id: 2,
+        title: "بحر المحابر",
+        category: "إصدارات دار الطموح",
+        description: "مجموعة أدبية تسبح في عوالم الكتابة والإبداع، تقدم تجارب متنوعة في الأدب والفن.",
+        price: 335,
+        priceUSD: 8.00,
+        originalPrice: 335,
+        originalPriceUSD: 8.00,
+        image: "/book-images/Altomoh/Tbook2.jpg",
+        author: "مزنة باكيرو"
+      },
+      {
+        id: 3,
+        title: "الأمير",
+        category: "إصدارات دار الطموح",
+        description: "ترجمة عربية مميزة للكتاب الكلاسيكي في علم السياسة والفلسفة السلطوية.",
+        price: 268,
+        priceUSD: 6.40,
+        originalPrice: 268,
+        originalPriceUSD: 6.40,
+        image: "/book-images/Altomoh/Tbook3.jpg",
+        author: "محمد لطفي جمعة"
+      },
+      {
+        id: 4,
+        title: "فلسفة اللذة والألم",
+        category: "إصدارات دار الطموح",
+        description: "دراسة فلسفية عميقة تبحث في طبيعة اللذة والألم وتأثيرهما على التجربة الإنسانية.",
+        price: 368,
+        priceUSD: 8.80,
+        originalPrice: 368,
+        originalPriceUSD: 8.80,
+        image: "/book-images/Altomoh/Tbook4.jpg",
+        author: "إسماعيل مظهر"
+      },
+      {
+        id: 5,
+        title: "دليلك للنجاح في حياتك الشخصية والمهنية",
+        category: "إصدارات دار الطموح",
+        description: "مرشد عملي يقدم نصائح قيمة لتحقيق النجاح والتوازن في الحياة الشخصية والمهنية.",
+        price: 293,
+        priceUSD: 7.00,
+        originalPrice: 293,
+        originalPriceUSD: 7.00,
+        image: "/book-images/Altomoh/Tbook5.jpg",
+        author: "سلامة موسى"
+      },
+      {
+        id: 6,
+        title: "الحب والكراهية",
+        category: "إصدارات دار الطموح",
+        description: "تحليل نفسي واجتماعي للعاطفتين المتقابلتين وتأثيرهما على العلاقات الإنسانية.",
+        price: 167,
+        priceUSD: 4.00,
+        originalPrice: 167,
+        originalPriceUSD: 4.00,
+        image: "/book-images/Altomoh/Tbook6.jpg",
+        author: "د. أحمد فؤاد الأهواني"
+      },
+      {
+        id: 7,
+        title: "ماجدولين",
+        category: "إصدارات دار الطموح",
+        description: "رواية عاطفية خالدة تروي قصة حب تراجيدية بأسلوب المنفلوطي الشاعري المميز.",
+        price: 335,
+        priceUSD: 8.00,
+        originalPrice: 335,
+        originalPriceUSD: 8.00,
+        image: "/book-images/Altomoh/Tbook7.jpg",
+        author: "مصطفى لطفي المنفلوطي"
+      },
+      {
+        id: 8,
+        title: "حديث القمر",
+        category: "إصدارات دار الطموح",
+        description: "مجموعة مقالات أدبية رفيعة المستوى تعبر عن مشاعر وأفكار الكاتب بلغة شعرية.",
+        price: 209,
+        priceUSD: 5.00,
+        originalPrice: 209,
+        originalPriceUSD: 5.00,
+        image: "/book-images/Altomoh/Tbook8.jpg",
+        author: "مصطفى صادق الرافعي"
+      },
+      {
+        id: 9,
+        title: "السحاب الأحمر",
+        category: "إصدارات دار الطموح",
+        description: "عمل أدبي يجمع بين البلاغة والفلسفة، يقدم رؤى عميقة عن الحياة والمجتمع.",
+        price: 251,
+        priceUSD: 6.00,
+        originalPrice: 251,
+        originalPriceUSD: 6.00,
+        image: "/book-images/Altomoh/Tbook9.jpg",
+        author: "مصطفى صادق الرافعي"
+      },
+      {
+        id: 10,
+        title: "رسائل الأحزان",
+        category: "إصدارات دار الطموح",
+        description: "مجموعة رسائل أدبية تعبر عن مشاعر الحزن والفراق بأسلوب راقٍ ومؤثر.",
+        price: 218,
+        priceUSD: 5.20,
+        originalPrice: 218,
+        originalPriceUSD: 5.20,
+        image: "/book-images/Altomoh/Tbook10.jpg",
+        author: "مصطفى صادق الرافعي"
+      },
+      //================================//
       // الكتب الأكثر مبيعاً
+      //================================//
       {
         id: 1,
         title: "نبوءات الجائعين",

@@ -5136,14 +5136,14 @@ const Books = () => {
   // Best sellers scroll functions
   const scrollBestSellersLeft = () => {
     if (bestSellersScrollRef.current) {
-      const scrollAmount = isSmallDevice ? 280 : 320; // Adjust based on card width + gap
+      const scrollAmount = isSmallDevice ? 220 : 270; // Adjust based on card width + gap
       bestSellersScrollRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     }
   };
 
   const scrollBestSellersRight = () => {
     if (bestSellersScrollRef.current) {
-      const scrollAmount = isSmallDevice ? 280 : 320; // Adjust based on card width + gap
+      const scrollAmount = isSmallDevice ? 220 : 270; // Adjust based on card width + gap
       bestSellersScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -5302,7 +5302,7 @@ const Books = () => {
               const isLoadingFavorite = loadingFavorites.has(book.id.toString());
 
               return (
-                <div key={book.id} className="flex-shrink-0 w-64 sm:w-72 lg:w-80 group cursor-pointer"
+                <div key={book.id} className="flex-shrink-0 w-52 sm:w-60 lg:w-64 group cursor-pointer"
                      onClick={() => openBookDetails(book)}>
                   <div className="relative dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-105">
                     
@@ -5312,11 +5312,11 @@ const Books = () => {
                       الأكثر مبيعاً
                     </div>
 
-                    <div className="relative h-48 sm:h-56 lg:h-64 dark:bg-slate-700/20 bg-orange-50/30 p-3 sm:p-4 flex items-center justify-center">
+                    <div className="relative h-40 sm:h-48 lg:h-52 dark:bg-slate-700/20 bg-orange-50/30 p-3 sm:p-4 flex items-center justify-center">
                       <img 
                         src={book.image} 
                         alt={book.title}
-                        className="h-40 sm:h-48 lg:h-56 w-28 sm:w-32 lg:w-36 object-contain rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-105"
+                        className="h-32 sm:h-40 lg:h-44 w-24 sm:w-28 lg:w-32 object-contain rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-105"
                       />
 
                       {/* Price Badge */}
@@ -5360,13 +5360,13 @@ const Books = () => {
                       )}
                     </div>
                     
-                    <div className="p-4 space-y-3">
-                      <h4 className="text-base sm:text-lg font-bold dark:text-white text-[#1d2d50] line-clamp-2 leading-relaxed">
+                    <div className="p-3 space-y-2">
+                      <h4 className="text-sm sm:text-base font-bold dark:text-white text-[#1d2d50] line-clamp-2 leading-relaxed">
                         {book.title}
                       </h4>
                       
                       {book.author && (
-                        <p className="dark:text-slate-400 text-[#6c7a89] text-sm font-medium line-clamp-1">
+                        <p className="dark:text-slate-400 text-[#6c7a89] text-xs sm:text-sm font-medium line-clamp-1">
                           بقلم: {book.author}
                         </p>
                       )}
@@ -6208,4 +6208,3 @@ const Books = () => {
 };
 
 export default Books;
-
