@@ -6,31 +6,45 @@ import { join, relative } from "node:path";
 const distDir = "dist";
 const baseUrl = "https://al-tomoh.com";
 
-// Recursively scan files in dist
-function getPaths(dir) {
+// Recursively scan static html files
+function getHtmlPaths(dir) {
   let paths = [];
-  for (const file of readdirSync(dir)) {
-    const fullPath = join(dir, file);
-    const stats = statSync(fullPath);
+  for (const name of readdirSync(dir)) {
+    const full = join(dir, name);
+    const stats = statSync(full);
     if (stats.isDirectory()) {
-      paths = paths.concat(getPaths(fullPath));
-    } else if (stats.isFile() && file.endsWith(".html")) {
-      const url = "/" + relative(distDir, fullPath).replace(/index\.html$/, "").replace(/\\/g, "/");
-      paths.push(url === "/" ? "/" : url);
+      paths = paths.concat(getHtmlPaths(full));
+    } else if (stats.isFile() && name.endsWith(".html")) {
+      let url = "/" + relative(distDir, full).replace(/index\.html$/, "").replace(/\\/g, "/");
+      if (url === "") url = "/";
+      paths.push(url);
     }
   }
   return paths;
 }
 
-const links = getPaths(distDir).map((url) => ({ url }));
+const spaRoutes = [
+  "/", 
+  "/books",
+  "/authors",
+  "/about",
+  "/contact"
+];
+
+const htmlPaths = getHtmlPaths(distDir);
+
+// Merge and dedupe
+const allPaths = Array.from(new Set([...htmlPaths, ...spaRoutes]));
 
 const stream = new SitemapStream({ hostname: baseUrl });
 const writeStream = createWriteStream(join(distDir, "sitemap.xml"));
 stream.pipe(writeStream);
 
-links.forEach((link) => stream.write(link));
+allPaths.forEach((url) => {
+  stream.write({ url });
+});
 stream.end();
 
 writeStream.on("finish", () => {
-  console.log("✅ Sitemap generated at dist/sitemap.xml");
+  console.log("✅ Sitemap generated with paths:", allPaths);
 });
