@@ -19,79 +19,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # --------------------------------------------------------------
-      # 1️⃣ Checkout the repo
-      # --------------------------------------------------------------
       - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      # --------------------------------------------------------------
-      # 2️⃣ Set up Node.js
-      # --------------------------------------------------------------
       - name: ⚙️ Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
-      # --------------------------------------------------------------
-      # 3️⃣ Install dependencies
-      # --------------------------------------------------------------
       - name: 📦 Install dependencies
         run: npm ci
 
-      # --------------------------------------------------------------
-      # 4️⃣ Build the Vite site
-      # --------------------------------------------------------------
       - name: 🏗️ Build site
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
 
-      # --------------------------------------------------------------
-      # 5️⃣ Copy static files from /public
-      # --------------------------------------------------------------
       - name: 📂 Copy public assets to dist
         run: |
           if [ -d "public" ]; then
             cp -r public/* dist/ 2>/dev/null || echo "No public files to copy"
           fi
 
-      # --------------------------------------------------------------
-      # 6️⃣ Generate the sitemap
-      # --------------------------------------------------------------
-      - name: 🗺️ Install sitemap‑generator‑cli globally
-        run: npm install -g sitemap-generator-cli
-
-      - name: 🗺️ Generate sitemap.xml for al‑tomoh.com
+      - name: 🗺️ Generate sitemap.xml from dist
         run: |
-          sitemap-generator-cli https://al-tomoh.com \
-            --output dist/sitemap.xml \
-            --max-depth 5 \
-            --ignore-pattern ".*\\.(png|jpg|jpeg|svg|gif|css|js|json|webp)$"
+          npx --yes sitemap dist \
+            --base-url https://al-tomoh.com \
+            --out-file dist/sitemap.xml \
+            --pretty
 
-      # --------------------------------------------------------------
-      # 7️⃣ Add fallback 404.html
-      # --------------------------------------------------------------
       - name: 🧱 Add fallback 404.html for React Router
         run: cp dist/index.html dist/404.html
 
-      # --------------------------------------------------------------
-      # 8️⃣ Disable Jekyll processing
-      # --------------------------------------------------------------
       - name: 🚫 Disable Jekyll processing
         run: echo "" > dist/.nojekyll
 
-      # --------------------------------------------------------------
-      # 9️⃣ Configure GitHub Pages
-      # --------------------------------------------------------------
       - name: ⚙️ Setup Pages
         uses: actions/configure-pages@v5
 
-      # --------------------------------------------------------------
-      # 🔟 Upload the whole dist
-      # --------------------------------------------------------------
       - name: 📤 Upload build to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
@@ -107,4 +74,3 @@ jobs:
       - name: 🚀 Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        
