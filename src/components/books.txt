@@ -407,7 +407,7 @@
         originalPrice: 498,
         originalPriceUSD: 12,
         discount: 25,
-        image: "/book-images/Din/Dinbook10.jpg",
+        image: "/book-images/Din/Dinbook10.webp",
         author: "نخبة من العلماء"
       },
       {
@@ -433,7 +433,7 @@
         originalPrice: 416,
         originalPriceUSD: 10,
         discount: 25,
-        image: "/book-images/Din/Dinbook12.jpg",
+        image: "/book-images/Din/Dinbook12.jpeg",
         author: "نخبة من العلماء"
       },
       {
@@ -498,7 +498,7 @@
         originalPrice: 498,
         originalPriceUSD: 12,
         discount: 25,
-        image: "/book-images/Din/Dinbook17.jpg",
+        image: "/book-images/Din/Dinbook17.webp",
         author: "نخبة من العلماء"
       },
       {
@@ -550,7 +550,7 @@
         originalPrice: 541,
         originalPriceUSD: 13,
         discount: 25,
-        image: "/book-images/Din/Dinbook21.jpg",
+        image: "/book-images/Din/Dinbook21.png",
         author: "الإمامين : جلال الدين محمد || جلال الدين عبدالرحمن"
       },
       {
@@ -589,7 +589,7 @@
         originalPrice: 498,
         originalPriceUSD: 12,
         discount: 25,
-        image: "/book-images/Din/Dinbook24.jpg",
+        image: "/book-images/Din/Dinbook24.jpeg",
         author: "نخبة من العلماء"
       },
       {
@@ -654,7 +654,7 @@
         originalPrice: 623,
         originalPriceUSD: 15,
         discount: 25,
-        image: "/book-images/Din/Dinbook29.jpg",
+        image: "/book-images/Din/Dinbook29.jpeg",
         author: "نخبة من العلماء"
       },
       {
@@ -667,7 +667,7 @@
         originalPrice: 623,
         originalPriceUSD: 15,
         discount: 25,
-        image: "/book-images/Din/Dinbook30.jpg",
+        image: "/book-images/Din/Dinbook30.webp",
         author: "نخبة من العلماء"
       },
       {
@@ -693,7 +693,7 @@
         originalPrice: 498,
         originalPriceUSD: 12,
         discount: 25,
-        image: "/book-images/Din/Dinbook32.jpg",
+        image: "/book-images/Din/Dinbook32.jpeg",
         author: "الإمام القدوري الحنفي"
       },
       {
@@ -745,7 +745,7 @@
         originalPrice: 374,
         originalPriceUSD: 9,
         discount: 25,
-        image: "/book-images/Din/Dinbook36.jpg",
+        image: "/book-images/Din/Dinbook36.jpeg",
         author: "العلامة عبدالله بن عمر الحضرمي"
       },
       {
@@ -758,7 +758,7 @@
         originalPrice: 498,
         originalPriceUSD: 12,
         discount: 25,
-        image: "/book-images/Din/Dinbook37.jpg",
+        image: "/book-images/Din/Dinbook37.webp",
         author: "نخبة من العلماء"
       },
       {
@@ -836,7 +836,7 @@
         originalPrice: 748,
         originalPriceUSD: 18,
         discount: 30,
-        image: "/book-images/Din/Dinbook43.jpg",
+        image: "/book-images/Din/Dinbook43.png",
         author: "نخبة من العلماء"
       },
 
