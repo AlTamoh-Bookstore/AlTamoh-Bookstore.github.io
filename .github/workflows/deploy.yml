@@ -10,7 +10,6 @@ permissions:
   pages: write
   id-token: write
 
-# Prevent overlapping deploys
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -43,6 +42,11 @@ jobs:
           if [ -d "public" ]; then
             cp -r public/* dist/ 2>/dev/null || echo "No public files to copy"
           fi
+
+      - name: 🗺️ Generate sitemap.xml from dist
+        run: |
+          npm install sitemap
+          node scripts/generate-sitemap.mjs
 
       - name: 🧱 Add fallback 404.html for React Router
         run: cp dist/index.html dist/404.html

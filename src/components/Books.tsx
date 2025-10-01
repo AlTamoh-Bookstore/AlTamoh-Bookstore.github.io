@@ -354,7 +354,11 @@ const Books = () => {
         priceUSD: 10.50,
         originalPrice: 439,
         originalPriceUSD: 10.50,
+<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook1.jpg",
+=======
+        image: "/book-images/Altomoh/Tbook1.jpg",
+>>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "إيهاب القواسمة"
       },
       {
@@ -366,7 +370,11 @@ const Books = () => {
         priceUSD: 8.00,
         originalPrice: 335,
         originalPriceUSD: 8.00,
+<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook2.jpg",
+=======
+        image: "/book-images/Altomoh/Tbook2.jpg",
+>>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "مزنة باكيرو"
       },
       {
@@ -378,7 +386,11 @@ const Books = () => {
         priceUSD: 6.40,
         originalPrice: 268,
         originalPriceUSD: 6.40,
+<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook3.jpg",
+=======
+        image: "/book-images/Altomoh/Tbook3.jpg",
+>>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "محمد لطفي جمعة"
       },
       {
@@ -390,7 +402,11 @@ const Books = () => {
         priceUSD: 8.80,
         originalPrice: 368,
         originalPriceUSD: 8.80,
+<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook4.jpg",
+=======
+        image: "/book-images/Altomoh/Tbook4.jpg",
+>>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "إسماعيل مظهر"
       },
       {
@@ -402,7 +418,11 @@ const Books = () => {
         priceUSD: 7.00,
         originalPrice: 293,
         originalPriceUSD: 7.00,
+<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook5.jpg",
+=======
+        image: "/book-images/Altomoh/Tbook5.jpg",
+>>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "سلامة موسى"
       },
       {
@@ -414,7 +434,11 @@ const Books = () => {
         priceUSD: 4.00,
         originalPrice: 167,
         originalPriceUSD: 4.00,
+<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook6.jpg",
+=======
+        image: "/book-images/Altomoh/Tbook6.jpg",
+>>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "د. أحمد فؤاد الأهواني"
       },
       {
@@ -426,7 +450,11 @@ const Books = () => {
         priceUSD: 8.00,
         originalPrice: 335,
         originalPriceUSD: 8.00,
+<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook7.jpg",
+=======
+        image: "/book-images/Altomoh/Tbook7.jpg",
+>>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "مصطفى لطفي المنفلوطي"
       },
       {
@@ -438,7 +466,11 @@ const Books = () => {
         priceUSD: 5.00,
         originalPrice: 209,
         originalPriceUSD: 5.00,
+<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook8.jpg",
+=======
+        image: "/book-images/Altomoh/Tbook8.jpg",
+>>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "مصطفى صادق الرافعي"
       },
       {
@@ -450,7 +482,11 @@ const Books = () => {
         priceUSD: 6.00,
         originalPrice: 251,
         originalPriceUSD: 6.00,
+<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook9.jpg",
+=======
+        image: "/book-images/Altomoh/Tbook9.jpg",
+>>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "مصطفى صادق الرافعي"
       },
       {
@@ -462,10 +498,18 @@ const Books = () => {
         priceUSD: 5.20,
         originalPrice: 218,
         originalPriceUSD: 5.20,
+<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook10.jpg",
         author: "مصطفى صادق الرافعي"
       },
+=======
+        image: "/book-images/Altomoh/Tbook10.jpg",
+        author: "مصطفى صادق الرافعي"
+      },
+      //================================//
+>>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
       // الكتب الأكثر مبيعاً
+      //================================//
       {
         id: 1,
         title: "نبوءات الجائعين",
@@ -476,7 +520,7 @@ const Books = () => {
         originalPrice: 165,
         originalPriceUSD: 4,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook1.jpg",
+        image: "/book-images/Literature/Lbook1.jpg",
         author: "أيمن العتوم"
         },
         {
@@ -489,7 +533,7 @@ const Books = () => {
         originalPrice: 165,
         originalPriceUSD: 4,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook2.jpg",
+        image: "/book-images/Literature/Lbook2.jpg",
         author: "أيمن العتوم"
         },
         {
@@ -502,7 +546,7 @@ const Books = () => {
         originalPrice: 165,
         originalPriceUSD: 4,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook3.jpg",
+        image: "/book-images/Literature/Lbook3.jpg",
         author: "أيمن العتوم"
         },
         {
@@ -515,7 +559,7 @@ const Books = () => {
         originalPrice: 165,
         originalPriceUSD: 4,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook4.jpg",
+        image: "/book-images/Literature/Lbook4.jpg",
         author: "أيمن العتوم"
         },
         {
@@ -528,7 +572,7 @@ const Books = () => {
         originalPrice: 165,
         originalPriceUSD: 4,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook5.jpg",
+        image: "/book-images/Literature/Lbook5.jpg",
         author: "أيمن العتوم"
         },
         {
@@ -541,7 +585,7 @@ const Books = () => {
         originalPrice: 494,
         originalPriceUSD: 12,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook6.jpg",
+        image: "/book-images/Literature/Lbook6.jpg",
         author: "أدهم الشرقاوي"
         },
         {
@@ -554,7 +598,7 @@ const Books = () => {
         originalPrice: 535,
         originalPriceUSD: 13,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook7.jpg",
+        image: "/book-images/Literature/Lbook7.jpg",
         author: "أدهم الشرقاوي"
         },
         {
@@ -567,7 +611,7 @@ const Books = () => {
         originalPrice: 576.25,
         originalPriceUSD: 14,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook8.jpg",
+        image: "/book-images/Literature/Lbook8.jpg",
         author: "أدهم الشرقاوي"
         },
         {
@@ -580,7 +624,7 @@ const Books = () => {
         originalPrice: 576.25,
         originalPriceUSD: 14,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook9.jpg",
+        image: "/book-images/Literature/Lbook9.jpg",
         author: "أدهم الشرقاوي"
         },
         {
@@ -593,7 +637,7 @@ const Books = () => {
         originalPrice: 535,
         originalPriceUSD: 13,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook10.jpg",
+        image: "/book-images/Literature/Lbook10.jpg",
         author: "أدهم الشرقاوي"
         },
         {
@@ -606,7 +650,7 @@ const Books = () => {
         originalPrice: 494,
         originalPriceUSD: 12,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook11.jpg",
+        image: "/book-images/Literature/Lbook11.jpg",
         author: ""
         },
         {
@@ -619,7 +663,7 @@ const Books = () => {
         originalPrice: 494,
         originalPriceUSD: 12,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Literature/Lbook12.jpg",
+        image: "/book-images/Literature/Lbook12.jpg",
         author: ""
         },
       // الدين
@@ -633,7 +677,7 @@ const Books = () => {
         originalPrice: 740,
         originalPriceUSD: 18,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Din/Dinbook1.jpg",
+        image: "/book-images/Din/Dinbook1.jpg",
         author: "للإمام ابي عبد الله محمد بن اسماعيل البخاري"
       },
       {
@@ -646,7 +690,7 @@ const Books = () => {
         originalPrice: 658,
         originalPriceUSD: 16,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Din/Dinbook2.jpg",
+        image: "/book-images/Din/Dinbook2.jpg",
         author: "ابي الحسين مسلم بن الحجاج القشيري النيسابوري"
       },
       {
@@ -659,7 +703,7 @@ const Books = () => {
         originalPrice: 329,
         originalPriceUSD: 8,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Din/Dinbook3.jpg",
+        image: "/book-images/Din/Dinbook3.jpg",
         author: "عادل محمد خليل"
       },
       {
@@ -672,7 +716,7 @@ const Books = () => {
         originalPrice: 494,
         originalPriceUSD: 12,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Din/Dinbook4.jpg",
+        image: "/book-images/Din/Dinbook4.jpg",
         author: "ابن كثير"
       },
       {
@@ -685,7 +729,7 @@ const Books = () => {
         originalPrice: 370,
         originalPriceUSD: 9,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Din/Dinbook5.jpeg",
+        image: "/book-images/Din/Dinbook5.jpeg",
         author: "صفي الرحمن المباركفوري"
       },
       {
@@ -698,7 +742,7 @@ const Books = () => {
         originalPrice: 494,
         originalPriceUSD: 12,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Din/Dinbook6.jpg",
+        image: "/book-images/Din/Dinbook6.jpg",
         author: "د. سعاد عبدالحميد"
       },
       {
@@ -711,7 +755,7 @@ const Books = () => {
         originalPrice: 411,
         originalPriceUSD: 10,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Din/Dinbook7.jpg",
+        image: "/book-images/Din/Dinbook7.jpg",
         author: "جهاد التُّرباني"
       },
       {
@@ -724,7 +768,7 @@ const Books = () => {
         originalPrice: 411,
         originalPriceUSD: 10,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Din/Dinbook8.jpg",
+        image: "/book-images/Din/Dinbook8.jpg",
         author: "جهاد التُّرباني"
       },
       {
@@ -737,7 +781,7 @@ const Books = () => {
         originalPrice: 1646,
         originalPriceUSD: 40,
         discount: 20,
-        image: "/altamoh.bookstore/book-images/Din/Dinbook9.jpg",
+        image: "/book-images/Din/Dinbook9.jpg",
         author: "ابن كثير"
       },
 
@@ -753,12 +797,12 @@ const Books = () => {
         originalPrice: 1440,
         originalPriceUSD: 35,
         discount: 25,
-        image: "/altamoh.bookstore/book-images/Novels/alftot.jpg",
+        image: "/book-images/Novels/alftot.jpg",
         images: [
-          "/altamoh.bookstore/book-images/Novels/alftot1.jpg",
-          "/altamoh.bookstore/book-images/Novels/alftot2.jpg",
-          "/altamoh.bookstore/book-images/Novels/alftot3.jpg",
-          "/altamoh.bookstore/book-images/Novels/alftot4.jpg"
+          "/book-images/Novels/alftot1.jpg",
+          "/book-images/Novels/alftot2.jpg",
+          "/book-images/Novels/alftot3.jpg",
+          "/book-images/Novels/alftot4.jpg"
         ],
         author: "كاتب مجهول"
       },
@@ -772,11 +816,11 @@ const Books = () => {
       originalPrice: 1811,
       originalPriceUSD: 44,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/assen1.jpg",
+      image: "/book-images/Novels/assen1.jpg",
       images: [
-          "/altamoh.bookstore/book-images/Novels/assen1.jpg",
-          "/altamoh.bookstore/book-images/Novels/assen2.jpg",
-          "/altamoh.bookstore/book-images/Novels/assen3.jpg"
+          "/book-images/Novels/assen1.jpg",
+          "/book-images/Novels/assen2.jpg",
+          "/book-images/Novels/assen3.jpg"
       ],
       author: "أوليفر بودين"
       },
@@ -790,12 +834,12 @@ const Books = () => {
       originalPrice: 2058,
       originalPriceUSD: 50,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/war&peace.jpg",
+      image: "/book-images/Novels/war&peace.jpg",
       images: [
-          "/altamoh.bookstore/book-images/Novels/war&peace1.jpg",
-          "/altamoh.bookstore/book-images/Novels/war&peace2.jpg",
-          "/altamoh.bookstore/book-images/Novels/war&peace3.jpg",
-          "/altamoh.bookstore/book-images/Novels/war&peace4.jpg"
+          "/book-images/Novels/war&peace1.jpg",
+          "/book-images/Novels/war&peace2.jpg",
+          "/book-images/Novels/war&peace3.jpg",
+          "/book-images/Novels/war&peace4.jpg"
       ],
       author: "ليف تولستوي"
       },
@@ -810,12 +854,12 @@ const Books = () => {
       originalPrice: 2140,
       originalPriceUSD: 52,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/witcher1.jpg",
+      image: "/book-images/Novels/witcher1.jpg",
       images: [
-          "/altamoh.bookstore/book-images/Novels/witcher1.jpg",
-          "/altamoh.bookstore/book-images/Novels/witcher2.jpg",
-          "/altamoh.bookstore/book-images/Novels/witcher3.jpg",
-          "/altamoh.bookstore/book-images/Novels/withcer4.jpg"
+          "/book-images/Novels/witcher1.jpg",
+          "/book-images/Novels/witcher2.jpg",
+          "/book-images/Novels/witcher3.jpg",
+          "/book-images/Novels/withcer4.jpg"
       ],
       author: "أندجي سابكوفسكي"
       },
@@ -830,7 +874,7 @@ const Books = () => {
       originalPrice: 535,
       originalPriceUSD: 13,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook1.jpg",
+      image: "/book-images/Novels/Nbook1.jpg",
       author: "د. حنان لاشين"
     },
     {
@@ -843,7 +887,7 @@ const Books = () => {
       originalPrice: 453,
       originalPriceUSD: 11,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook2.jpg",
+      image: "/book-images/Novels/Nbook2.jpg",
       author: "د. أحمد خالد مصطفى"
     },
     {
@@ -856,7 +900,7 @@ const Books = () => {
       originalPrice: 659,
       originalPriceUSD: 16,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook3.jpg",
+      image: "/book-images/Novels/Nbook3.jpg",
       author: "لي جيوم لي"
     },
     {
@@ -869,7 +913,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook4.jpg",
+      image: "/book-images/Novels/Nbook4.jpg",
       author: "عمرو عبدالحميد"
     },
     {
@@ -882,7 +926,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook5.jpg",
+      image: "/book-images/Novels/Nbook5.jpg",
       author: "د. حنان لاشين"
     },
     {
@@ -895,7 +939,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook6.jpg",
+      image: "/book-images/Novels/Nbook6.jpg",
       author: "عمرو عبدالحميد"
     },
     {
@@ -908,7 +952,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook7.jpg",
+      image: "/book-images/Novels/Nbook7.jpg",
       author: "د. حنان لاشين"
     },
     {
@@ -921,7 +965,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook8.jpg",
+      image: "/book-images/Novels/Nbook8.jpg",
       author: "د. حنان لاشين"
     },
     {
@@ -934,7 +978,7 @@ const Books = () => {
       originalPrice: 449,
       originalPriceUSD: 12,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook9.jpg",
+      image: "/book-images/Novels/Nbook9.jpg",
       author: "د. أحمد خالد مصطفى"
     },
     {
@@ -947,7 +991,7 @@ const Books = () => {
       originalPrice: 535,
       originalPriceUSD: 13,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook10.jpg",
+      image: "/book-images/Novels/Nbook10.jpg",
       author: "جون هون"
     },
     {
@@ -960,7 +1004,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook11.jpg",
+      image: "/book-images/Novels/Nbook11.jpg",
       author: "د. أحمد خالد مصطفى"
     },
     {
@@ -973,7 +1017,7 @@ const Books = () => {
       originalPrice: 576,
       originalPriceUSD: 14,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook12.jpg",
+      image: "/book-images/Novels/Nbook12.jpg",
       author: "أحمد خيري العمري"
     },
     {
@@ -986,7 +1030,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook13.jpg",
+      image: "/book-images/Novels/Nbook13.jpg",
       author: "عمرو عبدالحميد"
     },
     {
@@ -999,7 +1043,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook14.jpg",
+      image: "/book-images/Novels/Nbook14.jpg",
       author: "د. محمود ماهر"
     },
     {
@@ -1012,7 +1056,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook15.jpg",
+      image: "/book-images/Novels/Nbook15.jpg",
       author: "د. حنان لاشين"
     },
     {
@@ -1025,7 +1069,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook16.jpg",
+      image: "/book-images/Novels/Nbook16.jpg",
       author: "د. حنان لاشين"
     },
     {
@@ -1038,7 +1082,7 @@ const Books = () => {
       originalPrice: 3949,
       originalPriceUSD: 96,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook17.jpg",
+      image: "/book-images/Novels/Nbook17.jpg",
       author: "آرثر كونان"
     },
     {
@@ -1051,7 +1095,7 @@ const Books = () => {
       originalPrice: 453,
       originalPriceUSD: 11,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook18.jpg",
+      image: "/book-images/Novels/Nbook18.jpg",
       author: "د. أحمد خيري العمري"
     },
     {
@@ -1064,7 +1108,7 @@ const Books = () => {
       originalPrice: 453,
       originalPriceUSD: 11,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook19.jpg",
+      image: "/book-images/Novels/Nbook19.jpg",
       author: "محمود ماهر"
     },
     {
@@ -1077,7 +1121,7 @@ const Books = () => {
       originalPrice: 535,
       originalPriceUSD: 13,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook20.jpg",
+      image: "/book-images/Novels/Nbook20.jpg",
       author: "أحمد خيري العمري"
     },
     {
@@ -1090,7 +1134,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook21.jpg",
+      image: "/book-images/Novels/Nbook21.jpg",
       author: "عمرو عبدالحميد"
     },
     {
@@ -1103,7 +1147,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook22.jpg",
+      image: "/book-images/Novels/Nbook22.jpg",
       author: "د. حنان لاشين"
     },
     {
@@ -1116,7 +1160,7 @@ const Books = () => {
       originalPrice: 453,
       originalPriceUSD: 11,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook23.jpg",
+      image: "/book-images/Novels/Nbook23.jpg",
       author: "لي مي ييه"
     },
     {
@@ -1129,7 +1173,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook24.jpg",
+      image: "/book-images/Novels/Nbook24.jpg",
       author: "لي مي ييه"
     },
     {
@@ -1142,7 +1186,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook25.jpg",
+      image: "/book-images/Novels/Nbook25.jpg",
       author: "د. أحمد خالد مصطفى"
     },
     {
@@ -1155,7 +1199,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook26.jpg",
+      image: "/book-images/Novels/Nbook26.jpg",
       author: "عمرو عبدالحميد"
     },
     {
@@ -1168,7 +1212,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook27.jpg",
+      image: "/book-images/Novels/Nbook27.jpg",
       author: "عمرو عبدالحميد"
     },
     {
@@ -1181,7 +1225,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook28.jpg",
+      image: "/book-images/Novels/Nbook28.jpg",
       author: "عمرو عبدالحميد"
     },
     {
@@ -1194,7 +1238,7 @@ const Books = () => {
       originalPrice: 1441,
       originalPriceUSD: 35,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook29.jpg",
+      image: "/book-images/Novels/Nbook29.jpg",
       author: "جيمس كالفين"
     },
     {
@@ -1207,7 +1251,7 @@ const Books = () => {
       originalPrice: 576,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook30.png",
+      image: "/book-images/Novels/Nbook30.png",
       author: "أسامة مسلم"
     },
     {
@@ -1220,7 +1264,7 @@ const Books = () => {
       originalPrice: 576,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook31.jpg",
+      image: "/book-images/Novels/Nbook31.jpg",
       author: "أسامة مسلم"
     },
     {
@@ -1233,7 +1277,7 @@ const Books = () => {
       originalPrice: 576,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook32.jpg",
+      image: "/book-images/Novels/Nbook32.jpg",
       author: "أسامة مسلم"
     },
     {
@@ -1246,7 +1290,7 @@ const Books = () => {
       originalPrice: 741,
       originalPriceUSD: 18,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook33.jpg",
+      image: "/book-images/Novels/Nbook33.jpg",
       author: "أسامة مسلم"
     },
     {
@@ -1259,7 +1303,7 @@ const Books = () => {
       originalPrice: 741,
       originalPriceUSD: 18,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook34.png",
+      image: "/book-images/Novels/Nbook34.png",
       author: "أسامة مسلم"
     },
     {
@@ -1272,7 +1316,7 @@ const Books = () => {
       originalPrice: 741,
       originalPriceUSD: 18,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook35.jpg",
+      image: "/book-images/Novels/Nbook35.jpg",
       author: "أسامة مسلم"
     },
     {
@@ -1285,7 +1329,7 @@ const Books = () => {
       originalPrice: 741,
       originalPriceUSD: 18,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook36.png",
+      image: "/book-images/Novels/Nbook36.png",
       author: "أسامة مسلم"
     },
     {
@@ -1298,7 +1342,7 @@ const Books = () => {
       originalPrice: 741,
       originalPriceUSD: 18,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook37.jpg",
+      image: "/book-images/Novels/Nbook37.jpg",
       author: "أسامة مسلم"
     },
     {
@@ -1311,7 +1355,7 @@ const Books = () => {
       originalPrice: 741,
       originalPriceUSD: 18,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook38.jpg",
+      image: "/book-images/Novels/Nbook38.jpg",
       author: "أسامة مسلم"
     },
     {
@@ -1324,7 +1368,7 @@ const Books = () => {
       originalPrice: 741,
       originalPriceUSD: 18,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook39.jpg",
+      image: "/book-images/Novels/Nbook39.jpg",
       author: "أسامة مسلم"
     },
     {
@@ -1337,7 +1381,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook40.jpg",
+      image: "/book-images/Novels/Nbook40.jpg",
       author: "أحمد آل حمدان"
     },
     {
@@ -1350,7 +1394,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook41.jpg",
+      image: "/book-images/Novels/Nbook41.jpg",
       author: "أحمد آل حمدان"
     },
     {
@@ -1363,7 +1407,7 @@ const Books = () => {
       originalPrice: 659,
       originalPriceUSD: 16,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook42.jpg",
+      image: "/book-images/Novels/Nbook42.jpg",
       author: "أحمد آل حمدان"
     },
     {
@@ -1376,7 +1420,7 @@ const Books = () => {
       originalPrice: 659,
       originalPriceUSD: 16,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook43.png",
+      image: "/book-images/Novels/Nbook43.png",
       author: "أحمد آل حمدان"
     },
     {
@@ -1389,7 +1433,7 @@ const Books = () => {
       originalPrice: 659,
       originalPriceUSD: 16,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook44.png",
+      image: "/book-images/Novels/Nbook44.png",
       author: "أحمد آل حمدان"
     },
     {
@@ -1402,7 +1446,7 @@ const Books = () => {
       originalPrice: 576,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook45.jpg",
+      image: "/book-images/Novels/Nbook45.jpg",
       author: "أحمد آل حمدان"
     },
     {
@@ -1415,7 +1459,7 @@ const Books = () => {
       originalPrice: 576,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook46.jpg",
+      image: "/book-images/Novels/Nbook46.jpg",
       author: "أحمد آل حمدان"
     },
     {
@@ -1428,7 +1472,7 @@ const Books = () => {
       originalPrice: 659,
       originalPriceUSD: 16,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook47.jpg",
+      image: "/book-images/Novels/Nbook47.jpg",
       author: "أحمد آل حمدان"
     },
     {
@@ -1441,7 +1485,7 @@ const Books = () => {
       originalPrice: 576,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook48.jpg",
+      image: "/book-images/Novels/Nbook48.jpg",
       author: "يحى خان"
     },
     {
@@ -1454,7 +1498,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook49.jpg",
+      image: "/book-images/Novels/Nbook49.jpg",
       author: "معن هلال الهنائي"
     },
     {
@@ -1467,7 +1511,7 @@ const Books = () => {
       originalPrice: 617,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook50.png",
+      image: "/book-images/Novels/Nbook50.png",
       author: "معن هلال الهنائي"
     },
     {
@@ -1480,7 +1524,7 @@ const Books = () => {
       originalPrice: 617,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook51.jpg",
+      image: "/book-images/Novels/Nbook51.jpg",
       author: "معن هلال الهنائي"
     },
     {
@@ -1493,7 +1537,7 @@ const Books = () => {
       originalPrice: 617,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook52.jpg",
+      image: "/book-images/Novels/Nbook52.jpg",
       author: "شهد قربان"
     },
     {
@@ -1506,7 +1550,7 @@ const Books = () => {
       originalPrice: 617,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook53.jpg",
+      image: "/book-images/Novels/Nbook53.jpg",
       author: "شهد قربان"
     },
     {
@@ -1519,7 +1563,7 @@ const Books = () => {
       originalPrice: 617,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook54.jpg",
+      image: "/book-images/Novels/Nbook54.jpg",
       author: "شهد قربان"
     },
     {
@@ -1532,7 +1576,7 @@ const Books = () => {
       originalPrice: 659,
       originalPriceUSD: 16,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook55.png",
+      image: "/book-images/Novels/Nbook55.png",
       author: "مريم الحيسي"
     },
     {
@@ -1545,7 +1589,7 @@ const Books = () => {
       originalPrice: 617,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook56.jpg",
+      image: "/book-images/Novels/Nbook56.jpg",
       author: "مريم الحيسي"
     },
     {
@@ -1558,7 +1602,7 @@ const Books = () => {
       originalPrice: 617,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook57.jpg",
+      image: "/book-images/Novels/Nbook57.jpg",
       author: "مريم الحيسي"
     },
     {
@@ -1571,7 +1615,7 @@ const Books = () => {
       originalPrice: 617,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook58.png",
+      image: "/book-images/Novels/Nbook58.png",
       author: "سما سامي"
     },
     {
@@ -1584,7 +1628,7 @@ const Books = () => {
       originalPrice: 617,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook59.jpg",
+      image: "/book-images/Novels/Nbook59.jpg",
       author: "سما سامي"
     },
     {
@@ -1597,7 +1641,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook60.jpg",
+      image: "/book-images/Novels/Nbook60.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1610,7 +1654,7 @@ const Books = () => {
       originalPrice: 329,
       originalPriceUSD: 8,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook61.jpg",
+      image: "/book-images/Novels/Nbook61.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1623,7 +1667,7 @@ const Books = () => {
       originalPrice: 329,
       originalPriceUSD: 8,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook62.jpg",
+      image: "/book-images/Novels/Nbook62.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1636,7 +1680,7 @@ const Books = () => {
       originalPrice: 370,
       originalPriceUSD: 9,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook63.jpg",
+      image: "/book-images/Novels/Nbook63.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1649,7 +1693,7 @@ const Books = () => {
       originalPrice: 329,
       originalPriceUSD: 8,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook64.jpg",
+      image: "/book-images/Novels/Nbook64.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1662,7 +1706,7 @@ const Books = () => {
       originalPrice: 288,
       originalPriceUSD: 7,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook65.jpg",
+      image: "/book-images/Novels/Nbook65.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1675,7 +1719,7 @@ const Books = () => {
       originalPrice: 370,
       originalPriceUSD: 9,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook66.jpg",
+      image: "/book-images/Novels/Nbook66.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1688,7 +1732,7 @@ const Books = () => {
       originalPrice: 329,
       originalPriceUSD: 8,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook67.jpg",
+      image: "/book-images/Novels/Nbook67.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1701,7 +1745,7 @@ const Books = () => {
       originalPrice: 370,
       originalPriceUSD: 9,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook68.jpg",
+      image: "/book-images/Novels/Nbook68.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1714,7 +1758,7 @@ const Books = () => {
       originalPrice: 329,
       originalPriceUSD: 8,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook69.jpg",
+      image: "/book-images/Novels/Nbook69.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1727,7 +1771,7 @@ const Books = () => {
       originalPrice: 329,
       originalPriceUSD: 8,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook70.jpg",
+      image: "/book-images/Novels/Nbook70.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1740,7 +1784,7 @@ const Books = () => {
       originalPrice: 288,
       originalPriceUSD: 7,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook71.jpg",
+      image: "/book-images/Novels/Nbook71.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1753,7 +1797,7 @@ const Books = () => {
       originalPrice: 329,
       originalPriceUSD: 8,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook72.jpg",
+      image: "/book-images/Novels/Nbook72.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1766,7 +1810,7 @@ const Books = () => {
       originalPrice: 329,
       originalPriceUSD: 8,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook73.jpg",
+      image: "/book-images/Novels/Nbook73.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1779,7 +1823,7 @@ const Books = () => {
       originalPrice: 329,
       originalPriceUSD: 8,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook74.jpg",
+      image: "/book-images/Novels/Nbook74.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -1792,7 +1836,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook75.jpg",
+      image: "/book-images/Novels/Nbook75.jpg",
       author: "أدهم شرقاوي"
     },
     {
@@ -1805,7 +1849,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook76.jpg",
+      image: "/book-images/Novels/Nbook76.jpg",
       author: "أدهم شرقاوي"
     },
     {
@@ -1818,7 +1862,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook77.jpg",
+      image: "/book-images/Novels/Nbook77.jpg",
       author: "أدهم شرقاوي"
     },
     {
@@ -1831,7 +1875,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook78.jpg",
+      image: "/book-images/Novels/Nbook78.jpg",
       author: "أدهم شرقاوي"
     },
     {
@@ -1844,7 +1888,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook79.jpg",
+      image: "/book-images/Novels/Nbook79.jpg",
       author: "أدهم شرقاوي"
     },
     {
@@ -1857,7 +1901,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook80.jpg",
+      image: "/book-images/Novels/Nbook80.jpg",
       author: "طاهرة مافي"
     },
     {
@@ -1870,7 +1914,7 @@ const Books = () => {
       originalPrice: 617,
       originalPriceUSD: 15,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook81.jpg",
+      image: "/book-images/Novels/Nbook81.jpg",
       author: "طاهرة مافي"
     },
     {
@@ -1883,7 +1927,7 @@ const Books = () => {
       originalPrice: 576,
       originalPriceUSD: 14,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook82.jpg",
+      image: "/book-images/Novels/Nbook82.jpg",
       author: "طاهرة مافي"
     },
     {
@@ -1896,7 +1940,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook83.jpg",
+      image: "/book-images/Novels/Nbook83.jpg",
       author: "د. خولة حمدي"
     },
     {
@@ -1909,7 +1953,7 @@ const Books = () => {
       originalPrice: 411,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook84.jpg",
+      image: "/book-images/Novels/Nbook84.jpg",
       author: "أحمد خالد توفيق"
     },
     {
@@ -1922,7 +1966,7 @@ const Books = () => {
       originalPrice: 411,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook85.jpg",
+      image: "/book-images/Novels/Nbook85.jpg",
       author: "أحمد خالد توفيق"
     },
     {
@@ -1935,7 +1979,7 @@ const Books = () => {
       originalPrice: 658,
       originalPriceUSD: 16,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook86.jpg",
+      image: "/book-images/Novels/Nbook86.jpg",
       author: "د. خولة حمدي"
     },
     {
@@ -1948,7 +1992,7 @@ const Books = () => {
       originalPrice: 987,
       originalPriceUSD: 24,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook87.jpg",
+      image: "/book-images/Novels/Nbook87.jpg",
       author: "براندون ساندرسن"
     },
     {
@@ -1961,7 +2005,7 @@ const Books = () => {
       originalPrice: 658,
       originalPriceUSD: 16,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook88.jpg",
+      image: "/book-images/Novels/Nbook88.jpg",
       author: "د. خولة حمدي"
     },
     {
@@ -1974,7 +2018,7 @@ const Books = () => {
       originalPrice: 411,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook89.jpg",
+      image: "/book-images/Novels/Nbook89.jpg",
       author: "جهاد التُّرباني"
     },
     {
@@ -1987,7 +2031,7 @@ const Books = () => {
       originalPrice: 411,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook90.jpg",
+      image: "/book-images/Novels/Nbook90.jpg",
       author: "جهاد التُّرباني"
     },
     {
@@ -2000,7 +2044,7 @@ const Books = () => {
       originalPrice: 411,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook91.jpg",
+      image: "/book-images/Novels/Nbook91.jpg",
       author: "جهاد التُّرباني"
     },
     {
@@ -2013,7 +2057,7 @@ const Books = () => {
       originalPrice: 411,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook92.jpg",
+      image: "/book-images/Novels/Nbook92.jpg",
       author: "جهاد التُّرباني"
     },
     {
@@ -2026,7 +2070,7 @@ const Books = () => {
       originalPrice: 411,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/Nbook93.jpg",
+      image: "/book-images/Novels/Nbook93.jpg",
       author: "جهاد التُّرباني"
     },
     {
@@ -2039,10 +2083,10 @@ const Books = () => {
       originalPrice: 2140,
       originalPriceUSD: 52,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Novels/alflila1.jpg",
+      image: "/book-images/Novels/alflila1.jpg",
       images: [
-          "/altamoh.bookstore/book-images/Novels/alflila2.jpg",
-          "/altamoh.bookstore/book-images/Novels/alflila3.jpg"
+          "/book-images/Novels/alflila2.jpg",
+          "/book-images/Novels/alflila3.jpg"
       ],
       author: "أندجي سابكوفسكي"
       },
@@ -2056,7 +2100,7 @@ const Books = () => {
         originalPrice: 537,
         originalPriceUSD: 13,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook94.jpg",
+        image: "/book-images/Novels/Nbook94.jpg",
         author: "يانغسي شو"
       },
       {
@@ -2069,7 +2113,7 @@ const Books = () => {
         originalPrice: 496,
         originalPriceUSD: 12,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook95.jpg",
+        image: "/book-images/Novels/Nbook95.jpg",
         author: "شهد الراوي"
       },
       {
@@ -2082,7 +2126,7 @@ const Books = () => {
         originalPrice: 744,
         originalPriceUSD: 18,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook96.jpg",
+        image: "/book-images/Novels/Nbook96.jpg",
         author: "ميغ ووليتزر"
       },
       {
@@ -2095,7 +2139,7 @@ const Books = () => {
         originalPrice: 248,
         originalPriceUSD: 6,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook97.jpg",
+        image: "/book-images/Novels/Nbook97.jpg",
         author: "ادوارد لوي"
       },
       {
@@ -2108,7 +2152,7 @@ const Books = () => {
         originalPrice: 248,
         originalPriceUSD: 6,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook98.jpg",
+        image: "/book-images/Novels/Nbook98.jpg",
         author: "ترجمة هادي عبد الرزاق الخزرجي"
       },
       {
@@ -2121,7 +2165,7 @@ const Books = () => {
         originalPrice: 330,
         originalPriceUSD: 8,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook99.jpg",
+        image: "/book-images/Novels/Nbook99.jpg",
         author: "جاك لندن"
       },
       {
@@ -2134,7 +2178,7 @@ const Books = () => {
         originalPrice: 248,
         originalPriceUSD: 6,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook100.jpg",
+        image: "/book-images/Novels/Nbook100.jpg",
         author: "جنكيز أيتماتوف"
       },
       {
@@ -2147,7 +2191,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook101.jpg",
+        image: "/book-images/Novels/Nbook101.jpg",
         author: "ترجمة طلعت شاهين"
       },
       {
@@ -2160,7 +2204,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook102.jpg",
+        image: "/book-images/Novels/Nbook102.jpg",
         author: "ازهر جرجيس"
       },
       {
@@ -2173,7 +2217,7 @@ const Books = () => {
         originalPrice: 496,
         originalPriceUSD: 12,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook103.jpg",
+        image: "/book-images/Novels/Nbook103.jpg",
         author: "ازهر جرجيس"
       },
       {
@@ -2186,7 +2230,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook104.jpg",
+        image: "/book-images/Novels/Nbook104.jpg",
         author: "جمانة ممتاز"
       },
       {
@@ -2199,7 +2243,7 @@ const Books = () => {
         originalPrice: 496,
         originalPriceUSD: 12,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook105.jpg",
+        image: "/book-images/Novels/Nbook105.jpg",
         author: "شوساكو"
       },
       {
@@ -2212,7 +2256,7 @@ const Books = () => {
         originalPrice: 289,
         originalPriceUSD: 7,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook106.jpg",
+        image: "/book-images/Novels/Nbook106.jpg",
         author: "هيرمان هسة"
       },
       {
@@ -2225,7 +2269,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook107.jpg",
+        image: "/book-images/Novels/Nbook107.jpg",
         author: "كينيث غراهام"
       },
       {
@@ -2238,7 +2282,7 @@ const Books = () => {
         originalPrice: 289,
         originalPriceUSD: 7,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook108.jpg",
+        image: "/book-images/Novels/Nbook108.jpg",
         author: "ميرين اغور ميابي"
       },
       {
@@ -2251,7 +2295,7 @@ const Books = () => {
         originalPrice: 330,
         originalPriceUSD: 8,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook109.jpg",
+        image: "/book-images/Novels/Nbook109.jpg",
         author: "محمد العمراني"
       },
       {
@@ -2264,7 +2308,7 @@ const Books = () => {
         originalPrice: 537,
         originalPriceUSD: 13,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook110.jpg",
+        image: "/book-images/Novels/Nbook110.jpg",
         author: "فرانسيس برينت"
       },
       {
@@ -2277,7 +2321,7 @@ const Books = () => {
         originalPrice: 372,
         originalPriceUSD: 9,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook111.jpg",
+        image: "/book-images/Novels/Nbook111.jpg",
         author: "أ.أ.ميلن"
       },
       {
@@ -2290,7 +2334,7 @@ const Books = () => {
         originalPrice: 496,
         originalPriceUSD: 12,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook112.jpg",
+        image: "/book-images/Novels/Nbook112.jpg",
         author: "آن غريفين"
       },
       {
@@ -2303,7 +2347,7 @@ const Books = () => {
         originalPrice: 537,
         originalPriceUSD: 13,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook113.jpg",
+        image: "/book-images/Novels/Nbook113.jpg",
         author: "جوناثان سويفت"
       },
       {
@@ -2316,7 +2360,7 @@ const Books = () => {
         originalPrice: 578,
         originalPriceUSD: 14,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook114.jpg",
+        image: "/book-images/Novels/Nbook114.jpg",
         author: "جاسم سلمان"
       },
       {
@@ -2329,7 +2373,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook115.jpg",
+        image: "/book-images/Novels/Nbook115.jpg",
         author: "جاك لندن"
       },
       {
@@ -2342,7 +2386,7 @@ const Books = () => {
         originalPrice: 454,
         originalPriceUSD: 11,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook116.jpg",
+        image: "/book-images/Novels/Nbook116.jpg",
         author: "فلان اوبراين"
       },
       {
@@ -2355,7 +2399,7 @@ const Books = () => {
         originalPrice: 496,
         originalPriceUSD: 12,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook117.jpg",
+        image: "/book-images/Novels/Nbook117.jpg",
         author: "عبد الزهرة زكي"
       },
       {
@@ -2368,7 +2412,7 @@ const Books = () => {
         originalPrice: 372,
         originalPriceUSD: 9,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook118.jpg",
+        image: "/book-images/Novels/Nbook118.jpg",
         author: "هوشنك كلشيري"
       },
       {
@@ -2381,7 +2425,7 @@ const Books = () => {
         originalPrice: 330,
         originalPriceUSD: 8,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook119.jpg",
+        image: "/book-images/Novels/Nbook119.jpg",
         author: "وليد صالح الخليفة"
       },
       {
@@ -2394,7 +2438,7 @@ const Books = () => {
         originalPrice: 330,
         originalPriceUSD: 8,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook120.jpg",
+        image: "/book-images/Novels/Nbook120.jpg",
         author: "ليديا تشوكوفسكايا"
       },
       {
@@ -2407,7 +2451,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook121.jpg",
+        image: "/book-images/Novels/Nbook121.jpg",
         author: "انطون تشيخوف"
       },
       {
@@ -2420,7 +2464,7 @@ const Books = () => {
         originalPrice: 289,
         originalPriceUSD: 7,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook122.jpg",
+        image: "/book-images/Novels/Nbook122.jpg",
         author: "ازهر جرجيس"
       },
       {
@@ -2433,7 +2477,7 @@ const Books = () => {
         originalPrice: 289,
         originalPriceUSD: 7,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook123.jpg",
+        image: "/book-images/Novels/Nbook123.jpg",
         author: "برنس تشولي"
       },
       {
@@ -2446,7 +2490,7 @@ const Books = () => {
         originalPrice: 1239,
         originalPriceUSD: 30,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook124.webp",
+        image: "/book-images/Novels/Nbook124.webp",
         author: "د. منى المرشود"
       },
       {
@@ -2459,7 +2503,7 @@ const Books = () => {
         originalPrice: 888,
         originalPriceUSD: 21.5,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook125.jpg",
+        image: "/book-images/Novels/Nbook125.jpg",
         author: "جواو غيمارايس روزا"
       },
       {
@@ -2472,7 +2516,7 @@ const Books = () => {
         originalPrice: 289,
         originalPriceUSD: 7,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook126.webp",
+        image: "/book-images/Novels/Nbook126.webp",
         author: "آديلايدا غارثيا موراليس"
       },
       {
@@ -2485,7 +2529,7 @@ const Books = () => {
         originalPrice: 330,
         originalPriceUSD: 8,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook127.jpg",
+        image: "/book-images/Novels/Nbook127.jpg",
         author: "ميخائيل بولغاكوف"
       },
       {
@@ -2498,7 +2542,7 @@ const Books = () => {
         originalPrice: 496,
         originalPriceUSD: 12,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook128.jpg",
+        image: "/book-images/Novels/Nbook128.jpg",
         author: "مارك توين"
       },
       {
@@ -2511,7 +2555,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook129.jpg",
+        image: "/book-images/Novels/Nbook129.jpg",
         author: "جزوالدو بوفالينو"
       },
       {
@@ -2524,7 +2568,7 @@ const Books = () => {
         originalPrice: 248,
         originalPriceUSD: 6,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook130.jpg",
+        image: "/book-images/Novels/Nbook130.jpg",
         author: "فولتير"
       },
       {
@@ -2537,7 +2581,7 @@ const Books = () => {
         originalPrice: 330,
         originalPriceUSD: 8,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook131.jpg",
+        image: "/book-images/Novels/Nbook131.jpg",
         author: "فيليب سولرس"
       },
       {
@@ -2550,7 +2594,7 @@ const Books = () => {
         originalPrice: 289,
         originalPriceUSD: 7,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook132.jpg",
+        image: "/book-images/Novels/Nbook132.jpg",
         author: "ثربانتس"
       },
       {
@@ -2563,7 +2607,7 @@ const Books = () => {
         originalPrice: 330,
         originalPriceUSD: 8,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook133.jpg",
+        image: "/book-images/Novels/Nbook133.jpg",
         author: "ميخائيل برشفين"
       },
       {
@@ -2576,7 +2620,7 @@ const Books = () => {
         originalPrice: 682,
         originalPriceUSD: 16.5,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook134.jpg",
+        image: "/book-images/Novels/Nbook134.jpg",
         author: "دانيال ديفو"
       },
       {
@@ -2589,7 +2633,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook135.jpg",
+        image: "/book-images/Novels/Nbook135.jpg",
         author: "جون لانكستر"
       },
       {
@@ -2602,7 +2646,7 @@ const Books = () => {
         originalPrice: 578,
         originalPriceUSD: 14,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook136.jpg",
+        image: "/book-images/Novels/Nbook136.jpg",
         author: "آن برونته"
       },
       {
@@ -2615,7 +2659,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook137.jpg",
+        image: "/book-images/Novels/Nbook137.jpg",
         author: "الدوس هكسلي"
       },
       {
@@ -2628,7 +2672,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook138.jpg",
+        image: "/book-images/Novels/Nbook138.jpg",
         author: "ثربانتس"
       },
       {
@@ -2641,7 +2685,7 @@ const Books = () => {
         originalPrice: 537,
         originalPriceUSD: 13,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook139.jpg",
+        image: "/book-images/Novels/Nbook139.jpg",
         author: "روبرت ستيفنسون"
       },
       {
@@ -2654,7 +2698,7 @@ const Books = () => {
         originalPrice: 289,
         originalPriceUSD: 7,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook140.jpg",
+        image: "/book-images/Novels/Nbook140.jpg",
         author: "مارتن سواين"
       },
       {
@@ -2667,7 +2711,7 @@ const Books = () => {
         originalPrice: 1239,
         originalPriceUSD: 30,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook141.jpg",
+        image: "/book-images/Novels/Nbook141.jpg",
         author: "جون شتاينبك"
       },
       {
@@ -2680,7 +2724,7 @@ const Books = () => {
         originalPrice: 454,
         originalPriceUSD: 11,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook142.jpg",
+        image: "/book-images/Novels/Nbook142.jpg",
         author: "نجم والي"
       },
       {
@@ -2693,7 +2737,7 @@ const Books = () => {
         originalPrice: 289,
         originalPriceUSD: 7,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook143.jpg",
+        image: "/book-images/Novels/Nbook143.jpg",
         author: "جوخة الحارثي"
       },
       {
@@ -2706,7 +2750,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook144.jpg",
+        image: "/book-images/Novels/Nbook144.jpg",
         author: "غونزالوم"
       },
       {
@@ -2719,7 +2763,7 @@ const Books = () => {
         originalPrice: 661,
         originalPriceUSD: 16,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook145.jpg",
+        image: "/book-images/Novels/Nbook145.jpg",
         author: "روبرت بين وارن"
       },
       {
@@ -2732,7 +2776,7 @@ const Books = () => {
         originalPrice: 496,
         originalPriceUSD: 12,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook146.jpg",
+        image: "/book-images/Novels/Nbook146.jpg",
         author: "فولتير"
       },
       {
@@ -2745,7 +2789,7 @@ const Books = () => {
         originalPrice: 248,
         originalPriceUSD: 6,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook147.jpg",
+        image: "/book-images/Novels/Nbook147.jpg",
         author: "نيكوس كازنتزاكيس"
       },
       {
@@ -2758,7 +2802,7 @@ const Books = () => {
         originalPrice: 578,
         originalPriceUSD: 14,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook148.jpg",
+        image: "/book-images/Novels/Nbook148.jpg",
         author: "دونالد لاوري"
       },
       {
@@ -2771,7 +2815,7 @@ const Books = () => {
         originalPrice: 372,
         originalPriceUSD: 9,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook149.jpg",
+        image: "/book-images/Novels/Nbook149.jpg",
         author: "فاتن المر"
       },
       {
@@ -2784,7 +2828,7 @@ const Books = () => {
         originalPrice: 289,
         originalPriceUSD: 7,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook150.jpg",
+        image: "/book-images/Novels/Nbook150.jpg",
         author: "ثربانتس"
       },
       {
@@ -2797,7 +2841,7 @@ const Books = () => {
         originalPrice: 454,
         originalPriceUSD: 11,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook151.jpg",
+        image: "/book-images/Novels/Nbook151.jpg",
         author: "انيتا ديامنت"
       },
       {
@@ -2810,7 +2854,7 @@ const Books = () => {
         originalPrice: 413,
         originalPriceUSD: 10,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook152.jpg",
+        image: "/book-images/Novels/Nbook152.jpg",
         author: "روبرت م.بالانتاين"
       },
       {
@@ -2823,7 +2867,7 @@ const Books = () => {
         originalPrice: 826,
         originalPriceUSD: 20,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook153.png",
+        image: "/book-images/Novels/Nbook153.png",
         author: "ريبيكا سكلوت"
       },
       {
@@ -2836,7 +2880,7 @@ const Books = () => {
         originalPrice: 744,
         originalPriceUSD: 18,
         discount: 30,
-        image: "/altamoh.bookstore/book-images/Novels/Nbook154.jpg",
+        image: "/book-images/Novels/Nbook154.jpg",
         author: "ماريو بجين لوثينا"
       },
 
@@ -2853,7 +2897,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Education/Edbook1.jpg",
+      image: "/book-images/Education/Edbook1.jpg",
       author: "د. كيفين ليمان"
     },
     {
@@ -2866,7 +2910,7 @@ const Books = () => {
       originalPrice: 412,
       originalPriceUSD: 10,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Education/Edbook2.jpg",
+      image: "/book-images/Education/Edbook2.jpg",
       author: "غزل البغدادي"
     },
     {
@@ -2879,7 +2923,7 @@ const Books = () => {
       originalPrice: 370,
       originalPriceUSD: 9,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Education/Edbook3.jpg",
+      image: "/book-images/Education/Edbook3.jpg",
       author: "د. كيفين ليمان"
     },
     {
@@ -2892,7 +2936,7 @@ const Books = () => {
       originalPrice: 453,
       originalPriceUSD: 11,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Education/Edbook4.jpg",
+      image: "/book-images/Education/Edbook4.jpg",
       author: "د. كيفين ليمان"
     },
     {
@@ -2905,7 +2949,7 @@ const Books = () => {
       originalPrice: 659,
       originalPriceUSD: 16,
       discount: 25,
-      image: "/altamoh.bookstore/book-images/Education/Edbook5.jpg",
+      image: "/book-images/Education/Edbook5.jpg",
       author: "د. جابور ماتيه"
     },
 
@@ -2922,7 +2966,7 @@ const Books = () => {
       originalPrice: 620,
       originalPriceUSD: 15,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/History/Hbook1.jpg",
+      image: "/book-images/History/Hbook1.jpg",
       author: "جهاد الترباني"
     },
     {
@@ -2935,10 +2979,10 @@ const Books = () => {
       originalPrice: 2724.5,
       originalPriceUSD: 66,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/History/stendo2.jpg",
+      image: "/book-images/History/stendo2.jpg",
       images: [
-          "/altamoh.bookstore/book-images/History/stendo2.jpg",
-          "/altamoh.bookstore/book-images/History/stendo1.jpg"
+          "/book-images/History/stendo2.jpg",
+          "/book-images/History/stendo1.jpg"
       ],
       author: "ابن كثير"
     },
@@ -2952,10 +2996,10 @@ const Books = () => {
       originalPrice: 826,
       originalPriceUSD: 20,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/History/islami1.jpg",
+      image: "/book-images/History/islami1.jpg",
       images: [
-          "/altamoh.bookstore/book-images/History/islami1.jpg",
-          "/altamoh.bookstore/book-images/History/islami2.jpg"
+          "/book-images/History/islami1.jpg",
+          "/book-images/History/islami2.jpg"
       ],
       author: "ابن كثير"
     },
@@ -2969,7 +3013,7 @@ const Books = () => {
       originalPrice: 372,
       originalPriceUSD: 9,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook2.jpg",
+      image: "/book-images/History/Hbook2.jpg",
       author: "فاضل الربيعي"
     },
     {
@@ -2982,7 +3026,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook3.jpg",
+      image: "/book-images/History/Hbook3.jpg",
       author: "فاضل الربيعي"
     },
     {
@@ -2995,7 +3039,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook4.jpg",
+      image: "/book-images/History/Hbook4.jpg",
       author: "غيرتورد لوثيان بل واخرون"
     },
     {
@@ -3008,7 +3052,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook5.jpg",
+      image: "/book-images/History/Hbook5.jpg",
       author: "غوستاف لوبون"
     },
     {
@@ -3021,7 +3065,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook6.jpg",
+      image: "/book-images/History/Hbook6.jpg",
       author: "خزعل الماجدي"
     },
     {
@@ -3034,7 +3078,7 @@ const Books = () => {
       originalPrice: 537,
       originalPriceUSD: 13,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook7.jpg",
+      image: "/book-images/History/Hbook7.jpg",
       author: "غوستاف لوبون"
     },
     {
@@ -3047,7 +3091,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 7,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook8.jpg",
+      image: "/book-images/History/Hbook8.jpg",
       author: "فالح رفق اطاي"
     },
     {
@@ -3060,7 +3104,7 @@ const Books = () => {
       originalPrice: 744,
       originalPriceUSD: 18,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook9.jpg",
+      image: "/book-images/History/Hbook9.jpg",
       author: "علي عبد الأمير عجام"
     },
     {
@@ -3073,7 +3117,7 @@ const Books = () => {
       originalPrice: 661,
       originalPriceUSD: 16,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook10.jpeg",
+      image: "/book-images/History/Hbook10.jpeg",
       author: "خزعل الماجدي"
     },
     {
@@ -3086,7 +3130,7 @@ const Books = () => {
       originalPrice: 620,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook11.webp",
+      image: "/book-images/History/Hbook11.webp",
       author: "فاضل الربيعي"
     },
     {
@@ -3099,7 +3143,7 @@ const Books = () => {
       originalPrice: 744,
       originalPriceUSD: 18,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook12.jpg",
+      image: "/book-images/History/Hbook12.jpg",
       author: "فريق من الباحثين"
     },
     {
@@ -3112,7 +3156,7 @@ const Books = () => {
       originalPrice: 620,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook13.jpg",
+      image: "/book-images/History/Hbook13.jpg",
       author: "سعيد الغانمي"
     },
     {
@@ -3125,7 +3169,7 @@ const Books = () => {
       originalPrice: 620,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook14.jpg",
+      image: "/book-images/History/Hbook14.jpg",
       author: "صالح الشحري"
     },
     {
@@ -3138,7 +3182,7 @@ const Books = () => {
       originalPrice: 537,
       originalPriceUSD: 13,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/History/Hbook15.jpg",
+      image: "/book-images/History/Hbook15.jpg",
       author: "بول أوستر"
     },
 
@@ -3160,7 +3204,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook1.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook1.jpg",
     author: "د. يوسف الحسني",
     },
     {
@@ -3173,7 +3217,7 @@ const Books = () => {
     originalPrice: 617,
     originalPriceUSD: 15,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook2.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook2.jpg",
     author: "دين برنيت",
     },
     {
@@ -3186,7 +3230,7 @@ const Books = () => {
     originalPrice: 659,
     originalPriceUSD: 16,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook3.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook3.jpg",
     author: "سيجموند فرويد",
     },
     {
@@ -3199,7 +3243,7 @@ const Books = () => {
     originalPrice: 659,
     originalPriceUSD: 16,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook4.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook4.jpg",
     author: "دين برنيت",
     },
     {
@@ -3212,7 +3256,7 @@ const Books = () => {
     originalPrice: 412,
     originalPriceUSD: 10,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook5.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook5.jpg",
     author: "د. إسماعيل عرفة",
     },
     {
@@ -3225,7 +3269,7 @@ const Books = () => {
     originalPrice: 412,
     originalPriceUSD: 10,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook6.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook6.jpg",
     author: "إيناس سمير",
     },
     {
@@ -3238,7 +3282,7 @@ const Books = () => {
     originalPrice: 412,
     originalPriceUSD: 10,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook7.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook7.jpg",
     author: "د. محمد إبراهيم",
     },
     {
@@ -3251,7 +3295,7 @@ const Books = () => {
     originalPrice: 617,
     originalPriceUSD: 15,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook8.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook8.jpg",
     author: "جابور ماتيه",
     },
     {
@@ -3264,7 +3308,7 @@ const Books = () => {
     originalPrice: 576,
     originalPriceUSD: 14,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook9.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook9.jpg",
     author: "توماس إريكسون",
     },
     {
@@ -3277,7 +3321,7 @@ const Books = () => {
     originalPrice: 617,
     originalPriceUSD: 15,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook10.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook10.jpg",
     author: "د. يوسف الحسني",
     },
     {
@@ -3290,7 +3334,7 @@ const Books = () => {
     originalPrice: 535,
     originalPriceUSD: 13,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook11.jpg",
+    image: "/book-images/Philosophy & Psychology/Ppbook11.jpg",
     author: "د. يوسف الحسني",
     },
     {
@@ -3303,7 +3347,7 @@ const Books = () => {
       originalPrice: 826,
       originalPriceUSD: 20,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook12.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook12.jpg",
       author: "روبرت غرين"
     },
     {
@@ -3316,7 +3360,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook13.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook13.jpg",
       author: "جان امري"
     },
     {
@@ -3329,7 +3373,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook14.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook14.jpg",
       author: "ديكارت"
     },
     {
@@ -3342,7 +3386,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook15.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook15.jpg",
       author: "دابليو آي هاريس"
     },
     {
@@ -3355,7 +3399,7 @@ const Books = () => {
       originalPrice: 372,
       originalPriceUSD: 9,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook16.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook16.jpg",
       author: "غوستاف لوبون"
     },
     {
@@ -3368,7 +3412,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook17.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook17.jpg",
       author: "نانسي اندرياسن"
     },
     {
@@ -3381,7 +3425,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 7,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook18.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook18.jpg",
       author: "غوستاف لوبон"
     },
     {
@@ -3394,7 +3438,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 7,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook19.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook19.jpg",
       author: "المهاتما غاندي"
     },
     {
@@ -3407,7 +3451,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook20.jpeg",
+      image: "/book-images/Philosophy & Psychology/Ppbook20.jpeg",
       author: "رضا حسيني"
     },
     {
@@ -3420,7 +3464,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 7,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook21.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook21.jpg",
       author: "سورن كيرككورد"
     },
     {
@@ -3433,7 +3477,7 @@ const Books = () => {
       originalPrice: 413,
       originalPriceUSD: 10,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook22.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook22.jpg",
       author: "ماتياس ايكولد"
     },
     {
@@ -3446,7 +3490,7 @@ const Books = () => {
       originalPrice: 578,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook23.webp",
+      image: "/book-images/Philosophy & Psychology/Ppbook23.webp",
       author: "كارول أس دويك"
     },
     {
@@ -3459,7 +3503,7 @@ const Books = () => {
       originalPrice: 413,
       originalPriceUSD: 10,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook24.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook24.jpg",
       author: "علي حسين"
     },
     {
@@ -3472,7 +3516,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 7,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook25.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook25.jpg",
       author: "كارل غوستاف"
     },
     {
@@ -3485,7 +3529,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook26.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook26.jpg",
       author: "سورن كيرككورد"
     },
     {
@@ -3498,7 +3542,7 @@ const Books = () => {
       originalPrice: 620,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook27.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook27.jpg",
       author: "د. نادر كاظم"
     },
     {
@@ -3511,7 +3555,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook28.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook28.jpg",
       author: "فيليب جوليان"
     },
     {
@@ -3524,7 +3568,7 @@ const Books = () => {
       originalPrice: 413,
       originalPriceUSD: 10,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook29.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook29.jpg",
       author: "ماكس بيكارد"
     },
     {
@@ -3537,7 +3581,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook30.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook30.jpg",
       author: "د. عبدالجبار الرفاعي"
     },
     {
@@ -3550,7 +3594,7 @@ const Books = () => {
       originalPrice: 248,
       originalPriceUSD: 6,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook31.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook31.jpg",
       author: "د. رسول محمد روسل"
     },
     {
@@ -3563,7 +3607,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 7,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook32.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook32.jpg",
       author: "جون ستيوارت مل"
     },
     {
@@ -3576,7 +3620,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook33.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook33.jpg",
       author: "غوستاف لوبون"
     },
     {
@@ -3589,7 +3633,7 @@ const Books = () => {
       originalPrice: 578,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook34.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook34.jpg",
       author: "غوستاف لوبون"
     },
     {
@@ -3602,7 +3646,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook35.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook35.jpg",
       author: "منذر جلوب"
     },
     {
@@ -3615,7 +3659,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook36.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook36.jpg",
       author: "بيتسر سينغر"
     },
     {
@@ -3628,7 +3672,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 7,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook37.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook37.jpg",
       author: "رينه ديكارت"
     },
     {
@@ -3641,7 +3685,7 @@ const Books = () => {
       originalPrice: 413,
       originalPriceUSD: 10,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook38.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook38.jpg",
       author: "ديفيد د.رفائيل"
     },
     {
@@ -3654,7 +3698,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook39.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook39.jpg",
       author: "غوستاف لوبون"
     },
     {
@@ -3667,7 +3711,7 @@ const Books = () => {
       originalPrice: 248,
       originalPriceUSD: 6,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook40.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook40.jpg",
       author: "نيتشه"
     },
     {
@@ -3680,7 +3724,7 @@ const Books = () => {
       originalPrice: 248,
       originalPriceUSD: 6,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook41.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook41.jpg",
       author: "نيتشه"
     },
     {
@@ -3693,7 +3737,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 7,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook42.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook42.jpg",
       author: "نيتشه"
     },
     {
@@ -3706,7 +3750,7 @@ const Books = () => {
       originalPrice: 578,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook43.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook43.jpg",
       author: "سون كيرككورد"
     },
     {
@@ -3719,7 +3763,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 7,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook44.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook44.jpg",
       author: "سيغموند فرويد"
     },
     {
@@ -3732,7 +3776,7 @@ const Books = () => {
       originalPrice: 620,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook45.webp",
+      image: "/book-images/Philosophy & Psychology/Ppbook45.webp",
       author: "مايك جاي"
     },
     {
@@ -3745,7 +3789,7 @@ const Books = () => {
       originalPrice: 744,
       originalPriceUSD: 18,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook46.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook46.jpg",
       author: "جون بيركنز"
     },
     {
@@ -3758,7 +3802,7 @@ const Books = () => {
       originalPrice: 413,
       originalPriceUSD: 10,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook47.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook47.jpg",
       author: "رينه ديكارت"
     },
     {
@@ -3771,7 +3815,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 7,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Philosophy & Psychology/Ppbook48.jpg",
+      image: "/book-images/Philosophy & Psychology/Ppbook48.jpg",
       author: "لودفيغ فتغنشتاين"
     },
     
@@ -3789,7 +3833,7 @@ const Books = () => {
     originalPrice: 165,
     originalPriceUSD: 4,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook1.jpg",
+    image: "/book-images/Literature/Lbook1.jpg",
     author: "أيمن العتوم"
     },
     {
@@ -3802,7 +3846,7 @@ const Books = () => {
     originalPrice: 165,
     originalPriceUSD: 4,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook2.jpg",
+    image: "/book-images/Literature/Lbook2.jpg",
     author: "أيمن العتوم"
     },
     {
@@ -3815,7 +3859,7 @@ const Books = () => {
     originalPrice: 165,
     originalPriceUSD: 4,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook3.jpg",
+    image: "/book-images/Literature/Lbook3.jpg",
     author: "أيمن العتوم"
     },
     {
@@ -3828,7 +3872,7 @@ const Books = () => {
     originalPrice: 165,
     originalPriceUSD: 4,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook4.jpg",
+    image: "/book-images/Literature/Lbook4.jpg",
     author: "أيمن العتوم"
     },
     {
@@ -3841,7 +3885,7 @@ const Books = () => {
     originalPrice: 165,
     originalPriceUSD: 4,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook5.jpg",
+    image: "/book-images/Literature/Lbook5.jpg",
     author: "أيمن العتوم"
     },
     {
@@ -3854,7 +3898,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook6.jpg",
+    image: "/book-images/Literature/Lbook6.jpg",
     author: "أدهم الشرقاوي"
     },
     {
@@ -3867,7 +3911,7 @@ const Books = () => {
     originalPrice: 535,
     originalPriceUSD: 13,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook7.jpg",
+    image: "/book-images/Literature/Lbook7.jpg",
     author: "أدهم الشرقاوي"
     },
     {
@@ -3880,7 +3924,7 @@ const Books = () => {
     originalPrice: 576.25,
     originalPriceUSD: 14,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook8.jpg",
+    image: "/book-images/Literature/Lbook8.jpg",
     author: "أدهم الشرقاوي"
     },
     {
@@ -3893,7 +3937,7 @@ const Books = () => {
     originalPrice: 576.25,
     originalPriceUSD: 14,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook9.jpg",
+    image: "/book-images/Literature/Lbook9.jpg",
     author: "أدهم الشرقاوي"
     },
     {
@@ -3906,7 +3950,7 @@ const Books = () => {
     originalPrice: 535,
     originalPriceUSD: 13,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook10.jpg",
+    image: "/book-images/Literature/Lbook10.jpg",
     author: "أدهم الشرقاوي"
     },
     {
@@ -3919,7 +3963,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook11.jpg",
+    image: "/book-images/Literature/Lbook11.jpg",
     author: ""
     },
     {
@@ -3932,7 +3976,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook12.jpg",
+    image: "/book-images/Literature/Lbook12.jpg",
     author: ""
     },
     {
@@ -3945,7 +3989,7 @@ const Books = () => {
     originalPrice: 288,
     originalPriceUSD: 7,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook13.jpg",
+    image: "/book-images/Literature/Lbook13.jpg",
     author: ""
     },
     {
@@ -3958,7 +4002,7 @@ const Books = () => {
     originalPrice: 288,
     originalPriceUSD: 7,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook14.png",
+    image: "/book-images/Literature/Lbook14.png",
     author: ""
     },
     {
@@ -3971,7 +4015,7 @@ const Books = () => {
     originalPrice: 288,
     originalPriceUSD: 7,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook15.jpg",
+    image: "/book-images/Literature/Lbook15.jpg",
     author: ""
     },
     {
@@ -3984,7 +4028,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook16.jpg",
+    image: "/book-images/Literature/Lbook16.jpg",
     author: ""
     },
     {
@@ -3997,7 +4041,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook17.jpg",
+    image: "/book-images/Literature/Lbook17.jpg",
     author: ""
     },
     {
@@ -4010,7 +4054,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook18.jpg",
+    image: "/book-images/Literature/Lbook18.jpg",
     author: ""
     },
     {
@@ -4023,7 +4067,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook19.jpg",
+    image: "/book-images/Literature/Lbook19.jpg",
     author: ""
     },
     {
@@ -4036,7 +4080,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook20.jpg",
+    image: "/book-images/Literature/Lbook20.jpg",
     author: ""
     },
     {
@@ -4049,7 +4093,7 @@ const Books = () => {
     originalPrice: 288,
     originalPriceUSD: 7,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook21.jpg",
+    image: "/book-images/Literature/Lbook21.jpg",
     author: ""
     },
     {
@@ -4062,7 +4106,7 @@ const Books = () => {
     originalPrice: 288,
     originalPriceUSD: 7,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook22.jpg",
+    image: "/book-images/Literature/Lbook22.jpg",
     author: ""
     },
     {
@@ -4075,7 +4119,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook23.jpg",
+    image: "/book-images/Literature/Lbook23.jpg",
     author: ""
     },
     {
@@ -4088,7 +4132,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook24.jpg",
+    image: "/book-images/Literature/Lbook24.jpg",
     author: ""
     },
     {
@@ -4101,11 +4145,11 @@ const Books = () => {
       originalPrice: 1852,
       originalPriceUSD: 45,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook25.jpg",
+      image: "/book-images/Literature/Lbook25.jpg",
       images: [
-        "/altamoh.bookstore/book-images/Literature/Lbook25.jpg",
-        "/altamoh.bookstore/book-images/Literature/Lbook26.jpg",
-        "/altamoh.bookstore/book-images/Literature/Lbook27.jpg"
+        "/book-images/Literature/Lbook25.jpg",
+        "/book-images/Literature/Lbook26.jpg",
+        "/book-images/Literature/Lbook27.jpg"
       ],
       author: "كاتب مجهول"
     },
@@ -4119,7 +4163,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook28.jpg",
+    image: "/book-images/Literature/Lbook28.jpg",
     author: ""
     },
     {
@@ -4132,7 +4176,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook29.jpg",
+    image: "/book-images/Literature/Lbook29.jpg",
     author: ""
     },
     {
@@ -4145,7 +4189,7 @@ const Books = () => {
     originalPrice: 494,
     originalPriceUSD: 12,
     discount: 20,
-    image: "/altamoh.bookstore/book-images/Literature/Lbook30.png",
+    image: "/book-images/Literature/Lbook30.png",
     author: ""
     },
     {
@@ -4158,7 +4202,7 @@ const Books = () => {
       originalPrice: 575,
       originalPriceUSD: 14,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook31.jpg",
+      image: "/book-images/Literature/Lbook31.jpg",
       author: "ابو الطيب أحمد ابن الحسين المتنبي"
     },
     {
@@ -4171,7 +4215,7 @@ const Books = () => {
       originalPrice: 534,
       originalPriceUSD: 13,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook32.jpg",
+      image: "/book-images/Literature/Lbook32.jpg",
       author: "أحمد شوقي"
     },
     {
@@ -4184,7 +4228,7 @@ const Books = () => {
       originalPrice: 411,
       originalPriceUSD: 10,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook33.jpg",
+      image: "/book-images/Literature/Lbook33.jpg",
       author: "عمر آل عوضة"
     },
     {
@@ -4197,7 +4241,7 @@ const Books = () => {
       originalPrice: 411,
       originalPriceUSD: 10,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook34.jpg",
+      image: "/book-images/Literature/Lbook34.jpg",
       author: "عمر آل عوضة"
     },
     {
@@ -4210,7 +4254,7 @@ const Books = () => {
       originalPrice: 575,
       originalPriceUSD: 14,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook35.jpg",
+      image: "/book-images/Literature/Lbook35.jpg",
       author: "أثير عبدالله النشمي"
     },
     {
@@ -4223,7 +4267,7 @@ const Books = () => {
       originalPrice: 575,
       originalPriceUSD: 14,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook36.jpg",
+      image: "/book-images/Literature/Lbook36.jpg",
       author: "رغدان بن حسن"
     },
     {
@@ -4236,7 +4280,7 @@ const Books = () => {
       originalPrice: 662,
       originalPriceUSD: 16,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook37.jpg",
+      image: "/book-images/Literature/Lbook37.jpg",
       author: "فواز محمد باقر"
     },
     {
@@ -4249,7 +4293,7 @@ const Books = () => {
       originalPrice: 575,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook38.jpg",
+      image: "/book-images/Literature/Lbook38.jpg",
       author: "فواز محمد باقر"
     },
     {
@@ -4262,7 +4306,7 @@ const Books = () => {
       originalPrice: 703,
       originalPriceUSD: 17,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook39.jpg",
+      image: "/book-images/Literature/Lbook39.jpg",
       author: "فواز محمد باقر"
     },
     {
@@ -4275,7 +4319,7 @@ const Books = () => {
       originalPrice: 534,
       originalPriceUSD: 13,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook40.jpeg",
+      image: "/book-images/Literature/Lbook40.jpeg",
       author: "نزار قباني"
     },
     {
@@ -4288,7 +4332,7 @@ const Books = () => {
       originalPrice: 578,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook41.jpeg",
+      image: "/book-images/Literature/Lbook41.jpeg",
       author: "رغدان بن حسن"
     },
     {
@@ -4301,7 +4345,7 @@ const Books = () => {
       originalPrice: 248,
       originalPriceUSD: 6,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook42.jpg",
+      image: "/book-images/Literature/Lbook42.jpg",
       author: "حسن عبدالله"
     },
     {
@@ -4314,7 +4358,7 @@ const Books = () => {
       originalPrice: 413,
       originalPriceUSD: 10,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook43.jpg",
+      image: "/book-images/Literature/Lbook43.jpg",
       author: "محمد ياسين صالح"
     },
     {
@@ -4327,7 +4371,7 @@ const Books = () => {
       originalPrice: 248,
       originalPriceUSD: 6,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook44.jpg",
+      image: "/book-images/Literature/Lbook44.jpg",
       author: "خوسي سانشيس سنيسترا"
     },
     {
@@ -4340,7 +4384,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook45.jpg",
+      image: "/book-images/Literature/Lbook45.jpg",
       author: "موج يوسف"
     },
     {
@@ -4353,7 +4397,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook46.jpg",
+      image: "/book-images/Literature/Lbook46.jpg",
       author: "شاكر الناصري"
     },
     {
@@ -4366,7 +4410,7 @@ const Books = () => {
       originalPrice: 537,
       originalPriceUSD: 13,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook47.webp",
+      image: "/book-images/Literature/Lbook47.webp",
       author: "جان كيرواك"
     },
     {
@@ -4379,7 +4423,7 @@ const Books = () => {
       originalPrice: 578,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook48.jpg",
+      image: "/book-images/Literature/Lbook48.jpg",
       author: "علي عبدالامير عجام"
     },
     {
@@ -4392,7 +4436,7 @@ const Books = () => {
       originalPrice: 248,
       originalPriceUSD: 6,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook49.jpg",
+      image: "/book-images/Literature/Lbook49.jpg",
       author: "علي مهدi"
     },
     {
@@ -4405,7 +4449,7 @@ const Books = () => {
       originalPrice: 682,
       originalPriceUSD: 16.5,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook50.jpg",
+      image: "/book-images/Literature/Lbook50.jpg",
       author: "جورج أورويل"
     },
     {
@@ -4418,7 +4462,7 @@ const Books = () => {
       originalPrice: 248,
       originalPriceUSD: 6,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook51.jpg",
+      image: "/book-images/Literature/Lbook51.jpg",
       author: "مارسيل بروست"
     },
     {
@@ -4431,7 +4475,7 @@ const Books = () => {
       originalPrice: 413,
       originalPriceUSD: 10,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook52.jpg",
+      image: "/book-images/Literature/Lbook52.jpg",
       author: "زاهيي وهبي"
     },
     {
@@ -4444,7 +4488,7 @@ const Books = () => {
       originalPrice: 248,
       originalPriceUSD: 6,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook53.jpg",
+      image: "/book-images/Literature/Lbook53.jpg",
       author: "محمد الخالدي"
     },
     {
@@ -4457,7 +4501,7 @@ const Books = () => {
       originalPrice: 207,
       originalPriceUSD: 5,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook54.jpg",
+      image: "/book-images/Literature/Lbook54.jpg",
       author: "اليخاندؤا بيثانيك"
     },
     {
@@ -4470,7 +4514,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook55.jpg",
+      image: "/book-images/Literature/Lbook55.jpg",
       author: "اوسكار وايلd"
     },
     {
@@ -4483,7 +4527,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook56.jpg",
+      image: "/book-images/Literature/Lbook56.jpg",
       author: "سعيد الغامدي"
     },
     {
@@ -4496,7 +4540,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook57.jpg",
+      image: "/book-images/Literature/Lbook57.jpg",
       author: "نعيم محمد الفارسي"
     },
     {
@@ -4509,7 +4553,7 @@ const Books = () => {
       originalPrice: 330,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook58.jpg",
+      image: "/book-images/Literature/Lbook58.jpg",
       author: "لودفيغ فتغنشتاين"
     },
     {
@@ -4522,7 +4566,7 @@ const Books = () => {
       originalPrice: 620,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook59.jpg",
+      image: "/book-images/Literature/Lbook59.jpg",
       author: "شارل لوي دي سيكوندا"
     },
     {
@@ -4535,7 +4579,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook60.jpg",
+      image: "/book-images/Literature/Lbook60.jpg",
       author: "نجيب ابو ملهم"
     },
     {
@@ -4548,7 +4592,7 @@ const Books = () => {
       originalPrice: 413,
       originalPriceUSD: 10,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook61.jpg",
+      image: "/book-images/Literature/Lbook61.jpg",
       author: "نوفل الجنابي"
     },
     {
@@ -4561,7 +4605,7 @@ const Books = () => {
       originalPrice: 620,
       originalPriceUSD: 15,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook62.jpg",
+      image: "/book-images/Literature/Lbook62.jpg",
       author: "مارسيل بروست"
     },
     {
@@ -4574,7 +4618,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook63.jpg",
+      image: "/book-images/Literature/Lbook63.jpg",
       author: "أوغو فوسكولو"
     },
     {
@@ -4587,7 +4631,7 @@ const Books = () => {
       originalPrice: 372,
       originalPriceUSD: 9,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook64.jpg",
+      image: "/book-images/Literature/Lbook64.jpg",
       author: "أرنولد بينيت"
     },
     {
@@ -4600,7 +4644,7 @@ const Books = () => {
       originalPrice: 496,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook65.jpg",
+      image: "/book-images/Literature/Lbook65.jpg",
       author: "تمت الترجمة من قبل 'زهرة مروة'"
     },
     {
@@ -4613,7 +4657,7 @@ const Books = () => {
       originalPrice: 578,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook66.jpg",
+      image: "/book-images/Literature/Lbook66.jpg",
       author: "جوليان بارنز"
     },
     {
@@ -4626,7 +4670,7 @@ const Books = () => {
       originalPrice: 248,
       originalPriceUSD: 6,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook67.jpg",
+      image: "/book-images/Literature/Lbook67.jpg",
       author: "مي زيادة"
     },
     {
@@ -4639,7 +4683,7 @@ const Books = () => {
       originalPrice: 578,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook68.jpg",
+      image: "/book-images/Literature/Lbook68.jpg",
       author: "نعيم محمد الفarسي"
     },
     {
@@ -4652,7 +4696,7 @@ const Books = () => {
       originalPrice: 578,
       originalPriceUSD: 14,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook69.jpg",
+      image: "/book-images/Literature/Lbook69.jpg",
       author: "سعيد الغانمي"
     },
     {
@@ -4665,7 +4709,7 @@ const Books = () => {
       originalPrice: 661,
       originalPriceUSD: 16,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook70.jpg",
+      image: "/book-images/Literature/Lbook70.jpg",
       author: "سعيد الغانمي"
     },
     {
@@ -4678,7 +4722,7 @@ const Books = () => {
       originalPrice: 413,
       originalPriceUSD: 10,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook71.jpg",
+      image: "/book-images/Literature/Lbook71.jpg",
       author: "ميلسون هادي"
     },
     {
@@ -4691,7 +4735,7 @@ const Books = () => {
       originalPrice: 3305,
       originalPriceUSD: 80,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook72.webp",
+      image: "/book-images/Literature/Lbook72.webp",
       author: "الجواهري"
     },
     {
@@ -4704,7 +4748,7 @@ const Books = () => {
       originalPrice: 1860,
       originalPriceUSD: 45,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook73.webp",
+      image: "/book-images/Literature/Lbook73.webp",
       author: "الجواهري"
     },
     {
@@ -4717,7 +4761,7 @@ const Books = () => {
       originalPrice: 537,
       originalPriceUSD: 13,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook74.jpg",
+      image: "/book-images/Literature/Lbook74.jpg",
       author: "الكسندرا تولستايا"
     },
     {
@@ -4730,7 +4774,7 @@ const Books = () => {
       originalPrice: 289,
       originalPriceUSD: 6,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Literature/Lbook75.jpg",
+      image: "/book-images/Literature/Lbook75.jpg",
       author: "سيغموند فرويد"
     },
 
@@ -4747,7 +4791,7 @@ const Books = () => {
     originalPrice: 289,
     originalPriceUSD: 7,
     discount: 25,
-    image: "/altamoh.bookstore/book-images/Policy/Pbook1.jpg",
+    image: "/book-images/Policy/Pbook1.jpg",
     author: "نيكولو مكيافيلي"
     },
 
@@ -4764,7 +4808,7 @@ const Books = () => {
       originalPrice: 740,
       originalPriceUSD: 18,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook1.jpg",
+      image: "/book-images/Self-dev/Sdbook1.jpg",
       author: "أيمن العتوم"
     },
     {
@@ -4777,7 +4821,7 @@ const Books = () => {
       originalPrice: 823,
       originalPriceUSD: 20,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook2.jpg",
+      image: "/book-images/Self-dev/Sdbook2.jpg",
       author: "روبرت تي كيوساكي"
     },
     {
@@ -4790,7 +4834,7 @@ const Books = () => {
       originalPrice: 658,
       originalPriceUSD: 16,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook3.jpg",
+      image: "/book-images/Self-dev/Sdbook3.jpg",
       author: "نابليون هيل"
     },
     {
@@ -4803,7 +4847,7 @@ const Books = () => {
       originalPrice: 699,
       originalPriceUSD: 17,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook4.jpg",
+      image: "/book-images/Self-dev/Sdbook4.jpg",
       author: "د. جون غراي"
     },
     {
@@ -4816,7 +4860,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook5.png",
+      image: "/book-images/Self-dev/Sdbook5.png",
       author: "إنش جاكسون براون ، الابن"
     },
     {
@@ -4829,7 +4873,7 @@ const Books = () => {
       originalPrice: 658,
       originalPriceUSD: 16,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook6.jpg",
+      image: "/book-images/Self-dev/Sdbook6.jpg",
       author: "اسماعيل تمر"
     },
     {
@@ -4842,7 +4886,7 @@ const Books = () => {
       originalPrice: 494,
       originalPriceUSD: 12,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook7.png",
+      image: "/book-images/Self-dev/Sdbook7.png",
       author: "مارك مانسون"
     },
     {
@@ -4855,7 +4899,7 @@ const Books = () => {
       originalPrice: 782,
       originalPriceUSD: 19,
       discount: 20,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook8.jpg",
+      image: "/book-images/Self-dev/Sdbook8.jpg",
       author: "الدكتور جوزيف ميرفي"
     },
     {
@@ -4868,7 +4912,7 @@ const Books = () => {
       originalPrice: 947,
       originalPriceUSD: 23,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook9.jpg",
+      image: "/book-images/Self-dev/Sdbook9.jpg",
       author: "ماثيو ووكر"
     },
     {
@@ -4881,7 +4925,7 @@ const Books = () => {
       originalPrice: 454,
       originalPriceUSD: 11,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook10.jpg",
+      image: "/book-images/Self-dev/Sdbook10.jpg",
       author: "أومرآم ميخائيل ايفانهوف"
     },
     {
@@ -4894,7 +4938,7 @@ const Books = () => {
       originalPrice: 413,
       originalPriceUSD: 10,
       discount: 30,
-      image: "/altamoh.bookstore/book-images/Self-dev/Sdbook11.jpg",
+      image: "/book-images/Self-dev/Sdbook11.jpg",
       author: "أصغر فرهادي"
     }
    ];
@@ -5134,14 +5178,14 @@ const Books = () => {
   // Best sellers scroll functions
   const scrollBestSellersLeft = () => {
     if (bestSellersScrollRef.current) {
-      const scrollAmount = isSmallDevice ? 280 : 320; // Adjust based on card width + gap
+      const scrollAmount = isSmallDevice ? 220 : 270; // Adjust based on card width + gap
       bestSellersScrollRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     }
   };
 
   const scrollBestSellersRight = () => {
     if (bestSellersScrollRef.current) {
-      const scrollAmount = isSmallDevice ? 280 : 320; // Adjust based on card width + gap
+      const scrollAmount = isSmallDevice ? 220 : 270; // Adjust based on card width + gap
       bestSellersScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -5300,7 +5344,7 @@ const Books = () => {
               const isLoadingFavorite = loadingFavorites.has(book.id.toString());
 
               return (
-                <div key={book.id} className="flex-shrink-0 w-64 sm:w-72 lg:w-80 group cursor-pointer"
+                <div key={book.id} className="flex-shrink-0 w-52 sm:w-60 lg:w-64 group cursor-pointer"
                      onClick={() => openBookDetails(book)}>
                   <div className="relative dark:bg-slate-800/60 bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-105">
                     
@@ -5310,11 +5354,11 @@ const Books = () => {
                       الأكثر مبيعاً
                     </div>
 
-                    <div className="relative h-48 sm:h-56 lg:h-64 dark:bg-slate-700/20 bg-orange-50/30 p-3 sm:p-4 flex items-center justify-center">
+                    <div className="relative h-40 sm:h-48 lg:h-52 dark:bg-slate-700/20 bg-orange-50/30 p-3 sm:p-4 flex items-center justify-center">
                       <img 
                         src={book.image} 
                         alt={book.title}
-                        className="h-40 sm:h-48 lg:h-56 w-28 sm:w-32 lg:w-36 object-contain rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-105"
+                        className="h-32 sm:h-40 lg:h-44 w-24 sm:w-28 lg:w-32 object-contain rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-105"
                       />
 
                       {/* Price Badge */}
@@ -5358,13 +5402,13 @@ const Books = () => {
                       )}
                     </div>
                     
-                    <div className="p-4 space-y-3">
-                      <h4 className="text-base sm:text-lg font-bold dark:text-white text-[#1d2d50] line-clamp-2 leading-relaxed">
+                    <div className="p-3 space-y-2">
+                      <h4 className="text-sm sm:text-base font-bold dark:text-white text-[#1d2d50] line-clamp-2 leading-relaxed">
                         {book.title}
                       </h4>
                       
                       {book.author && (
-                        <p className="dark:text-slate-400 text-[#6c7a89] text-sm font-medium line-clamp-1">
+                        <p className="dark:text-slate-400 text-[#6c7a89] text-xs sm:text-sm font-medium line-clamp-1">
                           بقلم: {book.author}
                         </p>
                       )}

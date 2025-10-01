@@ -13,18 +13,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isScrollingDown, setIsScrollingDown] = React.useState(false);
   const [lastScrollY, setLastScrollY] = React.useState(0);
-  const [isDarkMode, setIsDarkMode] = React.useState(() => {
-    // استخدام localStorage بطريقة آمنة
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('darkMode');
-        return saved ? JSON.parse(saved) : false;
-      } catch {
-        return false;
-      }
-    }
-    return false;
-  });
+  const [isDarkMode, setIsDarkMode] = React.useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -53,15 +42,6 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
     } else {
       document.documentElement.classList.remove('dark');
       document.body.style.backgroundColor = '#ffffff';
-    }
-    
-    // حفظ التفضيل في localStorage
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
-      } catch (error) {
-        console.warn('Could not save theme preference:', error);
-      }
     }
   }, [isDarkMode]);
 
@@ -120,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToLogin, user, onLogout }) =>
               isScrolled ? 'w-7 h-7' : 'w-9 h-9'
             }`}>
               <img 
-                src="/altamoh.bookstore/assets/logo14.png" 
+                src="/assets/logo14.png" 
                 alt="مكتبة الطموح" 
                 className="h-full w-full object-cover rounded-lg"
                 onError={(e) => {
