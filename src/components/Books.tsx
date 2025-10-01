@@ -5493,7 +5493,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook26.jpg",
+    image: "/book-images/Self-dev/Sdbook26.png",
     author: "ريتشارد تمبلر"
   },
   {
@@ -5506,7 +5506,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook27.jpg",
+    image: "/book-images/Self-dev/Sdbook27.png",
     author: "ريتشارد تمبلر"
   },
   {
