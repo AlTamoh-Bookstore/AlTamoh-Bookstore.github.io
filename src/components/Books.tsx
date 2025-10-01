@@ -354,7 +354,6 @@ const Books = () => {
         priceUSD: 10.50,
         originalPrice: 439,
         originalPriceUSD: 10.50,
-        image: "/altamoh.bookstore/book-images/Altomoh/Tbook1.jpg",
         image: "/book-images/Altomoh/Tbook1.jpg",
         author: "إيهاب القواسمة"
       },
@@ -367,11 +366,7 @@ const Books = () => {
         priceUSD: 8.00,
         originalPrice: 335,
         originalPriceUSD: 8.00,
-<<<<<<< HEAD
-        image: "/altamoh.bookstore/book-images/Altomoh/Tbook2.jpg",
-=======
         image: "/book-images/Altomoh/Tbook2.jpg",
->>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "مزنة باكيرو"
       },
       {
@@ -383,11 +378,7 @@ const Books = () => {
         priceUSD: 6.40,
         originalPrice: 268,
         originalPriceUSD: 6.40,
-<<<<<<< HEAD
-        image: "/altamoh.bookstore/book-images/Altomoh/Tbook3.jpg",
-=======
         image: "/book-images/Altomoh/Tbook3.jpg",
->>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "محمد لطفي جمعة"
       },
       {
@@ -399,11 +390,7 @@ const Books = () => {
         priceUSD: 8.80,
         originalPrice: 368,
         originalPriceUSD: 8.80,
-<<<<<<< HEAD
-        image: "/altamoh.bookstore/book-images/Altomoh/Tbook4.jpg",
-=======
         image: "/book-images/Altomoh/Tbook4.jpg",
->>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "إسماعيل مظهر"
       },
       {
@@ -415,11 +402,7 @@ const Books = () => {
         priceUSD: 7.00,
         originalPrice: 293,
         originalPriceUSD: 7.00,
-<<<<<<< HEAD
-        image: "/altamoh.bookstore/book-images/Altomoh/Tbook5.jpg",
-=======
         image: "/book-images/Altomoh/Tbook5.jpg",
->>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "سلامة موسى"
       },
       {
@@ -431,11 +414,7 @@ const Books = () => {
         priceUSD: 4.00,
         originalPrice: 167,
         originalPriceUSD: 4.00,
-<<<<<<< HEAD
-        image: "/altamoh.bookstore/book-images/Altomoh/Tbook6.jpg",
-=======
         image: "/book-images/Altomoh/Tbook6.jpg",
->>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "د. أحمد فؤاد الأهواني"
       },
       {
@@ -447,11 +426,7 @@ const Books = () => {
         priceUSD: 8.00,
         originalPrice: 335,
         originalPriceUSD: 8.00,
-<<<<<<< HEAD
-        image: "/altamoh.bookstore/book-images/Altomoh/Tbook7.jpg",
-=======
         image: "/book-images/Altomoh/Tbook7.jpg",
->>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "مصطفى لطفي المنفلوطي"
       },
       {
@@ -463,11 +438,7 @@ const Books = () => {
         priceUSD: 5.00,
         originalPrice: 209,
         originalPriceUSD: 5.00,
-<<<<<<< HEAD
-        image: "/altamoh.bookstore/book-images/Altomoh/Tbook8.jpg",
-=======
         image: "/book-images/Altomoh/Tbook8.jpg",
->>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "مصطفى صادق الرافعي"
       },
       {
@@ -479,11 +450,7 @@ const Books = () => {
         priceUSD: 6.00,
         originalPrice: 251,
         originalPriceUSD: 6.00,
-<<<<<<< HEAD
-        image: "/altamoh.bookstore/book-images/Altomoh/Tbook9.jpg",
-=======
         image: "/book-images/Altomoh/Tbook9.jpg",
->>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "مصطفى صادق الرافعي"
       },
       {
@@ -495,16 +462,10 @@ const Books = () => {
         priceUSD: 5.20,
         originalPrice: 218,
         originalPriceUSD: 5.20,
-<<<<<<< HEAD
-        image: "/altamoh.bookstore/book-images/Altomoh/Tbook10.jpg",
-        author: "مصطفى صادق الرافعي"
-      },
-=======
         image: "/book-images/Altomoh/Tbook10.jpg",
         author: "مصطفى صادق الرافعي"
       },
       //================================//
->>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
       // الكتب الأكثر مبيعاً
       //================================//
       {
@@ -6248,3 +6209,4 @@ const Books = () => {
 
 
 export default Books;
+
