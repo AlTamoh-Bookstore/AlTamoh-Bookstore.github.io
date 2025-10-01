@@ -354,11 +354,8 @@ const Books = () => {
         priceUSD: 10.50,
         originalPrice: 439,
         originalPriceUSD: 10.50,
-<<<<<<< HEAD
         image: "/altamoh.bookstore/book-images/Altomoh/Tbook1.jpg",
-=======
         image: "/book-images/Altomoh/Tbook1.jpg",
->>>>>>> d80e31b359b2bb66ea31f5cf193892a04eed332c
         author: "إيهاب القواسمة"
       },
       {
@@ -6248,5 +6245,6 @@ const Books = () => {
     </section>
   );
 };
+
 
 export default Books;
