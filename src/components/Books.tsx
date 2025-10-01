@@ -5311,7 +5311,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook11.jpg",
+    image: "/book-images/Self-dev/Sdbook12.jpg",
     author: "برندون بورتشارد"
   },
   {
@@ -5324,7 +5324,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook12.jpg",
+    image: "/book-images/Self-dev/Sdbook13.jpg",
     author: "جاك ويلش"
   },
   {
@@ -5337,7 +5337,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook13.jpg",
+    image: "/book-images/Self-dev/Sdbook14.jpg",
     author: "آشلي ويلانز"
   },
   {
@@ -5350,7 +5350,7 @@ const Books = () => {
     originalPrice: 749,
     originalPriceUSD: 18,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook14.jpg",
+    image: "/book-images/Self-dev/Sdbook15.jpg",
     author: "نابليون هيل"
   },
   {
@@ -5363,7 +5363,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook15.jpg",
+    image: "/book-images/Self-dev/Sdbook16.jpg",
     author: "روبرت جي هاجستروم"
   },
   {
@@ -5376,7 +5376,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook16.jpg",
+    image: "/book-images/Self-dev/Sdbook17.jpg",
     author: "روبن شارما"
   },
   {
@@ -5389,7 +5389,7 @@ const Books = () => {
     originalPrice: 749,
     originalPriceUSD: 18,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook17.jpg",
+    image: "/book-images/Self-dev/Sdbook18.jpg",
     author: "الدكتورة سالي شايوتز"
   },
   {
@@ -5402,7 +5402,7 @@ const Books = () => {
     originalPrice: 749,
     originalPriceUSD: 18,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook18.jpg",
+    image: "/book-images/Self-dev/Sdbook19.jpg",
     author: "توني روبينز"
   },
   {
@@ -5415,7 +5415,7 @@ const Books = () => {
     originalPrice: 1040,
     originalPriceUSD: 25,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook19.jpg",
+    image: "/book-images/Self-dev/Sdbook20.jpg",
     author: "والتر إيزاكسون"
   },
   {
@@ -5428,7 +5428,7 @@ const Books = () => {
     originalPrice: 582,
     originalPriceUSD: 14,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook20.jpg",
+    image: "/book-images/Self-dev/Sdbook21.jpg",
     author: "جورج كلاسون"
   },
   {
@@ -5441,7 +5441,7 @@ const Books = () => {
     originalPrice: 624,
     originalPriceUSD: 15,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook21.jpg",
+    image: "/book-images/Self-dev/Sdbook22.jpg",
     author: "كين بلانشرد || كلير دياز-أورتيز"
   },
   {
@@ -5454,7 +5454,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook22.jpg",
+    image: "/book-images/Self-dev/Sdbook23.jpg",
     author: "ريتشارد تمبلر"
   },
   {
@@ -5467,7 +5467,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook23.jpg",
+    image: "/book-images/Self-dev/Sdbook24.jpg",
     author: "ريتشارد تمبلر"
   },
   {
@@ -5480,7 +5480,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook24.jpg",
+    image: "/book-images/Self-dev/Sdbook25.jpg",
     author: "ريتشارد تمبلر"
   },
   {
@@ -5493,7 +5493,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook25.jpg",
+    image: "/book-images/Self-dev/Sdbook26.jpg",
     author: "ريتشارد تمبلر"
   },
   {
@@ -5506,7 +5506,7 @@ const Books = () => {
     originalPrice: 832,
     originalPriceUSD: 20,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook26.jpg",
+    image: "/book-images/Self-dev/Sdbook27.jpg",
     author: "ريتشارد تمبلر"
   },
   {
@@ -5519,7 +5519,7 @@ const Books = () => {
     originalPrice: 707,
     originalPriceUSD: 17,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook27.jpg",
+    image: "/book-images/Self-dev/Sdbook28.jpg",
     author: "جيل هايسون"
   },
   {
@@ -5532,7 +5532,7 @@ const Books = () => {
     originalPrice: 749,
     originalPriceUSD: 18,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook28.jpg",
+    image: "/book-images/Self-dev/Sdbook29.jpg",
     author: "دوجلاس فيشر || نانسي فراي"
   },
   {
@@ -5545,7 +5545,7 @@ const Books = () => {
     originalPrice: 707,
     originalPriceUSD: 17,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook29.jpg",
+    image: "/book-images/Self-dev/Sdbook30.jpg",
     author: "جيم ستوفال"
   },
   {
@@ -5558,7 +5558,7 @@ const Books = () => {
     originalPrice: 791,
     originalPriceUSD: 19,
     discount: 40,
-    image: "/book-images/Self-dev/Sdbook30.jpg",
+    image: "/book-images/Self-dev/Sdbook31.jpg",
     author: "ميريتسل جارسيا رويج"
   }
  ];
