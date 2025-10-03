@@ -21,6 +21,7 @@
     "magic-sdk": "^29.4.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
     "react-router-dom": "^7.7.1",
     "supertokens-auth-react": "^0.50.0",
     "supertokens-node": "^23.0.1",

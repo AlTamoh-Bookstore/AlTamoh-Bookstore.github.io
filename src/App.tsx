@@ -1,4 +1,6 @@
 import React from 'react';
+import { HelmetProvider } from 'react-helmet-async';
+import MetaTags from './components/MetaTags';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Books from './components/Books';
@@ -31,9 +33,6 @@ function App() {
   const handleAuthSuccess = (userData: any) => {
     console.log('User authenticated:', userData);
     setCurrentPage('home');
-    
-    // Optional: Show success notification
-    // You can add a toast notification here if you have a notification system
   };
 
   // Handle logout
@@ -56,28 +55,33 @@ function App() {
     switch (currentPage) {
       case 'login':
         return (
-          <LoginPage 
-            onBack={() => setCurrentPage('home')} 
-            onSuccess={handleAuthSuccess}
-          />
+          <HelmetProvider>
+            <LoginPage 
+              onBack={() => setCurrentPage('home')} 
+              onSuccess={handleAuthSuccess}
+            />
+          </HelmetProvider>
         );
       default:
         return (
-          <div className="font-cairo" dir="rtl">
-            <div className="relative overflow-hidden">
-              <Header 
-                onNavigateToLogin={() => setCurrentPage('login')}
-                user={user}
-                onLogout={handleLogout}
-              />
-              <Hero />
-              <Books />
-              <Delivery />
-              <About />
-              <Contact />
-              <Footer />
+          <HelmetProvider>
+            <MetaTags />
+            <div className="font-cairo" dir="rtl">
+              <div className="relative overflow-hidden">
+                <Header 
+                  onNavigateToLogin={() => setCurrentPage('login')}
+                  user={user}
+                  onLogout={handleLogout}
+                />
+                <Hero />
+                <Books />
+                <Delivery />
+                <About />
+                <Contact />
+                <Footer />
+              </div>
             </div>
-          </div>
+          </HelmetProvider>
         );
     }
   };
