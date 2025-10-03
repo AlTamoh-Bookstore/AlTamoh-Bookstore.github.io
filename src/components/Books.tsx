@@ -3266,7 +3266,7 @@ const Books = () => {
       originalPrice: 917,
       originalPriceUSD: 22,
       discount: 30,
-      image: "/book-images/Novels/Nbook156.jpg",
+      image: "/book-images/Novels/Nbook156.jpeg",
       author: "هاروكي موراكامي"
     },
     {
@@ -3292,7 +3292,7 @@ const Books = () => {
       originalPrice: 917,
       originalPriceUSD: 22,
       discount: 30,
-      image: "/book-images/Novels/Nbook158.jpg",
+      image: "/book-images/Novels/Nbook158.png",
       author: "هاروكي موراكامي"
     },
     {
@@ -3305,7 +3305,7 @@ const Books = () => {
       originalPrice: 917,
       originalPriceUSD: 22,
       discount: 30,
-      image: "/book-images/Novels/Nbook159.jpg",
+      image: "/book-images/Novels/Nbook159.webp",
       author: "هاروكي موراكامي"
     },
     {
@@ -3344,7 +3344,7 @@ const Books = () => {
       originalPrice: 667,
       originalPriceUSD: 16,
       discount: 30,
-      image: "/book-images/Novels/Nbook162.jpg",
+      image: "/book-images/Novels/Nbook162.webp",
       author: "كارلوس زافون"
     },
     {
@@ -3357,7 +3357,7 @@ const Books = () => {
       originalPrice: 917,
       originalPriceUSD: 22,
       discount: 30,
-      image: "/book-images/Novels/Nbook163.jpg",
+      image: "/book-images/Novels/Nbook163.jpeg",
       author: "كارلوس زافون"
     },
     {
@@ -3513,7 +3513,7 @@ const Books = () => {
       originalPrice: 542,
       originalPriceUSD: 13,
       discount: 30,
-      image: "/book-images/Novels/Nbook175.jpg",
+      image: "/book-images/Novels/Nbook175.jpeg",
       author: "توشيكازو كواغوشي"
     },
     {
@@ -3565,7 +3565,7 @@ const Books = () => {
       originalPrice: 1251,
       originalPriceUSD: 30,
       discount: 30,
-      image: "/book-images/Novels/Nbook179.jpg",
+      image: "/book-images/Novels/Nbook179.png",
       author: "دوستويفسكي"
     },
 
