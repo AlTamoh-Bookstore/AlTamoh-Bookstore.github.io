@@ -6164,7 +6164,6 @@ const Books = () => {
     message += `الكتاب: ${book.title}\n`;
     message += `المؤلف: ${book.author || 'غير محدد'}\n`;
     message += `الفئة: ${book.category}\n`;
-    message += `السعر: ${getPrice(book)} ${getCurrencySymbol()}\n\n`;
     message += "أرجو تأكيد الطلب وإعلامي بتفاصيل التوصيل والدفع.";
     return message;
   };
