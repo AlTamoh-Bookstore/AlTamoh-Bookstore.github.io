@@ -6100,10 +6100,12 @@ const Books = () => {
     cart.forEach((item, index) => {
       message += `${index + 1}. ${item.title}\n`;
       message += `   - المؤلف: ${item.author || 'غير محدد'}\n`;
+      message += `   - السعر: ${getPrice(item)} ${getCurrencySymbol()}\n`;
       message += `   - الكمية: ${item.quantity}\n`;
       message += `   - المجموع: ${getPrice(item) * item.quantity} ${getCurrencySymbol()}\n\n`;
     });
     
+    message += `إجمالي الطلب: ${getTotalPrice()} ${getCurrencySymbol()}\n`;
     message += `عدد الكتب: ${getTotalItems()} كتاب\n\n`;
     message += "أرجو تأكيد الطلب وإعلامي بتفاصيل التوصيل والدفع.";
     
@@ -6164,6 +6166,7 @@ const Books = () => {
     message += `الكتاب: ${book.title}\n`;
     message += `المؤلف: ${book.author || 'غير محدد'}\n`;
     message += `الفئة: ${book.category}\n`;
+    message += `السعر: ${getPrice(book)} ${getCurrencySymbol()}\n\n`;
     message += "أرجو تأكيد الطلب وإعلامي بتفاصيل التوصيل والدفع.";
     return message;
   };
