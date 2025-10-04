@@ -574,7 +574,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
                             <div className="mt-2 flex items-start space-x-2 space-x-reverse bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-lg p-3">
                               <AlertCircle className="h-4 w-4 text-orange-600 dark:text-orange-400 flex-shrink-0 mt-0.5" />
                               <p className="text-xs text-orange-700 dark:text-orange-300 leading-relaxed">
-                                <strong>تنبيه مهم:</strong> احفظ كلمة المرور في مكان آمن. لن تتمكن من تغييرها لاحقاً
+                                <strong>تنبيه مهم:</strong> احفظ كلمة المرور في مكان آمن.
                               </p>
                             </div>
                           </div>
