@@ -18,7 +18,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: false, // تعطيل الكشف التلقائي عن الجلسة في الرابط
+    detectSessionInUrl: true, // تفعيل الكشف التلقائي عن الجلسة في الرابط
     flowType: 'pkce' // استخدام PKCE flow للأمان
   }
 })
@@ -30,8 +30,8 @@ export const getRedirectUrl = () => {
     return `${window.location.origin}`
   }
   
-  // في حالة GitHub Pages
-  return 'https://al0tamoh.github.io/Altamooh-book-store/'
+  // في حالة النطاق الفعلي
+  return 'https://al-tomoh.com'
 }
 
 // دالة مساعدة لإرسال OTP
@@ -62,6 +62,26 @@ export const resendOTP = async (email: string, type: 'signup' | 'email_change' =
   const { data, error } = await supabase.auth.resend({
     type: type,
     email: email
+  })
+  
+  return { data, error }
+}
+
+// دالة جديدة لإعادة تعيين كلمة المرور
+export const resetPasswordForEmail = async (email: string) => {
+  const redirectUrl = getRedirectUrl() + '/reset-password'
+  
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: redirectUrl,
+  })
+  
+  return { data, error }
+}
+
+// دالة لتحديث كلمة المرور
+export const updateUserPassword = async (newPassword: string) => {
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword
   })
   
   return { data, error }

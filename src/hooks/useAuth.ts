@@ -112,6 +112,34 @@ export const useAuth = () => {
     }
   };
 
+  // دالة جديدة لإعادة تعيين كلمة المرور
+  const resetPassword = async (email: string) => {
+    try {
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+
+      return { data, error };
+    } catch (error) {
+      console.error('خطأ في إعادة تعيين كلمة المرور:', error);
+      return { data: null, error };
+    }
+  };
+
+  // دالة لتحديث كلمة المرور بعد استلام الرابط
+  const updatePassword = async (newPassword: string) => {
+    try {
+      const { data, error } = await supabase.auth.updateUser({
+        password: newPassword
+      });
+
+      return { data, error };
+    } catch (error) {
+      console.error('خطأ في تحديث كلمة المرور:', error);
+      return { data: null, error };
+    }
+  };
+
   return {
     user: authState.user,
     session: authState.session,
@@ -119,5 +147,7 @@ export const useAuth = () => {
     signOut,
     sendVerificationCode,
     verifyCode,
+    resetPassword,
+    updatePassword,
   };
 };

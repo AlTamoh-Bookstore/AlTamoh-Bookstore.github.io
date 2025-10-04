@@ -10,7 +10,7 @@ interface LoginPageProps {
 
 const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
   const [mode, setMode] = React.useState<AuthMode>('signin');
-  const [step, setStep] = React.useState<'form' | 'verify'>('form'); // خطوة جديدة للتحقق
+  const [step, setStep] = React.useState<'form' | 'verify' | 'forgot-password' | 'reset-password'>('form');
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',
@@ -23,13 +23,13 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
   const [successMessage, setSuccessMessage] = React.useState('');
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [resendCooldown, setResendCooldown] = React.useState(0);
+  const [forgotPasswordCooldown, setForgotPasswordCooldown] = React.useState(0);
 
   React.useEffect(() => {
     setIsLoaded(true);
     testSupabaseConnection();
   }, []);
 
-  // عداد إعادة الإرسال
   React.useEffect(() => {
     if (resendCooldown > 0) {
       const timer = setTimeout(() => {
@@ -38,6 +38,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
       return () => clearTimeout(timer);
     }
   }, [resendCooldown]);
+  React.useEffect(() => {
+    if (forgotPasswordCooldown > 0) {
+      const timer = setTimeout(() => {
+        setForgotPasswordCooldown(forgotPasswordCooldown - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [forgotPasswordCooldown]);
 
   const testSupabaseConnection = async () => {
     try {
@@ -96,7 +104,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
   };
 
   const handleVerificationCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, ''); // السماح بالأرقام فقط
+    const value = e.target.value.replace(/[^0-9]/g, '');
     if (value.length <= 6) {
       setVerificationCode(value);
       setError('');
@@ -129,7 +137,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
   };
 
   const handleSignUp = async (data: SignUpData) => {
-    // استخدام نظام OTP بدلاً من email confirmation
     const { data: authData, error } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
@@ -154,6 +161,50 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
     return authData;
   };
 
+  const handleForgotPassword = async () => {
+    if (forgotPasswordCooldown > 0) {
+      setError(`يرجى الانتظار ${forgotPasswordCooldown} ثانية قبل المحاولة مرة أخرى`);
+      return;
+    }
+  
+    if (!formData.email) {
+      setError('يرجى إدخال البريد الإلكتروني أولاً');
+      return;
+    }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError('يرجى إدخال بريد إلكتروني صحيح');
+      return;
+    }
+  
+    setIsLoading(true);
+    setError('');
+  
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(formData.email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+  
+      if (error) throw error;
+  
+      setSuccessMessage('تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني');
+      setStep('forgot-password');
+      setForgotPasswordCooldown(120);
+    } catch (err: any) {
+      console.error('Password reset error:', err);
+      
+      if (err.message.includes('rate limit') || err.message.includes('429')) {
+        setError('تم تجاوز الحد المسموح من المحاولات. يرجى الانتظار بضع دقائق قبل المحاولة مرة أخرى');
+        setForgotPasswordCooldown(300);
+      } else {
+        setError('حدث خطأ في إرسال رابط إعادة التعيين. يرجى المحاولة مرة أخرى');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleResendCode = async () => {
     if (resendCooldown > 0) return;
     
@@ -169,7 +220,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
       if (error) throw error;
       
       setSuccessMessage('تم إعادة إرسال الكود بنجاح');
-      setResendCooldown(60); // كول داون 60 ثانية
+      setResendCooldown(60);
     } catch (err: any) {
       setError('فشل في إعادة إرسال الكود');
     } finally {
@@ -232,7 +283,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
         const result = await handleSignUp(formData as SignUpData);
         if (result?.user) {
           setSuccessMessage('تم إرسال كود التحقق إلى بريدك الإلكتروني');
-          setStep('verify'); // الانتقال لخطوة التحقق
+          setStep('verify');
           setResendCooldown(60);
         }
       } else {
@@ -249,8 +300,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
         setError('لا يمكن الاتصال بالخادم. يرجى التحقق من الاتصال بالإنترنت أو إعدادات Supabase.');
       } else if (err.message.includes('Invalid login credentials')) {
         setError('بيانات الدخول غير صحيحة');
-      } else if (err.message.includes('User already registered')) {
-        setError('هذا البريد الإلكتروني مسجل بالفعل');
+      } else if (err.message.includes('User already registered') || err.message.includes('already been registered')) {
+        setError('هذا الحساب موجود بالفعل. يرجى تسجيل الدخول');
       } else if (err.message.includes('Email not confirmed')) {
         setError('يرجى تأكيد بريدك الإلكتروني أولاً');
       } else {
@@ -316,12 +367,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
         <div className="w-full max-w-6xl">
           {/* Back Button */}
           <button
-            onClick={step === 'verify' ? goBackToForm : onBack}
+            onClick={step === 'verify' || step === 'forgot-password' ? goBackToForm : onBack}
             className={`mb-6 flex items-center space-x-2 space-x-reverse text-slate-600 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300 group ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
           >
             <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform duration-200" />
             <span className="font-medium">
-              {step === 'verify' ? 'العودة للنموذج' : 'العودة للرئيسية'}
+              {step === 'verify' || step === 'forgot-password' ? 'العودة للنموذج' : 'العودة للرئيسية'}
             </span>
           </button>
 
@@ -381,7 +432,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
             )}
 
             {/* Auth Form */}
-            <div className={`transition-all duration-1000 delay-600 ${step === 'verify' ? 'lg:col-span-2 max-w-md mx-auto' : ''} ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className={`transition-all duration-1000 delay-600 ${step === 'verify' || step === 'forgot-password' ? 'lg:col-span-2 max-w-md mx-auto' : ''} ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <div className="bg-white/80 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 dark:border-slate-700/50 overflow-hidden">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-8 text-center relative overflow-hidden">
@@ -390,6 +441,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
                     <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                       {step === 'verify' ? (
                         <KeyRound className="h-10 w-10 text-white" />
+                      ) : step === 'forgot-password' ? (
+                        <Mail className="h-10 w-10 text-white" />
                       ) : mode === 'signin' ? (
                         <Shield className="h-10 w-10 text-white" />
                       ) : (
@@ -399,17 +452,21 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
                     <h1 className="text-3xl font-bold text-white mb-2">
                       {step === 'verify' 
                         ? 'تأكيد البريد الإلكتروني'
-                        : mode === 'signin' 
-                          ? 'تسجيل الدخول' 
-                          : 'إنشاء حساب جديد'
+                        : step === 'forgot-password'
+                          ? 'تحقق من بريدك'
+                          : mode === 'signin' 
+                            ? 'تسجيل الدخول' 
+                            : 'إنشاء حساب جديد'
                       }
                     </h1>
                     <p className="text-orange-100">
                       {step === 'verify'
                         ? `أدخل الكود المرسل إلى ${formData.email}`
-                        : mode === 'signin' 
-                          ? 'أدخل بياناتك لتسجيل الدخول'
-                          : 'انضم إلينا واستمتع بمزايا عضوية مميزة'
+                        : step === 'forgot-password'
+                          ? 'تم إرسال رابط إعادة التعيين إلى بريدك'
+                          : mode === 'signin' 
+                            ? 'أدخل بياناتك لتسجيل الدخول'
+                            : 'انضم إلينا واستمتع بمزايا عضوية مميزة'
                       }
                     </p>
                   </div>
@@ -417,198 +474,244 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onSuccess }) => {
 
                 {/* Form Content */}
                 <div className="px-8 py-8">
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    {step === 'form' ? (
-                      <>
-                        {/* Name Field (only for signup) */}
-                        {mode === 'signup' && (
+                  {step === 'forgot-password' ? (
+                    /* Forgot Password Success Message */
+                    <div className="space-y-6">
+                      <div className="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-xl p-6 text-center">
+                        <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
+                        <h3 className="text-lg font-semibold text-green-700 dark:text-green-300 mb-2">
+                          تم إرسال الرابط بنجاح
+                        </h3>
+                        <p className="text-green-600 dark:text-green-400 text-sm">
+                          تحقق من بريدك الإلكتروني واتبع التعليمات لإعادة تعيين كلمة المرور
+                        </p>
+                      </div>
+                      <button
+                        onClick={goBackToForm}
+                        className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300"
+                      >
+                        العودة لتسجيل الدخول
+                      </button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      {step === 'form' ? (
+                        <>
+                          {/* Name Field (only for signup) */}
+                          {mode === 'signup' && (
+                            <div>
+                              <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                                الاسم الكامل
+                              </label>
+                              <div className="relative">
+                                <input
+                                  type="text"
+                                  id="name"
+                                  name="name"
+                                  value={formData.name}
+                                  onChange={handleInputChange}
+                                  className="w-full px-4 py-4 pr-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
+                                  placeholder="أدخل اسمك الكامل"
+                                  disabled={isLoading}
+                                />
+                                <User className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Email Field */}
                           <div>
-                            <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                              الاسم الكامل
+                            <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                              البريد الإلكتروني
                             </label>
                             <div className="relative">
                               <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
                                 onChange={handleInputChange}
                                 className="w-full px-4 py-4 pr-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
-                                placeholder="أدخل اسمك الكامل"
+                                placeholder="example@email.com"
                                 disabled={isLoading}
                               />
-                              <User className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                              <Mail className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                             </div>
                           </div>
-                        )}
 
-                        {/* Email Field */}
-                        <div>
-                          <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                            البريد الإلكتروني
-                          </label>
-                          <div className="relative">
-                            <input
-                              type="email"
-                              id="email"
-                              name="email"
-                              value={formData.email}
-                              onChange={handleInputChange}
-                              className="w-full px-4 py-4 pr-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
-                              placeholder="example@email.com"
-                              disabled={isLoading}
-                            />
-                            <Mail className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          {/* Password Field */}
+                          <div>
+                            <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                              كلمة المرور
+                            </label>
+                            <div className="relative">
+                              <input
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleInputChange}
+                                className="w-full px-4 py-4 pr-12 pl-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
+                                placeholder="أدخل كلمة المرور"
+                                disabled={isLoading}
+                                minLength={6}
+                              />
+                              <Lock className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                              <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                              >
+                                {showPassword ? (
+                                  <EyeOff className="h-5 w-5" />
+                                ) : (
+                                  <Eye className="h-5 w-5" />
+                                )}
+                              </button>
+                            </div>
+                            
+                            {/* Password Warning */}
+                            <div className="mt-2 flex items-start space-x-2 space-x-reverse bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-lg p-3">
+                              <AlertCircle className="h-4 w-4 text-orange-600 dark:text-orange-400 flex-shrink-0 mt-0.5" />
+                              <p className="text-xs text-orange-700 dark:text-orange-300 leading-relaxed">
+                                <strong>تنبيه مهم:</strong> احفظ كلمة المرور في مكان آمن. لن تتمكن من تغييرها لاحقاً
+                              </p>
+                            </div>
                           </div>
-                        </div>
 
-                        {/* Password Field */}
-                        <div>
-                          <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                            كلمة المرور
-                          </label>
-                          <div className="relative">
-                            <input
-                              type={showPassword ? 'text' : 'password'}
-                              id="password"
-                              name="password"
-                              value={formData.password}
-                              onChange={handleInputChange}
-                              className="w-full px-4 py-4 pr-12 pl-12 bg-white/50 dark:bg-slate-700/50 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-right placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
-                              placeholder="أدخل كلمة المرور"
-                              disabled={isLoading}
-                              minLength={6}
-                            />
-                            <Lock className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          {/* Forgot Password Link - Only in signin mode */}
+                          {mode === 'signin' && (
+                          <div className="text-left">
                             <button
                               type="button"
-                              onClick={() => setShowPassword(!showPassword)}
-                              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                              onClick={handleForgotPassword}
+                              disabled={isLoading || forgotPasswordCooldown > 0}
+                              className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 text-sm font-medium transition-colors duration-200 disabled:opacity-50 hover:underline disabled:cursor-not-allowed"
                             >
-                              {showPassword ? (
-                                <EyeOff className="h-5 w-5" />
-                              ) : (
-                                <Eye className="h-5 w-5" />
-                              )}
+                              {forgotPasswordCooldown > 0 
+                                ? `انتظر ${forgotPasswordCooldown} ثانية`
+                                : 'نسيت كلمة المرور؟'
+                              }
+                            </button>
+                          </div>
+                        )}
+                        </>
+                      ) : (
+                        /* Verification Code Field */
+                        <div>
+                          <label htmlFor="verificationCode" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                            كود التحقق (6 أرقام)
+                          </label>
+                          <div className="relative">
+                            <input
+                              type="text"
+                              id="verificationCode"
+                              value={verificationCode}
+                              onChange={handleVerificationCodeChange}
+                              className="w-full px-4 py-6 pr-12 bg-white/50 dark:bg-slate-700/50 border-2 border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-center text-2xl font-mono tracking-widest placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
+                              placeholder="000000"
+                              disabled={isLoading}
+                              maxLength={6}
+                            />
+                            <KeyRound className="absolute right-4 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" />
+                          </div>
+                          <div className="mt-4 text-center">
+                            <button
+                              type="button"
+                              onClick={handleResendCode}
+                              disabled={resendCooldown > 0 || isLoading}
+                              className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 text-sm font-medium transition-colors duration-200 disabled:opacity-50 hover:underline"
+                            >
+                              {resendCooldown > 0 
+                                ? `إعادة الإرسال خلال ${resendCooldown} ثانية`
+                                : 'إعادة إرسال الكود'
+                              }
                             </button>
                           </div>
                         </div>
-                      </>
-                    ) : (
-                      /* Verification Code Field */
-                      <div>
-                        <label htmlFor="verificationCode" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                          كود التحقق (6 أرقام)
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            id="verificationCode"
-                            value={verificationCode}
-                            onChange={handleVerificationCodeChange}
-                            className="w-full px-4 py-6 pr-12 bg-white/50 dark:bg-slate-700/50 border-2 border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 text-center text-2xl font-mono tracking-widest placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
-                            placeholder="000000"
-                            disabled={isLoading}
-                            maxLength={6}
-                          />
-                          <KeyRound className="absolute right-4 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" />
+                      )}
+
+                      {/* Error Message */}
+                      {error && (
+                        <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl p-4 text-red-700 dark:text-red-300 text-sm backdrop-blur-sm flex items-start space-x-3 space-x-reverse">
+                          <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <p className="font-medium mb-1">خطأ في العملية</p>
+                            <p>{error}</p>
+                          </div>
                         </div>
-                        <div className="mt-4 text-center">
+                      )}
+
+                      {/* Success Message */}
+                      {successMessage && (
+                        <div className="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-xl p-4 text-green-700 dark:text-green-300 text-sm backdrop-blur-sm flex items-center space-x-3 space-x-reverse">
+                          <CheckCircle className="h-5 w-5 flex-shrink-0" />
+                          <p>{successMessage}</p>
+                        </div>
+                      )}
+
+                      {/* Submit Button */}
+                      <button
+                        type="submit"
+                        disabled={isLoading || (step === 'verify' && verificationCode.length !== 6)}
+                        className="w-full bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 disabled:from-orange-400 disabled:via-orange-400 disabled:to-orange-400 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-3 space-x-reverse shadow-lg hover:shadow-xl hover:shadow-orange-500/25 group relative overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                        {isLoading ? (
+                          <>
+                            <Loader2 className="h-5 w-5 animate-spin relative z-10" />
+                            <span className="relative z-10">
+                              {step === 'verify' 
+                                ? 'جاري التحقق...'
+                                : mode === 'signin' 
+                                  ? 'جاري تسجيل الدخول...' 
+                                  : 'جاري إنشاء الحساب...'
+                              }
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            {step === 'verify' ? (
+                              <CheckCircle className="h-5 w-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                            ) : mode === 'signin' ? (
+                              <Shield className="h-5 w-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                            ) : (
+                              <User className="h-5 w-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                            )}
+                            <span className="relative z-10">
+                              {step === 'verify' 
+                                ? 'تأكيد الكود'
+                                : mode === 'signin' 
+                                  ? 'تسجيل الدخول' 
+                                  : 'إنشاء حساب جديد'
+                              }
+                            </span>
+                            {step === 'verify' && (
+                              <ArrowRight className="h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                            )}
+                          </>
+                        )}
+                        <div className="absolute top-0 left-0 w-full h-full bg-white/20 transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
+                      </button>
+
+                      {/* Mode Switch - مخفي في خطوة التحقق */}
+                      {step === 'form' && (
+                        <div className="text-center">
                           <button
                             type="button"
-                            onClick={handleResendCode}
-                            disabled={resendCooldown > 0 || isLoading}
+                            onClick={switchMode}
+                            disabled={isLoading}
                             className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 text-sm font-medium transition-colors duration-200 disabled:opacity-50 hover:underline"
                           >
-                            {resendCooldown > 0 
-                              ? `إعادة الإرسال خلال ${resendCooldown} ثانية`
-                              : 'إعادة إرسال الكود'
+                            {mode === 'signin' 
+                              ? 'ليس لديك حساب؟ إنشاء حساب جديد'
+                              : 'لديك حساب بالفعل؟ تسجيل الدخول'
                             }
                           </button>
                         </div>
-                      </div>
-                    )}
-
-                    {/* Error Message */}
-                    {error && (
-                      <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl p-4 text-red-700 dark:text-red-300 text-sm backdrop-blur-sm flex items-start space-x-3 space-x-reverse">
-                        <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-medium mb-1">خطأ في العملية</p>
-                          <p>{error}</p>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Success Message */}
-                    {successMessage && (
-                      <div className="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-xl p-4 text-green-700 dark:text-green-300 text-sm backdrop-blur-sm flex items-center space-x-3 space-x-reverse">
-                        <CheckCircle className="h-5 w-5 flex-shrink-0" />
-                        <p>{successMessage}</p>
-                      </div>
-                    )}
-
-                    {/* Submit Button */}
-                    <button
-                      type="submit"
-                      disabled={isLoading || (step === 'verify' && verificationCode.length !== 6)}
-                      className="w-full bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 disabled:from-orange-400 disabled:via-orange-400 disabled:to-orange-400 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-3 space-x-reverse shadow-lg hover:shadow-xl hover:shadow-orange-500/25 group relative overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-                      {isLoading ? (
-                        <>
-                          <Loader2 className="h-5 w-5 animate-spin relative z-10" />
-                          <span className="relative z-10">
-                            {step === 'verify' 
-                              ? 'جاري التحقق...'
-                              : mode === 'signin' 
-                                ? 'جاري تسجيل الدخول...' 
-                                : 'جاري إنشاء الحساب...'
-                            }
-                          </span>
-                        </>
-                      ) : (
-                        <>
-                          {step === 'verify' ? (
-                            <CheckCircle className="h-5 w-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                          ) : mode === 'signin' ? (
-                            <Shield className="h-5 w-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                          ) : (
-                            <User className="h-5 w-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                          )}
-                          <span className="relative z-10">
-                            {step === 'verify' 
-                              ? 'تأكيد الكود'
-                              : mode === 'signin' 
-                                ? 'تسجيل الدخول' 
-                                : 'إنشاء حساب جديد'
-                            }
-                          </span>
-                          {step === 'verify' && (
-                            <ArrowRight className="h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
-                          )}
-                        </>
                       )}
-                      <div className="absolute top-0 left-0 w-full h-full bg-white/20 transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-                    </button>
-
-                    {/* Mode Switch - مخفي في خطوة التحقق */}
-                    {step === 'form' && (
-                      <div className="text-center">
-                        <button
-                          type="button"
-                          onClick={switchMode}
-                          disabled={isLoading}
-                          className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 text-sm font-medium transition-colors duration-200 disabled:opacity-50 hover:underline"
-                        >
-                          {mode === 'signin' 
-                            ? 'ليس لديك حساب؟ إنشاء حساب جديد'
-                            : 'لديك حساب بالفعل؟ تسجيل الدخول'
-                          }
-                        </button>
-                      </div>
-                    )}
-                  </form>
+                    </form>
+                  )}
                 </div>
               </div>
             </div>

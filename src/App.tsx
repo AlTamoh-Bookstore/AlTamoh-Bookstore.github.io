@@ -8,12 +8,34 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import LoginPage from './LoginPage';
+import ResetPasswordPage from './ResetPasswordPage';
 import { useAuth } from './hooks/useAuth';
 import './index.css';
 
 function App() {
   const [currentPage, setCurrentPage] = React.useState('home');
   const { user, loading, signOut } = useAuth();
+
+  // التحقق من وجود hash في الرابط (لصفحة إعادة تعيين كلمة المرور)
+  React.useEffect(() => {
+    const handleAuthCallback = () => {
+      const hash = window.location.hash;
+      
+      // التحقق من وجود recovery link
+      if (hash && hash.includes('type=recovery')) {
+        console.log('Recovery link detected');
+        setCurrentPage('reset-password');
+        return;
+      }
+      
+      // التحقق من المسار
+      if (window.location.pathname === '/reset-password') {
+        setCurrentPage('reset-password');
+      }
+    };
+    
+    handleAuthCallback();
+  }, []);
 
   // Loading spinner component
   const LoadingSpinner = () => (
@@ -45,6 +67,11 @@ function App() {
     }
   };
 
+  // Handle reset password success
+  const handleResetPasswordSuccess = () => {
+    setCurrentPage('login');
+  };
+
   // Show loading spinner while checking authentication state
   if (loading) {
     return <LoadingSpinner />;
@@ -58,6 +85,15 @@ function App() {
             <LoginPage 
               onBack={() => setCurrentPage('home')} 
               onSuccess={handleAuthSuccess}
+            />
+          </HelmetProvider>
+        );
+      case 'reset-password':
+        return (
+          <HelmetProvider>
+            <ResetPasswordPage 
+              onBack={() => setCurrentPage('home')}
+              onSuccess={handleResetPasswordSuccess}
             />
           </HelmetProvider>
         );
