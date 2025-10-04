@@ -1,6 +1,5 @@
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import MetaTags from './components/MetaTags';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Books from './components/Books';
@@ -65,7 +64,6 @@ function App() {
       default:
         return (
           <HelmetProvider>
-            <MetaTags />
             <div className="font-cairo" dir="rtl">
               <div className="relative overflow-hidden">
                 <Header 
