@@ -57,11 +57,8 @@ const Footer = () => {
     const iconMap: { [key: string]: any } = {
       "دين": Book,
       "تاريخ": Compass,
-      "علوم": Lightbulb,
-      "تحقيق و جريمة": Shield,
       "فلسفة و علم نفس": Brain,
       "أدب": BookOpen,
-      "اقتصاد": Trophy,
       "إصدارات دار الطموح": Star,
       "سياسة": Target,
       "تطوير الذات": Star,
@@ -77,10 +74,8 @@ const Footer = () => {
     { name: 'الأكثر مبيعاً', icon: Trophy, color: 'text-yellow-400', special: true },
     { name: 'دين', icon: Book, color: 'text-slate-300', special: false },
     { name: 'تاريخ', icon: Compass, color: 'text-slate-300', special: false },
-    { name: 'تحقيق و جريمة', icon: Shield, color: 'text-slate-300', special: false },
     { name: 'فلسفة و علم نفس', icon: Brain, color: 'text-slate-300', special: false },
     { name: 'أدب', icon: BookOpen, color: 'text-slate-300', special: false },
-    { name: 'اقتصاد', icon: Trophy, color: 'text-slate-300', special: false },
     { name: 'سياسة', icon: Target, color: 'text-slate-300', special: false },
     { name: 'تطوير الذات', icon: Target, color: 'text-slate-300', special: false },
     { name: 'التربية', icon: Users, color: 'text-slate-300', special: false }

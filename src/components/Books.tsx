@@ -6433,6 +6433,7 @@ const Books = () => {
     author: "ميريتسل جارسيا رويج"
   }
  ];
+   
   const displayBooks = books;
 
   const allCategories = [...new Set(books.map(book => book.category))];
@@ -6450,14 +6451,9 @@ const Books = () => {
       "الأكثر مبيعاً": Trophy,
       "دين": Book,
       "تاريخ": Compass,
-      "علوم": Lightbulb,
-      "تحقيق و جريمة": Shield,
       "فلسفة و علم نفس": Brain,
       "أدب": BookOpen,
       "روايات": Feather,
-      "طب": Plus,
-      "اقتصاد": Trophy,
-      "قانون": Users,
       "إصدارات دار الطموح": Award,
       "سياسة": Target,
       "تطوير الذات": Star,
@@ -7742,4 +7738,3 @@ const Books = () => {
 
 
 export default Books;
-
