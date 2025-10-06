@@ -3581,7 +3581,7 @@ const Books = () => {
       originalPrice: 500,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/book-images/Novels/Nbook180.jpg",
+      image: "/book-images/Novels/Nbook180.webp",
       author: "إيفان تابيا و مونسي لينده"
     },
     {
@@ -3607,7 +3607,7 @@ const Books = () => {
       originalPrice: 1377,
       originalPriceUSD: 33,
       discount: 29,
-      image: "/book-images/Novels/Nbook182.jpg",
+      image: "/book-images/Novels/Nbook182.webp",
       author: "سعود السنعوسي"
     },
     {
@@ -3620,7 +3620,7 @@ const Books = () => {
       originalPrice: 500,
       originalPriceUSD: 12,
       discount: 30,
-      image: "/book-images/Novels/Nbook183.jpg",
+      image: "/book-images/Novels/Nbook183.png",
       author: "جين ويبستر"
     },
     {
@@ -3646,7 +3646,7 @@ const Books = () => {
       originalPrice: 167,
       originalPriceUSD: 4,
       discount: 30,
-      image: "/book-images/Novels/Nbook185.jpg",
+      image: "/book-images/Novels/Nbook185.png",
       author: "جورج أورويل"
     },
     {
@@ -3659,7 +3659,7 @@ const Books = () => {
       originalPrice: 334,
       originalPriceUSD: 8,
       discount: 30,
-      image: "/book-images/Novels/Nbook186.jpg",
+      image: "/book-images/Novels/Nbook186.png",
       author: "إيميلي نوتومب"
     },
     {
