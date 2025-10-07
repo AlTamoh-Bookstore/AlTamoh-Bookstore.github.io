@@ -5808,7 +5808,7 @@ const Books = () => {
     originalPrice: 2002,
     originalPriceUSD: 48,
     discount: 40,
-    image: "/book-images/Literature/Lbook76.jpg",
+    image: "/book-images/Literature/Lbook76.jpeg",
     author: "أبي الفضل أحمد الميداني"
   },
   {
@@ -5821,7 +5821,7 @@ const Books = () => {
     originalPrice: 4003,
     originalPriceUSD: 96,
     discount: 40,
-    image: "/book-images/Literature/Lbook77.jpg",
+    image: "/book-images/Literature/Lbook77.JPG",
     author: "ابن عبد ربه الأندلسي"
   },
   {
@@ -5847,7 +5847,7 @@ const Books = () => {
     originalPrice: 10425,
     originalPriceUSD: 250,
     discount: 40,
-    image: "/book-images/Literature/Lbook79.jpg",
+    image: "/book-images/Literature/Lbook79.webp",
     author: "أبو الفرج الأصفهاني"
   },
   {
@@ -5860,7 +5860,7 @@ const Books = () => {
     originalPrice: 667,
     originalPriceUSD: 16,
     discount: 30,
-    image: "/book-images/Literature/Lbook80.jpg",
+    image: "/book-images/Literature/Lbook80.jpeg",
     author: "فاتن حمّود"
   },
   {
@@ -5886,7 +5886,7 @@ const Books = () => {
     originalPrice: 667,
     originalPriceUSD: 16,
     discount: 30,
-    image: "/book-images/Literature/Lbook82.jpg",
+    image: "/book-images/Literature/Lbook82.webp",
     author: "فاتن حمّود"
   },
   {
@@ -5899,7 +5899,7 @@ const Books = () => {
     originalPrice: 667,
     originalPriceUSD: 16,
     discount: 30,
-    image: "/book-images/Literature/Lbook83.jpg",
+    image: "/book-images/Literature/Lbook83.webp",
     author: "فاتن حمّود"
   },
   {
@@ -5912,7 +5912,7 @@ const Books = () => {
     originalPrice: 667,
     originalPriceUSD: 16,
     discount: 30,
-    image: "/book-images/Literature/Lbook84.jpg",
+    image: "/book-images/Literature/Lbook84.jpeg",
     author: "فاتن حمّود"
   },
   {
@@ -5925,7 +5925,7 @@ const Books = () => {
     originalPrice: 834,
     originalPriceUSD: 20,
     discount: 30,
-    image: "/book-images/Literature/Lbook85.jpg",
+    image: "/book-images/Literature/Lbook85.png",
     author: "باروخ سبينوزا"
   },
   {
@@ -5938,7 +5938,7 @@ const Books = () => {
     originalPrice: 292,
     originalPriceUSD: 7,
     discount: 30,
-    image: "/book-images/Literature/Lbook86.jpg",
+    image: "/book-images/Literature/Lbook86.png",
     author: "غير محدد"
   },
   {
@@ -5951,7 +5951,7 @@ const Books = () => {
     originalPrice: 1877,
     originalPriceUSD: 45,
     discount: 30,
-    image: "/book-images/Literature/Lbook87.jpg",
+    image: "/book-images/Literature/Lbook87.webp",
     author: "الجواهري"
   },
 
