@@ -53,10 +53,12 @@ const Books = () => {
   const [user, setUser] = useState<User | null>(null);
   const [favoriteBooks, setFavoriteBooks] = useState<Set<string>>(new Set());
   const [loadingFavorites, setLoadingFavorites] = useState<Set<string>>(new Set());
-  const [keepCategoriesOpen, setKeepCategoriesOpen] = useState(false);
 
   // Image carousel state
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Scroll to top button state
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Refs for scroll control
   const sectionRef = useRef<HTMLElement>(null);
@@ -77,6 +79,21 @@ const Books = () => {
 
     return () => window.removeEventListener('resize', checkDeviceSize);
   }, []);
+
+  // Show/hide scroll to top button based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      // يظهر الزر عند التمرير 300 بكسل للأسفل
+      if (window.scrollY > 300 && !showCategorySelection) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [showCategorySelection]);
 
   // Set initial visible books count based on device size
   useEffect(() => {
@@ -109,15 +126,21 @@ const Books = () => {
     setIsSearching(true);
     
     const lowerQuery = query.toLowerCase().trim();
+    
+    if (!lowerQuery) {
+      setSearchResults([]);
+      setIsSearching(false);
+      return;
+    }
+    
     const results = books.filter(book => {
-      const titleMatch = book.title.toLowerCase().includes(lowerQuery);
-      const authorMatch = book.author?.toLowerCase().includes(lowerQuery) || false;
-      const categoryMatch = book.category.toLowerCase().includes(lowerQuery);
-      const descriptionMatch = book.description.toLowerCase().includes(lowerQuery);
+      // البحث فقط في العنوان والمؤلف بشكل دقيق
+      const titleMatch = book.title?.toLowerCase().includes(lowerQuery);
+      const authorMatch = book.author?.toLowerCase().includes(lowerQuery);
       
-      return titleMatch || authorMatch || categoryMatch || descriptionMatch;
+      return titleMatch || authorMatch;
     });
-
+  
     setSearchResults(results);
     setIsSearching(false);
   };
@@ -6904,13 +6927,12 @@ const Books = () => {
     return iconMap[category] || BookOpen;
   };
 
-  // Enhanced filtering logic
-  const filteredBooks = searchTerm && !showCategorySelection 
-    ? searchResults
-    : books.filter(book => {
-        const matchesCategory = !selectedCategory || book.category === selectedCategory;
-        return matchesCategory;
-      });
+// Enhanced filtering logic
+const filteredBooks = searchTerm.trim() && !showCategorySelection 
+  ? searchResults  // فقط نتائج البحث، لا شيء آخر
+  : selectedCategory
+    ? books.filter(book => book.category === selectedCategory)  // فقط كتب الفئة المحددة
+    : [];  // لا تعرض أي شيء في الحالة الافتراضية
 
   const getBooksByCategory = (category: string) => {
     if (category === "المفضلة") {
@@ -7058,24 +7080,33 @@ const Books = () => {
     window.open(`https://wa.me/905376791661?text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  // Enhanced search handler
-  const handleSearchChange = (newSearchTerm: string) => {
-    setSearchTerm(newSearchTerm);
-    
-    if (newSearchTerm.trim()) {
-      if (showCategorySelection) {
-        setShowCategorySelection(false);
-        setSelectedCategory(null);
-        setVisibleBooksCount(isSmallDevice ? 6 : 12);
-      }
-      updateHistoryState(null, false, newSearchTerm);
-    } else {
-      if (!selectedCategory) {
-        setShowCategorySelection(true);
-      }
-      updateHistoryState(selectedCategory, !selectedCategory, '');
+// Enhanced search handler
+const handleSearchChange = (newSearchTerm: string) => {
+  setSearchTerm(newSearchTerm);
+  
+  if (newSearchTerm.trim()) {
+    if (showCategorySelection) {
+      setShowCategorySelection(false);
+      setSelectedCategory(null);
+      setVisibleBooksCount(isSmallDevice ? 6 : 12);
     }
-  };
+    // استخدم replace بدلاً من push لتحديث URL دون إضافة سجل جديد
+    const params = new URLSearchParams();
+    params.set('search', encodeURIComponent(newSearchTerm));
+    const url = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({ 
+      category: null, 
+      showCategorySelection: false, 
+      searchTerm: newSearchTerm,
+      visibleBooksCount: isSmallDevice ? 6 : 12 
+    }, '', url);
+  } else {
+    if (!selectedCategory) {
+      setShowCategorySelection(true);
+    }
+    updateHistoryState(selectedCategory, !selectedCategory, '');
+  }
+};
 
   // Handle search focus
   const handleSearchFocus = () => {
@@ -7085,23 +7116,8 @@ const Books = () => {
   const handleSearchBlur = () => {
     // Simple timeout to hide categories, no scroll interference
     setTimeout(() => {
-      if (!keepCategoriesOpen) {
-        setIsSearchFocused(false);
-      }
+      setIsSearchFocused(false);
     }, 200);
-  };
-
-  // Category scroll functions
-  const scrollCategoriesLeft = () => {
-    if (categoryScrollRef.current) {
-      categoryScrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
-    }
-  };
-
-  const scrollCategoriesRight = () => {
-    if (categoryScrollRef.current) {
-      categoryScrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
-    }
   };
 
   // Best sellers scroll functions
@@ -7161,62 +7177,6 @@ const Books = () => {
         className="absolute inset-0 w-full h-full rounded-full cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200"
         aria-label={`تغيير إلى ${selectedCurrency === 'TL' ? 'الدولار' : 'الليرة التركية'}`}
       />
-    </div>
-  );
-
-  // Categories Scroll Bar Component
-  const CategoriesScrollBar = () => (
-    <div className={`relative mb-6 transition-all duration-300 ${
-      isSearchFocused || keepCategoriesOpen ? 'opacity-100 max-h-20' : 'opacity-0 max-h-0 overflow-hidden'
-    }`}>
-      <div className="flex items-center gap-1 sm:gap-3">
-        {/* Left scroll arrow - Better positioned outside */}
-        <button
-          onClick={scrollCategoriesLeft}
-          onMouseDown={(e) => e.preventDefault()}
-          onMouseEnter={() => setKeepCategoriesOpen(true)}
-          className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-orange-500/20 hover:bg-orange-500/30 rounded-lg transition-all duration-200 flex items-center justify-center"
-        >
-          <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4 text-orange-600" />
-        </button>
-  
-        {/* Categories container - No mouse interference */}
-        <div
-          ref={categoryScrollRef}
-          className="flex gap-3 overflow-x-auto scrollbar-hide px-2 py-2 flex-1"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          onMouseEnter={() => setKeepCategoriesOpen(true)}
-        >
-          {categories.map((category) => {
-            const IconComponent = getCategoryIcon(category);
-            return (
-              <button
-                key={category}
-                onClick={() => selectCategory(category)}
-                onMouseDown={(e) => e.preventDefault()}
-                className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
-                  category === "المفضلة"
-                    ? "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white"
-                    : "bg-gradient-to-r from-orange-500/10 to-orange-600/10 hover:from-orange-500/20 hover:to-orange-600/20 dark:bg-slate-700/50 text-orange-600 dark:text-orange-400 hover:scale-105"
-                }`}
-              >
-                <IconComponent className="h-4 w-4" />
-                <span className="whitespace-nowrap text-sm">{category}</span>
-              </button>
-            );
-          })}
-        </div>
-  
-        {/* Right scroll arrow - Better positioned outside */}
-        <button
-          onClick={scrollCategoriesRight}
-          onMouseDown={(e) => e.preventDefault()}
-          onMouseEnter={() => setKeepCategoriesOpen(true)}
-          className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-orange-500/20 hover:bg-orange-500/30 rounded-lg transition-all duration-200 flex items-center justify-center"
-        >
-          <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 text-orange-600" />
-        </button>
-      </div>
     </div>
   );
 
@@ -7513,13 +7473,31 @@ const Books = () => {
                             ))}
                         </div>
                       )}
-                    {/* Price Badge - Only visible on larger screens */}
-                    <div className="hidden sm:block absolute -top-3 -right-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-2xl font-bold text-lg lg:text-xl shadow-2xl border-4 border-white dark:border-slate-800">
-                      <div className="flex items-center gap-2">
-                        <span>{getPrice(book)}</span>
-                        <span className="text-sm lg:text-lg">{getCurrencySymbol()}</span>
+                      {/* Price Badge - Only visible on larger screens */}
+                      <div className="hidden sm:block absolute -top-3 -right-3">
+                        {book.discount && book.originalPrice ? (
+                          // إذا كان هناك خصم
+                          <div className="flex flex-col items-end gap-1">
+                            <div className="bg-gray-500/90 text-white px-3 py-1 rounded-lg text-sm line-through border-2 border-white dark:border-slate-800 shadow-lg">
+                              {getOriginalPrice(book)} {getCurrencySymbol()}
+                            </div>
+                            <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-2xl font-bold text-lg lg:text-xl shadow-2xl border-4 border-white dark:border-slate-800">
+                              <div className="flex items-center gap-2">
+                                <span>{getPrice(book)}</span>
+                                <span className="text-sm lg:text-lg">{getCurrencySymbol()}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          // إذا لم يكن هناك خصم
+                          <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-2xl font-bold text-lg lg:text-xl shadow-2xl border-4 border-white dark:border-slate-800">
+                            <div className="flex items-center gap-2">
+                              <span>{getPrice(book)}</span>
+                              <span className="text-sm lg:text-lg">{getCurrencySymbol()}</span>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </div>
                     
                     {/* Favorite Button - Only show if user is logged in */}
                     {user && (
@@ -7555,14 +7533,6 @@ const Books = () => {
                       <p className="text-base sm:text-xl dark:text-slate-300 text-[#6c7a89] font-medium">
                         بقلم: {book.author}
                       </p>
-                    )}
-
-                    {/* Discount Banner - Only show if there's a discount */}
-                    {book.discount && (
-                      <div className="bg-gradient-to-r from-red-500 to-red-600 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm font-bold text-center shadow-lg animate-pulse">
-                        <Percent className="inline h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                        عرض {book.discount}% - وفر {(getOriginalPrice(book) || 0) - getPrice(book)} {getCurrencySymbol()}
-                      </div>
                     )}
 
                     <div className="inline-flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-3 rounded-xl bg-gradient-to-r from-orange-500/20 to-orange-600/20 border border-orange-500/30">
@@ -7654,15 +7624,30 @@ const Books = () => {
       {/* Background Effects */}
       <div className="absolute bottom-5 sm:bottom-20 left-5 sm:left-20 w-32 h-32 sm:w-96 sm:h-96 bg-gradient-to-br dark:from-gray-300/10 dark:to-gray-500/10 from-blue-200/8 to-blue-400/8 rounded-full blur-3xl transition-all duration-500"></div>
 
-      {/* Cart Button - Fixed positioning and proper cart icon */}
-      <div className="fixed bottom-4 right-4 z-50">
+      {/* Fixed Buttons - Cart and Scroll to Top */}
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-3">
+        {/* Scroll to Top Button - Only show when not in category selection and scrolled down */}
+        {showScrollTop && !showCategorySelection && (
+          <button
+            onClick={scrollToTop}
+            className="relative bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600 text-white w-12 h-12 rounded-full shadow-2xl hover:shadow-cyan-400/40 transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+            aria-label="العودة لأعلى"
+          >
+            <ChevronUp className="h-6 w-6 group-hover:translate-y-[-2px] transition-transform duration-300" />
+            {/* Circle pulse effect */}
+            <div className="absolute inset-0 rounded-full bg-cyan-400/30 animate-ping"></div>
+          </button>
+        )}
+        
+        {/* Cart Button */}
         <button
           onClick={() => setIsCartOpen(true)}
-          className="relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-full shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 hover:scale-110"
+          className="relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white w-12 h-12 rounded-full shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 hover:scale-110 flex items-center justify-center"
+          aria-label="سلة التسوق"
         >
           <ShoppingCart className="h-6 w-6" />
           {getTotalItems() > 0 && (
-            <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold animate-pulse">
+            <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold animate-pulse shadow-lg">
               {getTotalItems()}
             </div>
           )}
@@ -7782,9 +7767,6 @@ const Books = () => {
                 />
               </div>
             </div>
-
-            {/* Categories Scroll Bar - Shows when search is focused */}
-            <CategoriesScrollBar />
           </div>
 
           {!showCategorySelection && (
