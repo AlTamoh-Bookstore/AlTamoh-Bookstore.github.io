@@ -4378,7 +4378,7 @@ const Books = () => {
   originalPriceUSD: 13,
   discount: 25,
   image: "/book-images/Philosophy & Psychology/Ppbook11.jpg",
-  author: "د. يوسف الحسني",
+  author: "ابن خلدون",
   },
   {
     id: 12,
@@ -8159,6 +8159,7 @@ const handleSearchChange = (newSearchTerm: string) => {
     </section>
   );
 };
+
 
 
 export default Books;
