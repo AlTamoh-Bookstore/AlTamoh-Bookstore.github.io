@@ -3413,7 +3413,7 @@ const Books = () => {
     },
     {
       id: 171,
-      title: "متاحة الأرواح",
+      title: "متاهة الأرواح",
       category: "روايات",
       description: "ختام رباعية مقبرة الكتب المنسية، تنسج خيوطاً أخيرة بين شخصيات السلسلة في لوحة روائية كبيرة تخلد عالم زافون السحري.",
       price: 817,
@@ -8163,3 +8163,4 @@ const handleSearchChange = (newSearchTerm: string) => {
 
 
 export default Books;
+
