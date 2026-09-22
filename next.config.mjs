@@ -6,6 +6,13 @@ const nextConfig = {
   experimental: {
     // Tree-shake large icon/util barrels so dev compiles and prod bundles stay small.
     optimizePackageImports: ["lucide-react"],
+    serverActions: {
+      // Cover uploads travel through a Server Action, whose request body is
+      // capped at 1 MB by default — enough to reject an ordinary phone photo
+      // before it ever reaches Supabase. Images are compressed in the browser
+      // first; this is the safety net for anything that slips through.
+      bodySizeLimit: "10mb",
+    },
   },
   images: {
     // Covers are resized and compressed in the browser before upload (see
